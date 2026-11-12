@@ -304,7 +304,7 @@
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Short Sublime, nuevo en Promise">' +
       '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_red.webp" alt="" fetchpriority="high"></div>' +
-      small('s1', 'campera.webp') + small('s2 pm-far', 'camo.webp') + small('s3', 'endgame.webp') +
+      small('s1 pm-far', 'campera.webp') + small('s2 pm-far', 'camo.webp') + small('s3 pm-far', 'endgame.webp') +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_black.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
