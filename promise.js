@@ -437,6 +437,9 @@
   }
 
   var CSS2 = [
+    /* Botón de arrepentimiento: discreto pero visible (la Res. 424/2020 exige que esté a la vista desde el inicio) */
+    '[data-component="order-cancellation"]{font-size:11px!important;opacity:.6;text-decoration:none!important;text-transform:none!important;letter-spacing:.02em;font-weight:400!important}',
+    '[data-component="order-cancellation"]:hover{opacity:1;text-decoration:underline!important}',
     /* 20%: sin cuadrado rojo en las fotos, texto sutil debajo del precio */
     '.item-product .item-image::after{content:none!important;display:none!important}',
     '.js-item-product .item-installments::after{content:"20% OFF en efectivo o transferencia";display:block;margin-top:3px;color:#FF4A4A;font-size:11px;font-weight:600;letter-spacing:.02em}',
@@ -543,6 +546,35 @@
     });
   }
 
+  // "Recién llegado" -> "Lo más vendido": trae los más vendidos con stock y los pone en el mismo carrusel
+  function masVendido() {
+    var s = document.querySelector('[data-store="home-products-new"]');
+    if (!s || s.getAttribute('data-pm-mv')) return;
+    s.setAttribute('data-pm-mv', '1');
+    var h = s.querySelector('.js-products-new-title, h2');
+    if (h) h.textContent = 'Lo más vendido';
+    s.querySelectorAll('a[href*="/productos"]').forEach(function (a) { if (!a.closest('.js-item-product')) a.href = '/productos/?sort_by=best-selling'; });
+    fetch('/productos/?sort_by=best-selling', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+      var d = new DOMParser().parseFromString(t, 'text/html');
+      var items = Array.prototype.slice.call(d.querySelectorAll('.js-item-product')).filter(function (i) {
+        return !/sin stock/i.test(i.textContent);
+      }).slice(0, 8);
+      if (items.length < 4) return;
+      var sc = s.querySelector('.swiper-wrapper') && s.querySelector('.swiper-wrapper').parentElement;
+      var html = items.map(function (i) {
+        i.className = i.className.replace(/\bcol-6\b|\bcol-md-3\b/g, '') + ' js-item-slide p-0';
+        return i.outerHTML;
+      });
+      if (sc && sc.swiper) {
+        sc.swiper.removeAllSlides();
+        sc.swiper.appendSlide(html);
+        sc.swiper.update();
+        if (sc.swiper.params.loop && sc.swiper.loopDestroy) { sc.swiper.loopDestroy(); sc.swiper.loopCreate(); sc.swiper.update(); }
+        sc.swiper.slideTo(sc.swiper.params.loop ? sc.swiper.loopedSlides || 0 : 0, 0);
+      }
+    }).catch(function () {});
+  }
+
   function insertAfter(ref, node) { ref.parentNode.insertBefore(node, ref.nextSibling); return node; }
 
   function init() {
@@ -555,6 +587,7 @@
     try { siteFixes(); } catch (e) {}
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
+    try { masVendido(); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
 
