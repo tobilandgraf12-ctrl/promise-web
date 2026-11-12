@@ -80,6 +80,8 @@
     '.pm-cat .pm-media img,.pm-cat .pm-media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}',
     '.pm-cat .pm-media.pm-photo{box-shadow:0 26px 40px rgba(0,0,0,.6);border:6px solid #EDEAE4;background:#EDEAE4}',
     '.pm-cat .pm-media.pm-cut img,.pm-cat .pm-media.pm-cut video{object-fit:contain;filter:drop-shadow(0 24px 22px rgba(0,0,0,.6))}',
+    '.pm-cat.pm-has-vid{background:#101010}.pm-has-vid .pm-n{z-index:3}.pm-cat .pm-media.pm-vid{left:0;top:0;width:100%;height:100%;margin:0;aspect-ratio:auto;animation:none}',
+    '.pm-cat .pm-media.pm-vid video{object-fit:cover;transform:scale(1.08)}.pm-cat:hover .pm-media.pm-vid video{transform:scale(1.14)}',
     '.pm-cat:hover .pm-media img,.pm-cat:hover .pm-media video{transform:scale(1.08) rotate(-3deg)}',
     '.pm-cat .pm-lbl{position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;z-index:3}',
     '.pm-cat .pm-lbl b{font-family:"Oswald",sans-serif;font-size:30px;line-height:1;text-transform:uppercase;color:#EDEAE4;letter-spacing:.02em}',
@@ -214,8 +216,13 @@
   // Categorias: [nombre, link, imagen o video, tipo]
   // tipo 'foto' = foto actual del producto (provisoria) | 'recorte' = prenda sin fondo (png/webp) | 'video' = mp4 en loop
   var IMG = 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/';
+  var ASSETS = (function () {
+    var sc = document.currentScript || document.querySelector('script[src*="promise-web@"]');
+    var m = sc && sc.src.match(/^(.*promise-web@[^/]+\/)/);
+    return m ? m[1] + 'assets/' : 'https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@main/assets/';
+  })();
   var CATS = [
-    ['Remeras', '/indumentaria/remeras-camisas/', IMG + 'img_1990-8ddc27344bb921a98417709058266622-480-0.webp', 'foto'],
+    ['Remeras', '/indumentaria/remeras-camisas/', ASSETS + 'cat/remera.mp4', 'video', ASSETS + 'cat/remera.webp'],
     ['Pantalones', '/indumentaria/pantalones/', IMG + 'img_6667-53e0a2fa5ef39f489f17944421551926-480-0.webp', 'foto'],
     ['Bermudas', '/indumentaria/shorts-y-bermudas/', IMG + 'img_1935-8316213c0a92e3b23d17701605620098-480-0.webp', 'foto'],
     ['Abrigos', '/indumentaria/abrigo/', IMG + 'img_1913-cc55d82f1672d4289f17925076012192-480-0.webp', 'foto'],
@@ -226,10 +233,10 @@
   function catsSection() {
     var tiles = CATS.map(function (c, i) {
       var media = c[3] === 'video'
-        ? '<video src="' + c[2] + '" autoplay muted loop playsinline preload="metadata"></video>'
+        ? '<video src="' + c[2] + '"' + (c[4] ? ' poster="' + c[4] + '"' : '') + ' autoplay muted loop playsinline preload="auto" aria-label="' + c[0] + '"></video>'
         : '<img src="' + c[2] + '" alt="' + c[0] + '" loading="lazy">';
-      return '<a class="pm-cat pm-rv" href="' + c[1] + '"><span class="pm-n">0' + (i + 1) + '</span>' +
-        '<span class="pm-media ' + (c[3] === 'foto' ? 'pm-photo' : 'pm-cut') + '">' + media + '</span>' +
+      return '<a class="pm-cat pm-rv' + (c[3] === 'video' ? ' pm-has-vid' : '') + '" href="' + c[1] + '"><span class="pm-n">0' + (i + 1) + '</span>' +
+        '<span class="pm-media ' + (c[3] === 'foto' ? 'pm-photo' : c[3] === 'video' ? 'pm-vid' : 'pm-cut') + '">' + media + '</span>' +
         '<span class="pm-lbl"><b>' + c[0] + '</b><i>→</i></span></a>';
     }).join('');
     return el('<section id="categorias" class="pm-sec pm-cats" aria-labelledby="pm-cats-t"><div class="pm-wrap">' +
