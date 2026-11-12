@@ -44,9 +44,9 @@ a{color:#D7191F}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F6F4F0;border-left:4px solid #D7191F;">
 <tr><td style="padding:20px 22px;font-size:15px;line-height:23px;color:#0F0F0F;">
 <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Dónde retirás</p>
-<p style="margin:0 0 14px 0;"><strong>{{fulfillment.pickup_name}}</strong><br />{{fulfillment.pickup_street}} {{fulfillment.pickup_number}}{% if fulfillment.pickup_floor %}, {{fulfillment.pickup_floor}}{% endif %}, {{fulfillment.pickup_locality}}, {{fulfillment.pickup_city}} (CP {{fulfillment.pickup_zipcode}})</p>
+{% if fulfillment.pickup_street %}<p style="margin:0 0 14px 0;"><strong>{{fulfillment.pickup_name}}</strong><br />{{fulfillment.pickup_street}} {{fulfillment.pickup_number}}{% if fulfillment.pickup_floor %}, {{fulfillment.pickup_floor}}{% endif %}, {{fulfillment.pickup_locality}}, {{fulfillment.pickup_city}} (CP {{fulfillment.pickup_zipcode}})</p>{% else %}<p style="margin:0 0 14px 0;"><strong>Promise</strong><br />Alvear 2445, Villa Ballester, San Martín (CP 1653)</p>{% endif %}
 <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Horarios</p>
-<p style="margin:0 0 14px 0;">{{fulfillment.pickup_hours}}</p>
+{% if fulfillment.pickup_hours %}<p style="margin:0 0 14px 0;">{{fulfillment.pickup_hours}}</p>{% else %}<p style="margin:0 0 14px 0;">Lunes a jueves de 10 a 13 y de 16 a 20 hs<br />Viernes y sábados de 10 a 20:30 hs</p>{% endif %}
 <p style="margin:0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Qué traer</p>
 <p style="margin:4px 0 0 0;">Tu <strong>DNI</strong> y el <strong>número de pedido</strong> (#{{order.id}}).</p>
 </td></tr>
