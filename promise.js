@@ -276,11 +276,11 @@
   })();
   var CATS = [
     ['Remeras', '/indumentaria/remeras-camisas/', ASSETS + 'cat/remera.mp4', 'video', ASSETS + 'cat/remera.webp'],
-    ['Pantalones', '/indumentaria/pantalones/', IMG + 'img_6667-53e0a2fa5ef39f489f17944421551926-480-0.webp', 'foto'],
-    ['Bermudas', '/indumentaria/shorts-y-bermudas/', IMG + 'img_1935-8316213c0a92e3b23d17701605620098-480-0.webp', 'foto'],
-    ['Abrigos', '/indumentaria/abrigo/', IMG + 'img_1913-cc55d82f1672d4289f17925076012192-480-0.webp', 'foto'],
-    ['Calzado', '/calzado/', IMG + 'img_1131-8ee7963522eb103b2117691798416405-480-0.webp', 'foto'],
-    ['Accesorios', '/accesorios/', IMG + 'img_7990-94af957ad60c40e84617878635467433-480-0.webp', 'foto']
+    ['Pantalones', '/indumentaria/pantalones/', ASSETS + 'cat/jean.mp4', 'video', ASSETS + 'cat/jean.webp'],
+    ['Bermudas', '/indumentaria/shorts-y-bermudas/', ASSETS + 'cat/bermuda.mp4', 'video', ASSETS + 'cat/bermuda.webp'],
+    ['Abrigos', '/indumentaria/abrigo/', ASSETS + 'cat/campera.mp4', 'video', ASSETS + 'cat/campera.webp'],
+    ['Calzado', '/calzado/', ASSETS + 'cat/zapatilla.mp4', 'video', ASSETS + 'cat/zapatilla.webp'],
+    ['Accesorios', '/accesorios/', ASSETS + 'cat/bolso.mp4', 'video', ASSETS + 'cat/bolso.webp']
   ];
 
   var HERO = {
