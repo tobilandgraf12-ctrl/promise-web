@@ -69,6 +69,25 @@
     /* lo que reemplazamos */
     '[data-store="home-institutional-message"],[data-store="home-welcome-message"]{display:none!important}',
     /* celular */
+    /* MENU PRODUCTOS (compu) */
+    '@media (min-width:768px){',
+    '.pm-mega.desktop-dropdown{background:#141414!important;border-top:2px solid #D7191F;border-bottom:1px solid #2a2a2a;box-shadow:0 30px 60px rgba(0,0,0,.55)}',
+    '.pm-mega>.container{max-width:1240px;padding:34px 30px 38px;display:flex;gap:40px;align-items:stretch}',
+    '.pm-mega .pm-cols{flex:1;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px 34px;margin:0;padding:0;width:auto!important;columns:auto!important}',
+    '.pm-mega .pm-cols>li{margin:0!important;padding:0!important;width:auto!important;break-inside:avoid}',
+    '.pm-mega .pm-cols>li>.nav-item-container>a{display:inline-block;font-family:"Oswald",sans-serif!important;font-size:17px!important;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#EDEAE4!important;padding:0 0 8px!important;margin-bottom:10px;border-bottom:2px solid #D7191F}',
+    '.pm-mega .pm-cols>li>ul{display:block!important;position:static!important;margin:0!important;padding:0!important;columns:auto!important}',
+    '.pm-mega .pm-cols>li>ul>li{margin:0!important;padding:0!important}',
+    '.pm-mega .pm-cols>li>ul a{display:block;font-size:13px!important;font-weight:500;letter-spacing:.04em;text-transform:none!important;color:#A8A39B!important;padding:5px 0!important;transition:color .2s,transform .2s}',
+    '.pm-mega .pm-cols a:before,.pm-mega .pm-cols a:after{content:none!important;display:none!important}',
+    '.pm-mega .pm-cols>li>ul a:hover{color:#fff!important;transform:translateX(4px)}',
+    '.pm-mega .pm-cols>li>.nav-item-container>a:hover{color:#FF4A4A!important}',
+    '.pm-mega .pm-cta{flex:0 0 250px;display:flex;flex-direction:column;justify-content:space-between;background:#D7191F;color:#0F0F0F;padding:24px;text-decoration:none!important;transition:background .2s}',
+    '.pm-mega .pm-cta:hover{background:#ec2a30}',
+    '.pm-mega .pm-cta small{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}',
+    '.pm-mega .pm-cta b{font-family:"Oswald",sans-serif;font-size:34px;line-height:1;text-transform:uppercase;color:#fff}',
+    '.pm-mega .pm-cta span{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#0F0F0F}',
+    '}',
     '@media (max-width:767px){',
     '.pm-sec{padding:64px 0}.pm-h{font-size:40px}',
     '.pm-tags{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px 12px;align-items:stretch}',
@@ -120,7 +139,7 @@
       ['¿Puedo retirar en el local?', 'Sí, sin costo y sin aviso previo, en Alvear 2445, Villa Ballester.'],
       ['¿Cómo aprovecho el 20% OFF?', 'Pagando por transferencia en la web o en efectivo en el local.']
     ];
-    var html = '<section class="pm-sec pm-faqs" aria-labelledby="pm-faq-t"><div class="pm-wrap pm-faq-grid">' +
+    var html = '<section id="preguntas" class="pm-sec pm-faqs" aria-labelledby="pm-faq-t"><div class="pm-wrap pm-faq-grid">' +
       '<div><div class="pm-kick pm-rv">Preguntas frecuentes</div><h2 class="pm-h pm-rv" id="pm-faq-t">Lo que siempre <em>nos preguntan</em></h2>' +
       '<p class="pm-lead pm-rv">¿Te quedó otra duda? Escribinos por WhatsApp y te respondemos.</p><p class="pm-rv" style="margin-top:26px"><a class="pm-btn" href="' + WA + '" target="_blank" rel="noopener">Escribinos</a></p></div>' +
       '<div class="pm-faq">';
@@ -141,7 +160,7 @@
   }
 
   function localSection() {
-    return el('<section class="pm-sec pm-local" aria-labelledby="pm-local-t">' +
+    return el('<section id="local" class="pm-sec pm-local" aria-labelledby="pm-local-t">' +
       '<div class="pm-mq" aria-hidden="true">ALVEAR 2445 ✕ VILLA BALLESTER ✕ ALVEAR 2445 ✕ VILLA BALLESTER ✕ ALVEAR 2445 ✕ VILLA BALLESTER ✕ ALVEAR 2445 ✕ VILLA BALLESTER ✕ </div>' +
       '<div class="pm-wrap pm-local-grid"><div>' +
       '<div class="pm-kick pm-rv">El local</div>' +
@@ -170,12 +189,54 @@
     items.forEach(function (n) { io.observe(n); });
   }
 
+  function megaMenu() {
+    var lists = document.querySelectorAll('.js-nav-desktop-list > .js-item-subitems-desktop > .desktop-dropdown');
+    lists.forEach(function (dd) {
+      if (dd.classList.contains('pm-mega')) return;
+      var ul = dd.querySelector('.container > ul.desktop-list-subitems');
+      if (!ul) return;
+      // Si una categoria tiene sub-sub-categorias (ej. Indumentaria), sus hijas pasan a ser columnas
+      Array.prototype.slice.call(ul.children).forEach(function (li) {
+        var sub = li.querySelector(':scope > ul');
+        if (!sub) return;
+        var deep = Array.prototype.some.call(sub.children, function (c) { return c.querySelector(':scope > ul'); });
+        if (!deep) return;
+        Array.prototype.slice.call(sub.children).forEach(function (c) { ul.insertBefore(c, li); });
+        li.parentNode.removeChild(li);
+      });
+      ul.classList.add('pm-cols');
+      dd.classList.add('pm-mega');
+      var cta = el('<a class="pm-cta" href="/productos/"><small>Catálogo completo</small><b>Ver todo lo nuevo</b><span>Ver productos →</span></a>');
+      ul.parentNode.appendChild(cta);
+    });
+  }
+
+  function navLinks() {
+    var nav = document.querySelector('.js-nav-desktop-list');
+    if (!nav || nav.querySelector('.pm-navx')) return;
+    var model = nav.querySelector(':scope > li:not(.item-with-subitems)');
+    [['Preguntas frecuentes', '/#preguntas'], ['El local', '/#local']].forEach(function (x) {
+      var li;
+      if (model) {
+        li = model.cloneNode(true);
+        li.classList.remove('selected', 'active');
+        var a = li.querySelector('a'); a.setAttribute('href', x[1]); a.textContent = x[0];
+      } else { li = el('<li class="nav-item"><a class="nav-list-link" href="' + x[1] + '">' + x[0] + '</a></li>'); }
+      li.classList.add('pm-navx');
+      var last = nav.lastElementChild; nav.insertBefore(li, last); // antes de Contacto
+    });
+  }
+
   function insertAfter(ref, node) { ref.parentNode.insertBefore(node, ref.nextSibling); return node; }
 
   function init() {
+    if (!document.getElementById('pm-style')) {
+      var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS; document.head.appendChild(st);
+    }
+    try { megaMenu(); } catch (e) {}
+    try { navLinks(); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
-    var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS; document.head.appendChild(st);
 
     var featured = document.querySelector('[data-store="home-products-featured"]');
     var news = document.querySelector('[data-store="home-newsletter"]');
@@ -186,6 +247,10 @@
     var endNode = endSection();
     if (news && news.parentNode) news.parentNode.insertBefore(endNode, news); else insertAfter(c, endNode);
     reveal(document);
+    if (location.hash === '#preguntas' || location.hash === '#local') {
+      var t = document.getElementById(location.hash.slice(1));
+      if (t) setTimeout(function () { t.scrollIntoView({ behavior: 'smooth' }); }, 300);
+    }
   }
 
   try {
