@@ -7,7 +7,7 @@
   window.__promiseLoaded = true;
 
   var WA = 'https://wa.me/541140563485';
-  var MAPS = 'https://maps.google.com/?q=Alvear+2445+Villa+Ballester';
+  var MAPS = 'https://maps.app.goo.gl/wEB1Gxqx1NC8aVSg7';
 
   var CSS = [
     '.pm-sec{background:#0F0F0F;color:#EDEAE4;padding:96px 0;font-family:inherit;position:relative;overflow:hidden}',
@@ -245,6 +245,12 @@
       '<p class="pm-rv pm-btns" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a class="pm-btn" href="' + MAPS + '" target="_blank" rel="noopener">Cómo llegar</a>' +
       '<a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">WhatsApp</a></p></div>' +
       '<div class="pm-steps pm-rv"><div><b>01</b>Elegís online o venís directo</div><div><b>02</b>Te lo probás en el probador</div><div><b>03</b>Retirás tu compra sin costo</div></div>' +
+      '</div>' +
+      '<div class="pm-wrap pm-lg pm-rv">' +
+      ['frente|Frente del local Promise en Alvear 2445', 'interior|Adentro del local, con remeras, jeans y buzos', 'jeans|Pared de jeans y buzos del local'].map(function (x) {
+        x = x.split('|'); return '<figure><img src="' + ASSETS + 'local/' + x[0] + '.webp" alt="' + x[1] + '" loading="lazy" width="720" height="960"></figure>';
+      }).join('') +
+      '<figure class="pm-lg-map"><iframe title="Mapa: Promise, Alvear 2445, Villa Ballester" src="https://www.google.com/maps?q=Promise+Alvear+2445+Villa+Ballester&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="' + MAPS + '" target="_blank" rel="noopener">Abrir en Google Maps ↗</a></figure>' +
       '</div></section>');
   }
 
@@ -437,6 +443,13 @@
   }
 
   var CSS2 = [
+    /* El local: fotos + mapa */
+    '.pm-lg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;position:relative;z-index:1}',
+    '.pm-lg figure{margin:0;aspect-ratio:3/4;overflow:hidden;background:#0F0F0F;position:relative}',
+    '.pm-lg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}.pm-lg figure:hover img{transform:scale(1.04)}',
+    '.pm-lg iframe{width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05)}',
+    '.pm-lg-map a{position:absolute;left:10px;bottom:10px;background:#0F0F0F;color:#fff!important;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;text-decoration:none}',
+    '@media(max-width:767px){.pm-lg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:32px;padding-bottom:6px}.pm-lg figure{flex:0 0 72%;scroll-snap-align:start}}',
     /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
