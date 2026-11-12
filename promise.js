@@ -437,6 +437,11 @@
   }
 
   var CSS2 = [
+    /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
+    '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
+    '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
+    '@media(min-width:768px){.pm-mv-row>.js-item-product{flex-basis:25%;max-width:25%}}',
+    '.js-products-new-title::before{content:"Los favoritos de Promise"!important}',
     /* Botón de arrepentimiento: discreto pero visible (la Res. 424/2020 exige que esté a la vista desde el inicio) */
     '[data-component="order-cancellation"]{font-size:11px!important;opacity:.6;text-decoration:none!important;text-transform:none!important;letter-spacing:.02em;font-weight:400!important}',
     '[data-component="order-cancellation"]:hover{opacity:1;text-decoration:underline!important}',
@@ -560,18 +565,15 @@
         return !/sin stock/i.test(i.textContent);
       }).slice(0, 8);
       if (items.length < 4) return;
-      var sc = s.querySelector('.swiper-wrapper') && s.querySelector('.swiper-wrapper').parentElement;
-      var html = items.map(function (i) {
-        i.className = i.className.replace(/\bcol-6\b|\bcol-md-3\b/g, '') + ' js-item-slide p-0';
-        return i.outerHTML;
-      });
-      if (sc && sc.swiper) {
-        sc.swiper.removeAllSlides();
-        sc.swiper.appendSlide(html);
-        sc.swiper.update();
-        if (sc.swiper.params.loop && sc.swiper.loopDestroy) { sc.swiper.loopDestroy(); sc.swiper.loopCreate(); sc.swiper.update(); }
-        sc.swiper.slideTo(sc.swiper.params.loop ? sc.swiper.loopedSlides || 0 : 0, 0);
-      }
+      var box = s.querySelector('.swiper-wrapper') && s.querySelector('.swiper-wrapper').parentElement;
+      if (!box) return;
+      var row = document.createElement('div');
+      row.className = 'row pm-mv-row';
+      items.forEach(function (i) { row.appendChild(document.importNode(i, true)); });
+      box.parentNode.insertBefore(row, box);
+      box.style.display = 'none';
+      s.querySelectorAll('.swiper-button-prev,.swiper-button-next,.item-slider-pagination-container').forEach(function (n) { n.style.display = 'none'; });
+      if (window.lazySizes && lazySizes.loader) row.querySelectorAll('.lazyload').forEach(function (img) { lazySizes.loader.unveil(img); });
     }).catch(function () {});
   }
 
