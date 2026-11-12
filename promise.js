@@ -75,18 +75,22 @@
     '.pm-mega>.container{max-width:1240px;padding:34px 30px 38px;display:flex;gap:40px;align-items:stretch}',
     '.pm-mega .pm-cols{flex:1;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px 34px;margin:0;padding:0;width:auto!important;columns:auto!important}',
     '.pm-mega .pm-cols>li{margin:0!important;padding:0!important;width:auto!important;break-inside:avoid}',
-    '.pm-mega .pm-cols>li>.nav-item-container>a{display:inline-block;font-family:"Oswald",sans-serif!important;font-size:17px!important;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#EDEAE4!important;padding:0 0 8px!important;margin-bottom:10px;border-bottom:2px solid #D7191F}',
+    '.pm-mega .pm-cols>li>a,.pm-mega .pm-cols>li>.nav-item-container>a{display:inline-block;font-family:"Oswald",sans-serif!important;font-size:17px!important;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#EDEAE4!important;padding:0 0 8px!important;margin-bottom:10px;border-bottom:2px solid #D7191F}',
     '.pm-mega .pm-cols>li>ul{display:block!important;position:static!important;margin:0!important;padding:0!important;columns:auto!important}',
     '.pm-mega .pm-cols>li>ul>li{margin:0!important;padding:0!important}',
     '.pm-mega .pm-cols>li>ul a{display:block;font-size:13px!important;font-weight:500;letter-spacing:.04em;text-transform:none!important;color:#A8A39B!important;padding:5px 0!important;transition:color .2s,transform .2s}',
     '.pm-mega .pm-cols a:before,.pm-mega .pm-cols a:after{content:none!important;display:none!important}',
     '.pm-mega .pm-cols>li>ul a:hover{color:#fff!important;transform:translateX(4px)}',
-    '.pm-mega .pm-cols>li>.nav-item-container>a:hover{color:#FF4A4A!important}',
+    '.pm-mega .pm-cols>li>a:hover,.pm-mega .pm-cols>li>.nav-item-container>a:hover{color:#FF4A4A!important}',
     '.pm-mega .pm-cta{flex:0 0 250px;display:flex;flex-direction:column;justify-content:space-between;background:#D7191F;color:#0F0F0F;padding:24px;text-decoration:none!important;transition:background .2s}',
     '.pm-mega .pm-cta:hover{background:#ec2a30}',
     '.pm-mega .pm-cta small{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}',
     '.pm-mega .pm-cta b{font-family:"Oswald",sans-serif;font-size:34px;line-height:1;text-transform:uppercase;color:#fff}',
     '.pm-mega .pm-cta span{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#0F0F0F}',
+    '.head-main .head-logo-row{margin:10px auto 2px!important}',
+    '.nav-desktop-list>li>.nav-item-container>a,.nav-desktop-list>li>a{padding-top:10px!important;padding-bottom:16px!important;position:relative}',
+    '.nav-desktop-list>li>.nav-item-container>a:after,.nav-desktop-list>li>a:after{content:"";position:absolute;left:50%;right:50%;bottom:8px;height:2px;background:#D7191F;transition:left .25s,right .25s}',
+    '.nav-desktop-list>li:hover>.nav-item-container>a:after,.nav-desktop-list>li:hover>a:after{left:14px;right:14px}',
     '}',
     '@media (max-width:767px){',
     '.pm-sec{padding:64px 0}.pm-h{font-size:40px}',
@@ -206,7 +210,7 @@
       });
       ul.classList.add('pm-cols');
       dd.classList.add('pm-mega');
-      var cta = el('<a class="pm-cta" href="/productos/"><small>Catálogo completo</small><b>Ver todo lo nuevo</b><span>Ver productos →</span></a>');
+      var cta = el('<a class="pm-cta" href="/productos/"><small>Catálogo completo</small><b>Todo en un solo lugar</b><span>Ver productos →</span></a>');
       ul.parentNode.appendChild(cta);
     });
   }
@@ -223,7 +227,8 @@
         var a = li.querySelector('a'); a.setAttribute('href', x[1]); a.textContent = x[0];
       } else { li = el('<li class="nav-item"><a class="nav-list-link" href="' + x[1] + '">' + x[0] + '</a></li>'); }
       li.classList.add('pm-navx');
-      var last = nav.lastElementChild; nav.insertBefore(li, last); // antes de Contacto
+      var contacto = Array.prototype.find.call(nav.children, function (n) { return /^contacto$/i.test(n.textContent.trim()); });
+      nav.insertBefore(li, contacto || null); // antes de Contacto
     });
   }
 
