@@ -19,9 +19,12 @@ window.pmMail = async function (key, base) {
   var t = document.querySelector('[name=templateHtml]'); if (!t) return 'no hay editor abierto';
   var v = t.value;
   if (v.indexOf('assets/mail/banner') > -1) return 'ya tiene el diseño Promise';
-  var bc = v.indexOf('body_content'), eb = v.indexOf('<!-- // END BODY');
-  if (bc < 0 || eb < 0) return 'estructura distinta: no toco nada';
-  var start = v.indexOf('>', bc) + 1, end = v.lastIndexOf('</td>', eb);
+  var bc = v.indexOf('body_content');
+  if (bc < 0) return 'estructura distinta: no toco nada';
+  var start = v.indexOf('>', bc) + 1, end = -1, depth = 1, re = /<td[\s>]|<\/td>/gi, m;
+  re.lastIndex = start;
+  while ((m = re.exec(v))) { if (m[0].charAt(1) === '/') { depth--; if (depth === 0) { end = m.index; break; } } else depth++; }
+  if (end < 0) return 'no encontré el cierre: no toco nada';
   var inner = v.slice(start, end);
   inner = inner.replace(/<h1[\s\S]*?<\/h1>/, '');
   inner = inner.replace(/\s(style|class|bgcolor|width|height)="[^"]*"/g, '');
