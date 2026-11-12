@@ -208,7 +208,7 @@
 
   function faqSection() {
     var qs = [
-      ['¿Cómo sé qué talle soy?', 'Lo mejor es venir a probártelo: el local tiene probadores. Si comprás online, revisá las medidas de cada prenda en la <a href="#" class="pm-open-talles">guía de talles</a>. Si tenés dudas, te ayudamos por WhatsApp.'],
+      ['¿Cómo sé qué talle soy?', 'Lo mejor es venir a probártelo: el local tiene probadores. Si comprás online, medí una prenda tuya siguiendo la <a href="#" class="pm-open-talles">guía de talles</a> y consultanos las medidas del modelo. Si tenés dudas, te ayudamos por WhatsApp.'],
       ['¿Y si me queda mal?', 'Tenés 10 días para cambiarlo, con la bolsa original y la prenda sin uso. Escribinos por WhatsApp y coordinamos el cambio.'],
       ['¿Puedo devolverlo?', 'En compras online podés arrepentirte dentro de los 10 días desde el botón de arrepentimiento, al pie de la página. Si la prenda tiene una falla, escribinos y lo resolvemos.'],
       ['¿Cuánto tarda en llegar?', 'Aproximadamente 3 días hábiles desde que despachamos.'],
@@ -339,65 +339,42 @@
   }
 
   // ===== Ajustes generales (todas las paginas) =====
-  var TALLES = [
-    { id: 'remeras', t: 'Remeras oversize', c: ['Ancho', 'Largo'], r: [['S', 54, 70], ['M', 56, 71], ['L', 58, 73], ['XL', 59, 75], ['XXL', 61, 76]] },
-    { id: 'slim', t: 'Remeras slim fit', c: ['Ancho', 'Largo'], r: [['S', 43, 65], ['M', 45, 67], ['L', 47, 69], ['XL', 49, 71], ['XXL', 51, 73]] },
-    { id: 'jeans', t: 'Jeans baggy', c: ['Cintura', 'Largo'], r: [['38', 37, 97], ['40', '40,5', '100,5'], ['42', 43, 101], ['44', 45, 102], ['46', 47, '102,5']] },
-    { id: 'bermudas', t: 'Bermudas', c: ['Cintura', 'Largo'], r: [['38', 39, 63], ['40', '40,5', 63], ['42', 41, 65], ['44', 43, 68], ['46', 44, 66]] },
-    { id: 'sastrero', t: 'Pantalón sastrero', c: ['Cintura', 'Largo'], r: [['S', 36, 103], ['M', 41, 105], ['L', 43, 107], ['XL', 45, 108], ['XXL', 48, 109]] },
-    { id: 'linop', t: 'Pantalón de lino', c: ['Cintura', 'Largo'], r: [['M', 34, 99], ['L', 34, 101], ['XL', 34, 103], ['XXL', 35, 105]] },
-    { id: 'mare', t: 'Camisa Mare', c: ['Ancho', 'Largo'], r: [['S', 48, 68], ['M', 50, 71], ['L', 51, 73], ['XL', 53, 74]] },
-    { id: 'camberlin', t: 'Camisa Berlín', c: ['Ancho', 'Largo'], r: [['S', 58, 65], ['M', 59, 67], ['L', 61, 69], ['XL', 65, 75]] },
-    { id: 'waffle', t: 'Conjuntos Waffle / Hawái', c: ['Remera ancho', 'Remera largo', 'Short cintura', 'Short largo'], r: [['S', 49, 69, 34, 48], ['M', 54, 72, 34, '49-50'], ['L', 56, '74,5', 35, 50], ['XL', 57, 77, 35, 51], ['XXL', 60, '78,5', 37, 52]] },
-    { id: 'berlin', t: 'Conjunto Berlín', c: ['Camisa ancho', 'Camisa largo', 'Short cintura', 'Short largo'], r: [['S', 58, 65, 30, 41], ['M', 59, 67, 32, 42], ['L', 61, 69, 36, 43], ['XL', 65, 75, 36, 45]] },
-    { id: 'lino', t: 'Conjuntos de lino', c: ['Camisa ancho', 'Camisa largo', 'Short cintura', 'Short largo'], r: [['S', 53, 72, 33, '42,5'], ['M', 56, '73,5', 35, 43], ['L', 58, 79, 36, 46], ['XL', '60,5', '80,5', 37, '48,5']] },
-    { id: 'kjeans', t: 'Kids · Jeans baggy', c: ['Cintura', 'Cadera', 'Largo'], r: [['12', '31,5', 39, '78,5'], ['14', 33, 42, '85,5'], ['16', '36,5', '43,5', 88], ['18', 38, '45,5', 93]] },
-    { id: 'kbermudas', t: 'Kids · Bermudas baggy', c: ['Cintura', 'Cadera', 'Largo'], r: [['12', '33,5', 40, '52,5'], ['14', 38, 44, '54,5'], ['16', '39,5', 45, 57], ['18', '40,5', '46,5', '59,5']] },
-    { id: 'kshort', t: 'Kids · Shorts baggy', c: ['Cintura', 'Cadera', 'Largo'], r: [['12', '25,5', 44, 51], ['14', 27, 45, '52,5'], ['16', 28, '47,5', 56], ['18', '28,5', '48,5', '57,5']] },
-    { id: 'kremover', t: 'Kids · Remeras over', c: ['Ancho', 'Largo'], r: [['12', '47,5', 59], ['14', 49, '62,5'], ['16', '50,5', 66], ['18', 53, 69]] },
-    { id: 'kboxy', t: 'Kids · Remeras boxy', c: ['Ancho', 'Largo'], r: [['12', 46, 51], ['14', 48, 52], ['16', 52, 54], ['18', '55,5', '55,5']] },
-    { id: 'kcamisas', t: 'Kids · Camisas', c: ['Ancho', 'Largo'], r: [['12', '46,5', 62], ['14', 49, 65], ['16', 52, 68], ['18', 54, 71]] },
-    { id: 'kconj', t: 'Kids · Conjuntos', c: ['Camisa ancho', 'Camisa largo', 'Short cintura', 'Short cadera', 'Short largo'], r: [['12', '49,5', '59,5', '25,5', 44, 42], ['14', 51, 61, 26, 46, 44], ['16', '52,5', 65, 27, 46, 45], ['18', '54,5', '—', '—', '—', '—']] }
-  ];
-
+  // Guía de talles: imágenes de Promise (adultos, Promise JR, calzado)
+  var GUIAS = [['adultos', 'Adultos'], ['jr', 'Promise JR'], ['calzado', 'Calzado']];
   function guessTalle() {
     var n = ((document.querySelector('.js-product-name') || {}).textContent || '').toLowerCase();
     var crumbs = ((document.querySelector('.breadcrumbs') || {}).textContent || '').toLowerCase();
-    var kids = /kids/.test(crumbs);
-    var rules = kids ? [[/jean/, 'kjeans'], [/bermuda/, 'kbermudas'], [/short/, 'kshort'], [/camisa/, 'kcamisas'], [/boxy/, 'kboxy'], [/conjunto/, 'kconj'], [/remera/, 'kremover']]
-      : [[/berl/, /conjunto/.test(n) ? 'berlin' : 'camberlin'], [/waffle|haw/, 'waffle'], [/sastrer/, 'sastrero'], [/lino/, /pantal/.test(n) ? 'linop' : 'lino'], [/mare/, 'mare'], [/slim/, 'slim'],
-        [/jean/, 'jeans'], [/bermuda|short/, 'bermudas'], [/remera/, 'remeras']];
-    for (var i = 0; i < rules.length; i++) if (rules[i][0].test(n)) return rules[i][1];
-    return kids ? 'kjeans' : 'remeras';
+    if (/zapatilla|ojota|calzado|botin|bot\u00edn|zapato|chancla/.test(n + ' ' + crumbs)) return 'calzado';
+    if (/kids|ni\u00f1o|nene|\bjr\b|junior/.test(n + ' ' + crumbs)) return 'jr';
+    return 'adultos';
   }
 
   function tallesModal(sel) {
     var m = document.getElementById('pm-talles');
     if (!m) {
-      var opts = TALLES.map(function (g) { return '<option value="' + g.id + '">' + g.t + '</option>'; }).join('');
-      m = el('<div id="pm-talles" class="pm-tm" role="dialog" aria-modal="true" aria-labelledby="pm-tm-t"><div class="pm-tm-box">' +
+      m = el('<div id="pm-talles" class="pm-tm" role="dialog" aria-modal="true" aria-label="Guía de talles"><div class="pm-tm-box">' +
         '<button type="button" class="pm-tm-x" aria-label="Cerrar">✕</button>' +
-        '<div class="pm-kick">Guía de talles</div><h3 id="pm-tm-t" class="pm-h">Medidas <em>en cm</em></h3>' +
-        '<label class="pm-tm-l">Prenda <select class="pm-tm-s">' + opts + '</select></label>' +
-        '<div class="pm-tm-t"></div>' +
-        '<p class="pm-tm-n">Medidas tomadas con la prenda apoyada sobre una superficie plana, de un solo lado. Pueden variar 1 o 2 cm. ¿Dudas? <a href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a> o vení a probártelo al local.</p>' +
+        '<div class="pm-tm-tabs" role="tablist">' + GUIAS.map(function (g) { return '<button type="button" role="tab" data-g="' + g[0] + '">' + g[1] + '</button>'; }).join('') + '</div>' +
+        '<div class="pm-tm-img"><img alt="" decoding="async"></div>' +
+        '<p class="pm-tm-n">¿Dudas con el talle? <a href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a> y te pasamos las medidas del modelo, o vení a probártelo al local.</p>' +
         '</div></div>');
       document.body.appendChild(m);
-      var s = m.querySelector('.pm-tm-s');
-      var draw = function () {
-        var g = TALLES.filter(function (x) { return x.id === s.value; })[0];
-        m.querySelector('.pm-tm-t').innerHTML = '<table><thead><tr><th>Talle</th>' + g.c.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' +
-          g.r.map(function (r) { return '<tr>' + r.map(function (v, i) { return i ? '<td>' + v + '</td>' : '<th>' + v + '</th>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
+      var show = function (id) {
+        var g = GUIAS.filter(function (x) { return x[0] === id; })[0] || GUIAS[0];
+        var img = m.querySelector('.pm-tm-img img');
+        img.src = ASSETS + 'talles/' + g[0] + '.webp';
+        img.alt = 'Guía de talles Promise: ' + g[1];
+        m.querySelectorAll('.pm-tm-tabs button').forEach(function (b) { var on = b.getAttribute('data-g') === g[0]; b.classList.toggle('pm-on', on); b.setAttribute('aria-selected', on); });
+        m.querySelector('.pm-tm-box').scrollTop = 0;
       };
-      s.addEventListener('change', draw);
+      m.querySelectorAll('.pm-tm-tabs button').forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-g')); }); });
       var close = function () { m.classList.remove('pm-tm-on'); document.documentElement.style.overflow = ''; };
       m.querySelector('.pm-tm-x').addEventListener('click', close);
       m.addEventListener('click', function (e) { if (e.target === m) close(); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-      m._draw = draw;
+      m._show = show;
     }
-    m.querySelector('.pm-tm-s').value = sel || 'remeras';
-    m._draw();
+    m._show(sel || 'adultos');
     m.classList.add('pm-tm-on');
     document.documentElement.style.overflow = 'hidden';
   }
@@ -407,7 +384,7 @@
     // Guia de talles: links
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('.pm-open-talles');
-      if (a) { e.preventDefault(); tallesModal(a.getAttribute('data-t') || (document.querySelector('#single-product') ? guessTalle() : 'remeras')); }
+      if (a) { e.preventDefault(); tallesModal(a.getAttribute('data-t') || (document.querySelector('#single-product') ? guessTalle() : 'adultos')); }
     });
     var prod = document.querySelector('#single-product');
     if (prod && !prod.querySelector('.pm-talles-link')) {
@@ -481,12 +458,10 @@
     '.pm-tm-box{position:relative;background:#141414;border:1px solid #2a2a2a;border-top:3px solid #D7191F;width:100%;max-width:560px;max-height:90vh;overflow:auto;padding:28px 26px 22px;color:#EDEAE4}',
     '.pm-tm-box .pm-h{font-size:34px;margin-bottom:16px}',
     '.pm-tm-x{position:absolute;top:10px;right:12px;background:none;border:0;color:#EDEAE4;font-size:20px;cursor:pointer;padding:6px}',
-    '.pm-tm-l{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#A8A39B;margin-bottom:14px}',
-    '.pm-tm-s{flex:1;background:#0F0F0F;color:#EDEAE4;border:1px solid #3a3a3a;padding:10px 12px;font-size:14px;letter-spacing:0;text-transform:none}',
-    '.pm-tm-t table{width:100%;border-collapse:collapse;font-size:14px}',
-    '.pm-tm-t th,.pm-tm-t td{border-bottom:1px solid #2a2a2a;padding:10px 8px;text-align:center}',
-    '.pm-tm-t thead th{background:#D7191F;color:#fff;font-size:11px;letter-spacing:.08em;text-transform:uppercase}',
-    '.pm-tm-t tbody th{color:#fff;font-family:"Oswald",sans-serif;font-size:16px}',
+    '.pm-tm-tabs{display:flex;gap:6px;margin:0 34px 14px 0;flex-wrap:wrap}',
+    '.pm-tm-tabs button{flex:1 1 auto;background:#0F0F0F;color:#EDEAE4;border:1px solid #3a3a3a;padding:10px 12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}',
+    '.pm-tm-tabs button.pm-on{background:#D7191F;border-color:#D7191F;color:#fff}',
+    '.pm-tm-img{background:#fff;line-height:0}.pm-tm-img img{width:100%;height:auto;display:block}',
     '.pm-tm-n{font-size:12px;color:#A8A39B;line-height:1.5;margin:14px 0 0}.pm-tm-n a{color:#FF4A4A}',
     /* Pie de pagina */
     'footer .contact-link{display:inline-flex;flex-direction:column;align-items:inherit;gap:2px}',
@@ -506,7 +481,7 @@
     '.head-main .logo-img{max-height:none!important;height:40px!important;width:auto!important;-webkit-box-reflect:none}',
     '.head-main .js-logo-container{mix-blend-mode:lighten}',
     '.js-item-product .item-installments::after{content:"20% OFF efectivo o transf.";font-size:10.5px}',
-    '.pm-tm-box{padding:24px 16px 18px}.pm-tm-t table{font-size:13px}.pm-tm-t th,.pm-tm-t td{padding:9px 4px}',
+    '.pm-tm-box{padding:20px 12px 16px}.pm-tm-tabs button{padding:9px 6px;font-size:11px;letter-spacing:.05em}',
     '}'
   ].join('\n');
 
