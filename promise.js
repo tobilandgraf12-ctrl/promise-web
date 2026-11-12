@@ -192,7 +192,7 @@
       ['DESDE <span>2017</span>', 'En Villa Ballester', 'Alvear 2445. Vestimos a la zona con lo que se usa.', 'VB · DESDE 2017'],
       ['<span>PROBADORES</span>', 'En el local', 'Venís, te lo probás y te lo llevás puesto.', 'ALVEAR 2445'],
       ['STOCK <span>REAL</span>', 'Lo que ves, está', 'Todo lo de la web lo tenemos en el local. Y adentro hay más: perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
-      ['<span>15</span> DÍAS', 'Para cambiar', 'Compraste en el local y le erraste al talle: lo cambiás con la bolsa original.', 'SIN DRAMA']
+      ['<span>10</span> DÍAS', 'Para cambiar', '¿Le erraste al talle? Lo cambiás dentro de los 10 días, con la bolsa original.', 'SIN DRAMA']
     ];
     var html = '<section class="pm-sec pm-why" aria-labelledby="pm-why-t"><div class="pm-wrap">' +
       '<div class="pm-kick pm-rv">Villa Ballester · Alvear 2445</div>' +
@@ -208,8 +208,8 @@
 
   function faqSection() {
     var qs = [
-      ['¿Cómo sé qué talle soy?', 'Lo mejor es venir a probártelo: el local tiene probadores. Si comprás online, la guía de talles es una referencia para orientarte, y por WhatsApp te ayudamos a elegir.'],
-      ['¿Y si me queda mal?', 'Si compraste online tenés 10 días para cambiarlo; si compraste en el local, 15 días. Siempre con la bolsa original y la prenda sin uso. Escribinos por WhatsApp y coordinamos el cambio.'],
+      ['¿Cómo sé qué talle soy?', 'Lo mejor es venir a probártelo: el local tiene probadores. Si comprás online, revisá las medidas de cada prenda en la <a href="#" class="pm-open-talles">guía de talles</a>. Si tenés dudas, te ayudamos por WhatsApp.'],
+      ['¿Y si me queda mal?', 'Tenés 10 días para cambiarlo, con la bolsa original y la prenda sin uso. Escribinos por WhatsApp y coordinamos el cambio.'],
       ['¿Puedo devolverlo?', 'En compras online podés arrepentirte dentro de los 10 días desde el botón de arrepentimiento, al pie de la página. Si la prenda tiene una falla, escribinos y lo resolvemos.'],
       ['¿Cuánto tarda en llegar?', 'Aproximadamente 3 días hábiles desde que despachamos.'],
       ['¿Hacen envíos gratis?', 'Sí, en compras desde $150.000, a todo el país.'],
@@ -252,7 +252,7 @@
     return el('<section class="pm-sec pm-end" aria-labelledby="pm-end-t"><div class="pm-wrap">' +
       '<div class="pm-kick pm-rv">Catálogo completo</div>' +
       '<h2 class="pm-h pm-rv" id="pm-end-t">Esto fue <em>una selección</em></h2>' +
-      '<p class="pm-lead pm-rv">Lo que viste es una parte. El catálogo entero está a un click, con todo lo que entró esta semana.</p>' +
+      '<p class="pm-lead pm-rv">Lo que viste es una parte. El catálogo entero está a un clic, con todas las prendas que tenemos en el local.</p>' +
       '<div class="pm-btns pm-rv"><a class="pm-btn" href="/productos/">Ver el catálogo</a><a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>' +
       '</div></section>');
   }
@@ -332,6 +332,162 @@
       '<div class="pm-cat-grid">' + tiles + '</div></div></section>');
   }
 
+  // ===== Ajustes generales (todas las paginas) =====
+  var TALLES = [
+    { id: 'remeras', t: 'Remeras oversize', c: ['Ancho', 'Largo'], r: [['S', 54, 70], ['M', 56, 71], ['L', 58, 73], ['XL', 59, 75], ['XXL', 61, 76]] },
+    { id: 'slim', t: 'Remeras slim fit', c: ['Ancho', 'Largo'], r: [['S', 43, 65], ['M', 45, 67], ['L', 47, 69], ['XL', 49, 71], ['XXL', 51, 73]] },
+    { id: 'jeans', t: 'Jeans baggy', c: ['Cintura', 'Largo'], r: [['38', 37, 97], ['40', '40,5', '100,5'], ['42', 43, 101], ['44', 45, 102], ['46', 47, '102,5']] },
+    { id: 'bermudas', t: 'Bermudas', c: ['Cintura', 'Largo'], r: [['38', 39, 63], ['40', '40,5', 63], ['42', 41, 65], ['44', 43, 68], ['46', 44, 66]] },
+    { id: 'sastrero', t: 'Pantalón sastrero', c: ['Cintura', 'Largo'], r: [['S', 36, 103], ['M', 41, 105], ['L', 43, 107], ['XL', 45, 108], ['XXL', 48, 109]] },
+    { id: 'linop', t: 'Pantalón de lino', c: ['Cintura', 'Largo'], r: [['M', 34, 99], ['L', 34, 101], ['XL', 34, 103], ['XXL', 35, 105]] },
+    { id: 'mare', t: 'Camisa Mare', c: ['Ancho', 'Largo'], r: [['S', 48, 68], ['M', 50, 71], ['L', 51, 73], ['XL', 53, 74]] },
+    { id: 'camberlin', t: 'Camisa Berlín', c: ['Ancho', 'Largo'], r: [['S', 58, 65], ['M', 59, 67], ['L', 61, 69], ['XL', 65, 75]] },
+    { id: 'waffle', t: 'Conjuntos Waffle / Hawái', c: ['Remera ancho', 'Remera largo', 'Short cintura', 'Short largo'], r: [['S', 49, 69, 34, 48], ['M', 54, 72, 34, '49-50'], ['L', 56, '74,5', 35, 50], ['XL', 57, 77, 35, 51], ['XXL', 60, '78,5', 37, 52]] },
+    { id: 'berlin', t: 'Conjunto Berlín', c: ['Camisa ancho', 'Camisa largo', 'Short cintura', 'Short largo'], r: [['S', 58, 65, 30, 41], ['M', 59, 67, 32, 42], ['L', 61, 69, 36, 43], ['XL', 65, 75, 36, 45]] },
+    { id: 'lino', t: 'Conjuntos de lino', c: ['Camisa ancho', 'Camisa largo', 'Short cintura', 'Short largo'], r: [['S', 53, 72, 33, '42,5'], ['M', 56, '73,5', 35, 43], ['L', 58, 79, 36, 46], ['XL', '60,5', '80,5', 37, '48,5']] },
+    { id: 'kjeans', t: 'Kids · Jeans baggy', c: ['Cintura', 'Cadera', 'Largo'], r: [['12', '31,5', 39, '78,5'], ['14', 33, 42, '85,5'], ['16', '36,5', '43,5', 88], ['18', 38, '45,5', 93]] },
+    { id: 'kbermudas', t: 'Kids · Bermudas baggy', c: ['Cintura', 'Cadera', 'Largo'], r: [['12', '33,5', 40, '52,5'], ['14', 38, 44, '54,5'], ['16', '39,5', 45, 57], ['18', '40,5', '46,5', '59,5']] },
+    { id: 'kshort', t: 'Kids · Shorts baggy', c: ['Cintura', 'Cadera', 'Largo'], r: [['12', '25,5', 44, 51], ['14', 27, 45, '52,5'], ['16', 28, '47,5', 56], ['18', '28,5', '48,5', '57,5']] },
+    { id: 'kremover', t: 'Kids · Remeras over', c: ['Ancho', 'Largo'], r: [['12', '47,5', 59], ['14', 49, '62,5'], ['16', '50,5', 66], ['18', 53, 69]] },
+    { id: 'kboxy', t: 'Kids · Remeras boxy', c: ['Ancho', 'Largo'], r: [['12', 46, 51], ['14', 48, 52], ['16', 52, 54], ['18', '55,5', '55,5']] },
+    { id: 'kcamisas', t: 'Kids · Camisas', c: ['Ancho', 'Largo'], r: [['12', '46,5', 62], ['14', 49, 65], ['16', 52, 68], ['18', 54, 71]] },
+    { id: 'kconj', t: 'Kids · Conjuntos', c: ['Camisa ancho', 'Camisa largo', 'Short cintura', 'Short cadera', 'Short largo'], r: [['12', '49,5', '59,5', '25,5', 44, 42], ['14', 51, 61, 26, 46, 44], ['16', '52,5', 65, 27, 46, 45], ['18', '54,5', '—', '—', '—', '—']] }
+  ];
+
+  function guessTalle() {
+    var n = ((document.querySelector('.js-product-name') || {}).textContent || '').toLowerCase();
+    var crumbs = ((document.querySelector('.breadcrumbs') || {}).textContent || '').toLowerCase();
+    var kids = /kids/.test(crumbs);
+    var rules = kids ? [[/jean/, 'kjeans'], [/bermuda/, 'kbermudas'], [/short/, 'kshort'], [/camisa/, 'kcamisas'], [/boxy/, 'kboxy'], [/conjunto/, 'kconj'], [/remera/, 'kremover']]
+      : [[/berl/, /conjunto/.test(n) ? 'berlin' : 'camberlin'], [/waffle|haw/, 'waffle'], [/sastrer/, 'sastrero'], [/lino/, /pantal/.test(n) ? 'linop' : 'lino'], [/mare/, 'mare'], [/slim/, 'slim'],
+        [/jean/, 'jeans'], [/bermuda|short/, 'bermudas'], [/remera/, 'remeras']];
+    for (var i = 0; i < rules.length; i++) if (rules[i][0].test(n)) return rules[i][1];
+    return kids ? 'kjeans' : 'remeras';
+  }
+
+  function tallesModal(sel) {
+    var m = document.getElementById('pm-talles');
+    if (!m) {
+      var opts = TALLES.map(function (g) { return '<option value="' + g.id + '">' + g.t + '</option>'; }).join('');
+      m = el('<div id="pm-talles" class="pm-tm" role="dialog" aria-modal="true" aria-labelledby="pm-tm-t"><div class="pm-tm-box">' +
+        '<button type="button" class="pm-tm-x" aria-label="Cerrar">✕</button>' +
+        '<div class="pm-kick">Guía de talles</div><h3 id="pm-tm-t" class="pm-h">Medidas <em>en cm</em></h3>' +
+        '<label class="pm-tm-l">Prenda <select class="pm-tm-s">' + opts + '</select></label>' +
+        '<div class="pm-tm-t"></div>' +
+        '<p class="pm-tm-n">Medidas tomadas con la prenda apoyada sobre una superficie plana, de un solo lado. Pueden variar 1 o 2 cm. ¿Dudas? <a href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a> o vení a probártelo al local.</p>' +
+        '</div></div>');
+      document.body.appendChild(m);
+      var s = m.querySelector('.pm-tm-s');
+      var draw = function () {
+        var g = TALLES.filter(function (x) { return x.id === s.value; })[0];
+        m.querySelector('.pm-tm-t').innerHTML = '<table><thead><tr><th>Talle</th>' + g.c.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' +
+          g.r.map(function (r) { return '<tr>' + r.map(function (v, i) { return i ? '<td>' + v + '</td>' : '<th>' + v + '</th>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
+      };
+      s.addEventListener('change', draw);
+      var close = function () { m.classList.remove('pm-tm-on'); document.documentElement.style.overflow = ''; };
+      m.querySelector('.pm-tm-x').addEventListener('click', close);
+      m.addEventListener('click', function (e) { if (e.target === m) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+      m._draw = draw;
+    }
+    m.querySelector('.pm-tm-s').value = sel || 'remeras';
+    m._draw();
+    m.classList.add('pm-tm-on');
+    document.documentElement.style.overflow = 'hidden';
+  }
+  window.pmTalles = tallesModal;
+
+  function siteFixes() {
+    // Guia de talles: links
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('.pm-open-talles');
+      if (a) { e.preventDefault(); tallesModal(a.getAttribute('data-t') || (document.querySelector('#single-product') ? guessTalle() : 'remeras')); }
+    });
+    var prod = document.querySelector('#single-product');
+    if (prod && !prod.querySelector('.pm-talles-link')) {
+      var form = prod.querySelector('.js-product-form, form');
+      var link = el('<a href="#" class="pm-open-talles pm-talles-link">📏 Guía de talles</a>');
+      var variants = prod.querySelector('.js-product-variants');
+      if (variants) variants.parentNode.insertBefore(link, variants.nextSibling);
+      else if (form) form.insertBefore(link, form.firstChild);
+    }
+    // Banda de beneficios: 10 dias
+    document.querySelectorAll('[data-store^="home-informative"] *, .section-informative-banners *').forEach(function (n) {
+      if (n.children.length === 0 && /15 d[ií]as/.test(n.textContent)) n.textContent = n.textContent.replace(/15 d[ií]as/, '10 días');
+    });
+    // Pie: contacto
+    var footer = document.querySelector('footer, .js-footer');
+    if (footer && !footer.querySelector('.pm-ig')) {
+      footer.querySelectorAll('a.contact-link').forEach(function (a) {
+        var h = a.getAttribute('href') || '', li = a.closest('li') || a;
+        if (/^tel:/.test(h)) li.parentNode && li.parentNode.removeChild(li);
+        else if (/wa\.me/.test(h)) { a.innerHTML = '<span class="pm-ci">WhatsApp</span>+54 11 4056-3485'; }
+        else if (/^mailto:/.test(h)) { a.setAttribute('href', 'mailto:promisenj.ok@gmail.com'); a.innerHTML = '<span class="pm-ci">Mail</span>promisenj.ok@gmail.com'; }
+      });
+      footer.querySelectorAll('li').forEach(function (li) {
+        if (/^Alvear 2445/.test(li.textContent.trim()) && !li.querySelector('a')) li.innerHTML = '<a class="contact-link" href="' + MAPS + '" target="_blank" rel="noopener"><span class="pm-ci">Local</span>Alvear 2445, Villa Ballester</a>';
+      });
+      var mailLi = footer.querySelector('a[href^="mailto:"]');
+      if (mailLi) {
+        var li2 = mailLi.closest('li');
+        var ig = el('<li class="d-block mb-3 pm-ig"><a class="contact-link" href="https://www.instagram.com/promise_vb/" target="_blank" rel="noopener"><span class="pm-ci">Instagram</span>@promise_vb</a></li>');
+        if (li2) li2.parentNode.insertBefore(ig, li2.nextSibling);
+      }
+    }
+  }
+
+  var CSS2 = [
+    /* 20%: sin cuadrado rojo en las fotos, texto sutil debajo del precio */
+    '.item-product .item-image::after{content:none!important;display:none!important}',
+    '.js-item-product .item-installments::after{content:"20% OFF en efectivo o transferencia";display:block;margin-top:3px;color:#FF4A4A;font-size:11px;font-weight:600;letter-spacing:.02em}',
+    '#single-product .js-price-display::after{font-size:11px!important;font-weight:600!important;letter-spacing:.02em!important;text-transform:none!important;margin-top:6px!important}',
+    /* Logo: gira mas seguido, con reflejo espejado */
+    '.logo-img{animation:pm-spin2 6s cubic-bezier(.6,0,.3,1) infinite!important;-webkit-box-reflect:below 1px linear-gradient(transparent 62%,rgba(255,255,255,.28))}',
+    '@keyframes pm-spin2{0%,55%{transform:rotateY(0)}85%,100%{transform:rotateY(720deg)}}',
+    /* Cantidad +/- */
+    '.form-quantity{border:1px solid #3a3a3a;height:54px}',
+    '.form-quantity .form-quantity-icon{color:#EDEAE4!important;width:44px;height:52px;display:flex;align-items:center;justify-content:center;font-size:20px!important;font-weight:400;cursor:pointer}',
+    '.form-quantity .form-quantity-icon svg{display:none}',
+    '.js-quantity-down::before{content:"−"}.js-quantity-up::before{content:"+"}',
+    '.form-quantity .js-quantity-input{background:transparent!important;color:#EDEAE4!important;border:0!important;text-align:center;font-weight:700;-moz-appearance:textfield}',
+    '.form-quantity input::-webkit-outer-spin-button,.form-quantity input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}',
+    /* Link guia de talles */
+    '.pm-talles-link{display:inline-block;margin:4px 0 18px;font-size:13px;font-weight:700;color:#EDEAE4!important;text-decoration:underline!important;text-underline-offset:4px;letter-spacing:.02em}',
+    '.pm-talles-link:hover{color:#FF4A4A!important}',
+    '.pm-faq .pm-a a{color:#FF4A4A;text-decoration:underline}',
+    /* Modal talles */
+    '.pm-tm{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:16px}',
+    '.pm-tm.pm-tm-on{display:flex}',
+    '.pm-tm-box{position:relative;background:#141414;border:1px solid #2a2a2a;border-top:3px solid #D7191F;width:100%;max-width:560px;max-height:90vh;overflow:auto;padding:28px 26px 22px;color:#EDEAE4}',
+    '.pm-tm-box .pm-h{font-size:34px;margin-bottom:16px}',
+    '.pm-tm-x{position:absolute;top:10px;right:12px;background:none;border:0;color:#EDEAE4;font-size:20px;cursor:pointer;padding:6px}',
+    '.pm-tm-l{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#A8A39B;margin-bottom:14px}',
+    '.pm-tm-s{flex:1;background:#0F0F0F;color:#EDEAE4;border:1px solid #3a3a3a;padding:10px 12px;font-size:14px;letter-spacing:0;text-transform:none}',
+    '.pm-tm-t table{width:100%;border-collapse:collapse;font-size:14px}',
+    '.pm-tm-t th,.pm-tm-t td{border-bottom:1px solid #2a2a2a;padding:10px 8px;text-align:center}',
+    '.pm-tm-t thead th{background:#D7191F;color:#fff;font-size:11px;letter-spacing:.08em;text-transform:uppercase}',
+    '.pm-tm-t tbody th{color:#fff;font-family:"Oswald",sans-serif;font-size:16px}',
+    '.pm-tm-n{font-size:12px;color:#A8A39B;line-height:1.5;margin:14px 0 0}.pm-tm-n a{color:#FF4A4A}',
+    /* Pie de pagina */
+    'footer .contact-link{display:inline-flex;flex-direction:column;align-items:inherit;gap:2px}',
+    '.pm-ci{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FF4A4A;font-weight:700}',
+    '@media (max-width:767px){',
+    /* WhatsApp no tapa el boton de compra ni el pie */
+    '.btn-whatsapp{bottom:88px!important;right:12px!important;width:46px!important;height:46px!important}',
+    'footer{padding-bottom:70px!important}',
+    /* Ficha: sin hueco entre precio y cuotas */
+    '#single-product .js-price-container{margin-bottom:6px!important}',
+    '#single-product .js-product-payments-container{margin-top:0!important}',
+    /* Encabezado compacto: logo en la misma linea que el menu y el carrito */
+    '.head-main .head-logo-row{margin:0 auto!important}',
+    '.head-main .head-logo-row>.row{position:relative;flex-wrap:nowrap!important;min-height:58px;align-items:center}',
+    '.head-main .js-logo-container{position:absolute!important;left:50%;top:50%;transform:translate(-50%,-50%);width:auto!important;max-width:none!important;flex:none!important;padding:0!important}',
+    '.head-main .logo-img-container{width:auto!important;height:auto!important}',
+    '.head-main .logo-img{max-height:34px!important;width:auto!important;-webkit-box-reflect:none}',
+    '.pm-tm-box{padding:24px 16px 18px}.pm-tm-t table{font-size:13px}.pm-tm-t th,.pm-tm-t td{padding:9px 4px}',
+    '}'
+  ].join('\n');
+
   function megaMenu() {
     var lists = document.querySelectorAll('.js-nav-desktop-list > .js-item-subitems-desktop > .desktop-dropdown');
     lists.forEach(function (dd) {
@@ -346,6 +502,20 @@
         if (!deep) return;
         Array.prototype.slice.call(sub.children).forEach(function (c) { ul.insertBefore(c, li); });
         li.parentNode.removeChild(li);
+      });
+      var RENAME = { 'remeras': 'Remeras y camisas', 'bermudas': 'Shorts y bermudas' };
+      Array.prototype.slice.call(ul.children).forEach(function (li) {
+        var head = li.querySelector(':scope > .nav-item-container > a, :scope > a');
+        var sub = li.querySelector(':scope > ul');
+        if (!head || !sub) return;
+        var name = head.textContent.trim(), key = name.toLowerCase();
+        Array.prototype.slice.call(sub.children).forEach(function (c) {
+          var a = c.querySelector('a'); if (!a) return;
+          var t = a.textContent.trim();
+          if (t.toLowerCase() === key && !RENAME[key]) c.parentNode.removeChild(c);
+          else if (/^joggin$/i.test(t)) a.textContent = 'Jogging';
+        });
+        if (RENAME[key]) head.textContent = RENAME[key];
       });
       ul.classList.add('pm-cols');
       dd.classList.add('pm-mega');
@@ -377,6 +547,10 @@
     if (!document.getElementById('pm-style')) {
       var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS; document.head.appendChild(st);
     }
+    if (!document.getElementById('pm-style2')) {
+      var st2 = document.createElement('style'); st2.id = 'pm-style2'; st2.textContent = CSS2; document.head.appendChild(st2);
+    }
+    try { siteFixes(); } catch (e) {}
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
