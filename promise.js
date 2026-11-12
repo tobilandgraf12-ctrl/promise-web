@@ -241,7 +241,7 @@
       '<div class="pm-mq" aria-hidden="true">ALVEAR 2445 ✕ VILLA BALLESTER ✕ ALVEAR 2445 ✕ VILLA BALLESTER ✕ ALVEAR 2445 ✕ VILLA BALLESTER ✕ ALVEAR 2445 ✕ VILLA BALLESTER ✕ </div>' +
       '<div class="pm-wrap pm-local-grid"><div>' +
       '<div class="pm-kick pm-rv">El local</div>' +
-      '<h2 class="pm-h pm-rv" id="pm-local-t">Venís, te lo probás, <em>te lo llevás puesto</em></h2>' +
+      '<h2 class="pm-h pm-rv" id="pm-local-t">Venís, te lo probás <em>y te lo llevás puesto</em></h2>' +
       '<p class="pm-rv pm-btns" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a class="pm-btn" href="' + MAPS + '" target="_blank" rel="noopener">Cómo llegar</a>' +
       '<a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">WhatsApp</a></p></div>' +
       '<div class="pm-steps pm-rv"><div><b>01</b>Elegís online o venís directo</div><div><b>02</b>Te lo probás en el probador</div><div><b>03</b>Retirás tu compra sin costo</div></div>' +
