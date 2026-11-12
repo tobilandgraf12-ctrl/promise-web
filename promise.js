@@ -69,6 +69,23 @@
     /* lo que reemplazamos */
     '[data-store="home-institutional-message"],[data-store="home-welcome-message"]{display:none!important}',
     /* celular */
+    /* CATEGORIAS CON PRENDA */
+    '.pm-cats{background:#0F0F0F}',
+    '.pm-cat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}',
+    '.pm-cat{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:radial-gradient(circle at 50% 42%,#262626 0,#161616 62%);border:1px solid #232323;text-decoration:none!important;transition:border-color .3s,background .4s}',
+    '.pm-cat:hover{border-color:#D7191F;background:radial-gradient(circle at 50% 42%,#3a1416 0,#161616 66%)}',
+    '.pm-cat .pm-n{position:absolute;top:14px;left:18px;font-family:"Oswald",sans-serif;font-size:64px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px #3a3a3a;z-index:1}',
+    '.pm-cat .pm-media{position:absolute;left:50%;top:46%;width:58%;aspect-ratio:1/1;margin-left:-29%;margin-top:-29%;z-index:2;animation:pm-float 4.2s ease-in-out infinite}',
+    '.pm-cat:nth-child(2) .pm-media{animation-delay:-.7s}.pm-cat:nth-child(3) .pm-media{animation-delay:-1.4s}.pm-cat:nth-child(4) .pm-media{animation-delay:-2.1s}.pm-cat:nth-child(5) .pm-media{animation-delay:-2.8s}.pm-cat:nth-child(6) .pm-media{animation-delay:-3.5s}',
+    '.pm-cat .pm-media img,.pm-cat .pm-media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}',
+    '.pm-cat .pm-media.pm-photo{box-shadow:0 26px 40px rgba(0,0,0,.6);border:6px solid #EDEAE4;background:#EDEAE4}',
+    '.pm-cat .pm-media.pm-cut img,.pm-cat .pm-media.pm-cut video{object-fit:contain;filter:drop-shadow(0 24px 22px rgba(0,0,0,.6))}',
+    '.pm-cat:hover .pm-media img,.pm-cat:hover .pm-media video{transform:scale(1.08) rotate(-3deg)}',
+    '.pm-cat .pm-lbl{position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;z-index:3}',
+    '.pm-cat .pm-lbl b{font-family:"Oswald",sans-serif;font-size:30px;line-height:1;text-transform:uppercase;color:#EDEAE4;letter-spacing:.02em}',
+    '.pm-cat .pm-lbl i{font-style:normal;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:#D7191F;color:#fff;font-size:20px;transition:transform .3s}',
+    '.pm-cat:hover .pm-lbl i{transform:translateX(4px) rotate(-45deg)}',
+    '@keyframes pm-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(2deg)}}',
     /* MENU PRODUCTOS (compu) */
     '@media (min-width:768px){',
     '.pm-mega.desktop-dropdown{background:#141414!important;border-top:2px solid #D7191F;border-bottom:1px solid #2a2a2a;box-shadow:0 30px 60px rgba(0,0,0,.55)}',
@@ -93,6 +110,7 @@
     '.nav-desktop-list>li:hover>.nav-item-container>a:after,.nav-desktop-list>li:hover>a:after{left:14px;right:14px}',
     '}',
     '@media (max-width:767px){',
+    '.pm-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:28px}.pm-cat .pm-n{font-size:40px;top:10px;left:12px}.pm-cat .pm-lbl{left:12px;right:12px;bottom:10px}.pm-cat .pm-lbl b{font-size:19px}.pm-cat .pm-lbl i{width:30px;height:30px;font-size:15px}.pm-cat .pm-media{width:64%;margin-left:-32%;margin-top:-32%}',
     '.pm-sec{padding:64px 0}.pm-h{font-size:40px}',
     '.pm-tags{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px 12px;align-items:stretch}',
     '.pm-tagwrap{display:flex}.pm-tag{flex:1;display:flex;flex-direction:column}.pm-tag p{flex:1}',
@@ -105,7 +123,7 @@
     '.pm-local .pm-mq{font-size:80px}',
     '.pm-end .pm-h{font-size:46px}',
     '}',
-    '@media (prefers-reduced-motion:reduce){.pm-tag,.pm-mq{animation:none!important}.pm-rv{opacity:1;transform:none;transition:none}}'
+    '@media (prefers-reduced-motion:reduce){.pm-cat .pm-media,.pm-tag,.pm-mq{animation:none!important}.pm-rv{opacity:1;transform:none;transition:none}}'
   ].join('\n');
 
   function el(html) {
@@ -193,6 +211,33 @@
     items.forEach(function (n) { io.observe(n); });
   }
 
+  // Categorias: [nombre, link, imagen o video, tipo]
+  // tipo 'foto' = foto actual del producto (provisoria) | 'recorte' = prenda sin fondo (png/webp) | 'video' = mp4 en loop
+  var IMG = 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/';
+  var CATS = [
+    ['Remeras', '/indumentaria/remeras-camisas/', IMG + 'img_1990-8ddc27344bb921a98417709058266622-480-0.webp', 'foto'],
+    ['Pantalones', '/indumentaria/pantalones/', IMG + 'img_6667-53e0a2fa5ef39f489f17944421551926-480-0.webp', 'foto'],
+    ['Bermudas', '/indumentaria/shorts-y-bermudas/', IMG + 'img_1935-8316213c0a92e3b23d17701605620098-480-0.webp', 'foto'],
+    ['Abrigos', '/indumentaria/abrigo/', IMG + 'img_1913-cc55d82f1672d4289f17925076012192-480-0.webp', 'foto'],
+    ['Calzado', '/calzado/', IMG + 'img_1131-8ee7963522eb103b2117691798416405-480-0.webp', 'foto'],
+    ['Accesorios', '/accesorios/', IMG + 'img_7990-94af957ad60c40e84617878635467433-480-0.webp', 'foto']
+  ];
+
+  function catsSection() {
+    var tiles = CATS.map(function (c, i) {
+      var media = c[3] === 'video'
+        ? '<video src="' + c[2] + '" autoplay muted loop playsinline preload="metadata"></video>'
+        : '<img src="' + c[2] + '" alt="' + c[0] + '" loading="lazy">';
+      return '<a class="pm-cat pm-rv" href="' + c[1] + '"><span class="pm-n">0' + (i + 1) + '</span>' +
+        '<span class="pm-media ' + (c[3] === 'foto' ? 'pm-photo' : 'pm-cut') + '">' + media + '</span>' +
+        '<span class="pm-lbl"><b>' + c[0] + '</b><i>→</i></span></a>';
+    }).join('');
+    return el('<section id="categorias" class="pm-sec pm-cats" aria-labelledby="pm-cats-t"><div class="pm-wrap">' +
+      '<div class="pm-kick pm-rv">Elegí por prenda</div>' +
+      '<h2 id="pm-cats-t" class="pm-h pm-rv">Comprá por <em>categoría</em></h2>' +
+      '<div class="pm-cat-grid">' + tiles + '</div></div></section>');
+  }
+
   function megaMenu() {
     var lists = document.querySelectorAll('.js-nav-desktop-list > .js-item-subitems-desktop > .desktop-dropdown');
     lists.forEach(function (dd) {
@@ -243,6 +288,8 @@
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
 
+    var oldCats = document.querySelector('[data-store="home-categories-featured"]');
+    if (oldCats) { oldCats.parentNode.insertBefore(catsSection(), oldCats); oldCats.style.display = 'none'; }
     var featured = document.querySelector('[data-store="home-products-featured"]');
     var news = document.querySelector('[data-store="home-newsletter"]');
     var anchor = featured || home;
