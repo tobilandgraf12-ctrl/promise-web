@@ -484,6 +484,8 @@
     '.head-main .js-logo-container{position:absolute!important;left:50%;top:50%;transform:translate(-50%,-50%);width:auto!important;max-width:none!important;flex:none!important;padding:0!important}',
     '.head-main .logo-img-container{width:auto!important;height:auto!important}',
     '.head-main .logo-img{max-height:34px!important;width:auto!important;-webkit-box-reflect:none}',
+    '.head-main .js-logo-container{mix-blend-mode:lighten}',
+    '.js-item-product .item-installments::after{content:"20% OFF efectivo o transf.";font-size:10.5px}',
     '.pm-tm-box{padding:24px 16px 18px}.pm-tm-t table{font-size:13px}.pm-tm-t th,.pm-tm-t td{padding:9px 4px}',
     '}'
   ].join('\n');
