@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{store_name}}</title>
+<style type="text/css">
+body{margin:0;padding:0;background:#EDEAE4;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+table,td{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}
+img{border:0;outline:none;text-decoration:none;display:block;-ms-interpolation-mode:bicubic}
+a{color:#D7191F}
+@media only screen and (max-width:620px){
+ .pm-wrap{width:100%!important}
+ .pm-pad{padding-left:22px!important;padding-right:22px!important}
+ .pm-h1{font-size:34px!important;line-height:36px!important}
+ .pm-btn{display:block!important;width:100%!important;box-sizing:border-box}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#EDEAE4;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Tu pedido #{{order.id}} ya te espera en el local. Traé tu DNI y el número de pedido.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EDEAE4;">
+<tr><td align="center" style="padding:24px 10px;">
+<table role="presentation" class="pm-wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background:#ffffff;">
+
+<!-- BANNER -->
+<tr><td style="background:#0F0F0F;">
+<a href="https://promisevb.mitiendanube.com/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@MAILSHA/assets/mail/banner.png" width="600" alt="PROMISE" style="width:100%;max-width:600px;height:auto;display:block;" /></a>
+</td></tr>
+
+<!-- CUERPO -->
+<tr><td class="pm-pad" style="padding:38px 44px 10px 44px;font-family:Arial,Helvetica,sans-serif;color:#0F0F0F;">
+<p style="margin:0 0 10px 0;font-size:12px;letter-spacing:3px;font-weight:bold;color:#D7191F;text-transform:uppercase;">Pedido #{{order.id}}</p>
+<h1 class="pm-h1" style="margin:0 0 22px 0;font-family:Impact,'Arial Narrow Bold','Arial Black',Arial,sans-serif;font-size:44px;line-height:46px;font-weight:normal;text-transform:uppercase;color:#0F0F0F;">Ya está listo<br /><span style="color:#D7191F;">para retirar</span></h1>
+{% if fulfillment.fulfillment_total > 1 %}
+<p style="margin:0 0 16px 0;font-size:16px;line-height:24px;">Hola {{fulfillment.pickup_shipping_name}}, tu paquete {{fulfillment.fulfillment_number}} de {{fulfillment.fulfillment_total}} del pedido #{{order.id}} ya te espera en el local.</p>
+{% else %}
+<p style="margin:0 0 16px 0;font-size:16px;line-height:24px;">Hola {{fulfillment.pickup_shipping_name}}, tu pedido #{{order.id}} ya te espera en el local.</p>
+{% endif %}
+</td></tr>
+
+<!-- DATOS DEL RETIRO -->
+<tr><td class="pm-pad" style="padding:6px 44px 6px 44px;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F6F4F0;border-left:4px solid #D7191F;">
+<tr><td style="padding:20px 22px;font-size:15px;line-height:23px;color:#0F0F0F;">
+<p style="margin:0 0 4px 0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Dónde retirás</p>
+<p style="margin:0 0 14px 0;"><strong>{{fulfillment.pickup_name}}</strong><br />{{fulfillment.pickup_street}} {{fulfillment.pickup_number}}{% if fulfillment.pickup_floor %}, {{fulfillment.pickup_floor}}{% endif %}, {{fulfillment.pickup_locality}}, {{fulfillment.pickup_city}} (CP {{fulfillment.pickup_zipcode}})</p>
+<p style="margin:0 0 4px 0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Horarios</p>
+<p style="margin:0 0 14px 0;">{{fulfillment.pickup_hours}}</p>
+<p style="margin:0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Qué traer</p>
+<p style="margin:4px 0 0 0;">Tu <strong>DNI</strong> y el <strong>número de pedido</strong> (#{{order.id}}).</p>
+</td></tr>
+</table>
+</td></tr>
+
+<!-- BOTONES -->
+<tr><td class="pm-pad" align="left" style="padding:26px 44px 8px 44px;font-family:Arial,Helvetica,sans-serif;">
+<a class="pm-btn" href="https://maps.app.goo.gl/wEB1Gxqx1NC8aVSg7" target="_blank" style="display:inline-block;background:#D7191F;color:#ffffff;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:15px 26px;margin:0 8px 10px 0;text-align:center;">Cómo llegar</a>
+<a class="pm-btn" href="https://wa.me/541140563485" target="_blank" style="display:inline-block;background:#ffffff;color:#0F0F0F;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 24px;border:2px solid #0F0F0F;margin:0 0 10px 0;text-align:center;">WhatsApp</a>
+</td></tr>
+
+<tr><td class="pm-pad" style="padding:14px 44px 36px 44px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:23px;color:#0F0F0F;">
+<p style="margin:0;">¡Gracias por elegirnos! Si querés, te lo probás en el local antes de llevártelo.</p>
+<p style="margin:16px 0 0 0;">Saludos,<br /><strong>{{store_name}}</strong></p>
+</td></tr>
+
+<!-- PIE -->
+<tr><td style="background:#0F0F0F;padding:26px 30px;font-family:Arial,Helvetica,sans-serif;text-align:center;">
+<p style="margin:0 0 8px 0;font-size:12px;letter-spacing:2px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Alvear 2445 · Villa Ballester</p>
+<p style="margin:0 0 14px 0;font-size:13px;line-height:20px;color:#bdb8b0;">
+<a href="https://wa.me/541140563485" target="_blank" style="color:#ffffff;text-decoration:none;">WhatsApp 11 4056-3485</a> &nbsp;·&nbsp;
+<a href="https://www.instagram.com/promise_vb/" target="_blank" style="color:#ffffff;text-decoration:none;">Instagram @promise_vb</a></p>
+<p style="margin:0;font-size:11px;line-height:16px;color:#7a756e;">Si no hiciste esta compra o estabas probando nuestro sitio, ignorá este e-mail.</p>
+</td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
