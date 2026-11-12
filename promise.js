@@ -71,8 +71,10 @@
     /* celular */
     '@media (max-width:767px){',
     '.pm-sec{padding:64px 0}.pm-h{font-size:40px}',
-    '.pm-tags{grid-template-columns:1fr 1fr;gap:34px 12px}',
-    '.pm-tag{padding:40px 12px 14px}.pm-tag b{font-size:28px}.pm-tag p{font-size:12px;min-height:0}.pm-tag h4{font-size:10px}',
+    '.pm-tags{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px 12px;align-items:stretch}',
+    '.pm-tag{display:flex;flex-direction:column;align-self:stretch}.pm-tag p{flex:1}',
+    '.pm-local .pm-btns,.pm-end .pm-btns{display:flex;flex-wrap:wrap;gap:10px}.pm-local .pm-btns a,.pm-end .pm-btns a{flex:1 1 140px;text-align:center;margin:0}',
+    '.pm-tag{padding:40px 12px 14px}.pm-tag b{font-size:24px;overflow-wrap:anywhere}.pm-tag p{font-size:12px;min-height:0}.pm-tag h4{font-size:10px}',
     '.pm-tag .pm-tf span:first-child{display:none}',
     '.pm-faq-grid{grid-template-columns:1fr;gap:10px}',
     '.pm-q button{font-size:18px;padding:20px 0}',
@@ -144,7 +146,7 @@
       '<div class="pm-wrap pm-local-grid"><div>' +
       '<div class="pm-kick pm-rv">El local</div>' +
       '<h2 class="pm-h pm-rv" id="pm-local-t">Venís, te lo probás, <em>te lo llevás puesto</em></h2>' +
-      '<p class="pm-rv" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a class="pm-btn" href="' + MAPS + '" target="_blank" rel="noopener">Cómo llegar</a>' +
+      '<p class="pm-rv pm-btns" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a class="pm-btn" href="' + MAPS + '" target="_blank" rel="noopener">Cómo llegar</a>' +
       '<a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">WhatsApp</a></p></div>' +
       '<div class="pm-steps pm-rv"><div><b>01</b>Elegís online o venís directo</div><div><b>02</b>Te lo probás en el probador</div><div><b>03</b>Retirás tu compra sin costo</div></div>' +
       '</div></section>');
