@@ -420,6 +420,17 @@
   }
 
   var CSS2 = [
+    /* Celular: beneficios mas compactos (flechas a los costados) y marquesina visible y mas chica */
+    '@media(max-width:767px){' +
+      '[data-store="banner-services"]{padding-top:20px!important;padding-bottom:18px!important}' +
+      '[data-store="banner-services"] .container{position:relative}' +
+      '[data-store="banner-services"] .js-informative-banners{margin-bottom:0!important}' +
+      '[data-store="banner-services"] .icon-60px{width:38px!important;height:38px!important;margin-bottom:8px!important}' +
+      '[data-store="banner-services"] .icon-60px svg{width:38px!important;height:38px!important}' +
+      '[data-store="banner-services"] .text-center.mt-4.d-md-none{position:absolute;left:4px;right:4px;top:50%;transform:translateY(-50%);margin:0!important;display:flex!important;justify-content:space-between;pointer-events:none;z-index:3}' +
+      '[data-store="banner-services"] .swiper-button-prev,[data-store="banner-services"] .swiper-button-next{position:static!important;margin:0!important;pointer-events:auto;width:36px;height:36px}' +
+      '[data-store="home-products-new"]::before{font-size:38px!important;margin:6px 0 10px!important;-webkit-text-stroke:1px #6b6660!important}' +
+    '}',
     /* El local: fotos + mapa */
     '.pm-lg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;position:relative;z-index:1}',
     '.pm-lg figure{margin:0;aspect-ratio:3/4;overflow:hidden;background:#0F0F0F;position:relative}',
