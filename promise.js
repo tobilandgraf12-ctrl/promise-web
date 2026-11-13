@@ -420,6 +420,10 @@
   }
 
   var CSS2 = [
+    /* Ruido de fondo detrás del contenido (no tapa fotos ni colores) */
+    'body,.pm-sec,.pm-wb,[data-store="banner-services"],.section-featured-home,[data-store^="home-products"],.js-footer,footer,.head-main,.section-institutional-home{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important;background-repeat:repeat!important}',
+    '.pm-hero{background:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\") 0 0/180px 180px repeat,radial-gradient(ellipse at 50% 45%,#262626 0,#0F0F0F 70%)!important}',
+    '.pm-local{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important}',
     /* Mega menu: tarjeta de catalogo (reemplaza el ovalo amarillo) */
     '.pm-mega .pm-cta{background:#141414!important;border:1px solid rgba(255,255,255,.1);border-radius:16px!important;color:#EDEAE4!important;padding:26px 24px!important;position:relative;overflow:hidden;transition:border-color .25s,transform .25s}',
     '.pm-mega .pm-cta:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#FFD400}',
@@ -439,7 +443,6 @@
     '@keyframes pm-new{0%,100%{transform:rotate(12deg) scale(1)}50%{transform:rotate(4deg) scale(1.08)}}',
     '@media(max-width:767px){.pm-hero::before{width:360px;height:360px;transform:translate(-55%,-40%)}.pm-hero .pm-hs.pm-far{width:76px}.pm-hero .pm-hs.pm-far img{filter:grayscale(.2) brightness(1.15) blur(1.6px) drop-shadow(0 0 12px rgba(255,212,0,.25))!important}.pm-new{width:46px;height:46px;font-size:9px;top:-12px;right:-12px}}',
     /* ===== Fondo y estilo moderno (13/11) ===== */
-    '#pm-grain{position:fixed;inset:0;pointer-events:none;z-index:2147483000;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");background-size:180px 180px}',
     '.pm-hero{background:radial-gradient(ellipse at 50% 45%,#262626 0,#0F0F0F 70%)!important}',
     '.pm-hero-word{opacity:.95}',
     '.pm-post{box-shadow:0 40px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06)!important}',
@@ -672,7 +675,6 @@
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
     try { masVendido(); } catch (e) {}
-    try { grain(); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
 
