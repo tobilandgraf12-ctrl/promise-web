@@ -427,9 +427,6 @@
     '.pm-mega .pm-cta small{color:#FFD400!important}',
     '.pm-mega .pm-cta b{color:#EDEAE4!important;font-size:30px!important}',
     '.pm-mega .pm-cta span{align-self:flex-start;background:#FFD400;color:#0F0F0F!important;border-radius:999px;padding:10px 16px}',
-    /* Efecto que sigue al mouse (solo compu) */
-    '#pm-fx{position:fixed;inset:0;pointer-events:none;z-index:2147482990;opacity:0;transition:opacity .5s;background-image:linear-gradient(rgba(255,212,0,.26) 1px,transparent 1px),linear-gradient(90deg,rgba(255,212,0,.26) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%);mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%)}',
-    '.pm-fx-on #pm-fx{opacity:1}',
     '[data-store="home-products-new"] .js-swiper-new-pagination,[data-store="home-products-new"] .swiper-pagination{display:none!important}',
     '.pm-mv-row{scrollbar-width:thin;scrollbar-color:#FFD400 rgba(255,255,255,.08)}.pm-mv-row::-webkit-scrollbar{height:4px}.pm-mv-row::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:9px}.pm-mv-row::-webkit-scrollbar-thumb{background:#FFD400;border-radius:9px}',
     /* Inicio: prendas de fondo más visibles, foco amarillo y sticker */
@@ -442,8 +439,7 @@
     '@keyframes pm-new{0%,100%{transform:rotate(12deg) scale(1)}50%{transform:rotate(4deg) scale(1.08)}}',
     '@media(max-width:767px){.pm-hero::before{width:360px;height:360px;transform:translate(-55%,-40%)}.pm-hero .pm-hs.pm-far{width:76px}.pm-hero .pm-hs.pm-far img{filter:grayscale(.2) brightness(1.15) blur(1.6px) drop-shadow(0 0 12px rgba(255,212,0,.25))!important}.pm-new{width:46px;height:46px;font-size:9px;top:-12px;right:-12px}}',
     /* ===== Fondo y estilo moderno (13/11) ===== */
-    '#pm-grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:2147483000;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");background-size:180px 180px;animation:pm-grain 1.2s steps(4) infinite}',
-    '@keyframes pm-grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}',
+    '#pm-grain{position:fixed;inset:0;pointer-events:none;z-index:2147483000;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");background-size:180px 180px}',
     '.pm-hero{background:radial-gradient(ellipse at 50% 45%,#262626 0,#0F0F0F 70%)!important}',
     '.pm-hero-word{opacity:.95}',
     '.pm-post{box-shadow:0 40px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06)!important}',
@@ -472,7 +468,6 @@
     '.section-featured-home .js-item-product,.pm-mv-row>.js-item-product{transition:transform .35s cubic-bezier(.2,.7,.2,1)}',
     '@media(hover:hover){.section-featured-home .js-item-product:hover,.pm-mv-row>.js-item-product:hover{transform:translateY(-6px)}}',
     '@media(max-width:767px){.pm-wb{padding:14px 0}.pm-wb-l{font-size:58px;-webkit-text-stroke:1px #4a4744}.item-product .item-image,.js-item-product .item-image{border-radius:12px}.pm-cat{border-radius:14px!important}}',
-    '@media(prefers-reduced-motion:reduce){#pm-grain{animation:none}}',
     /* Celular: beneficios mas compactos (flechas a los costados) y marquesina visible y mas chica */
     '@media(max-width:767px){' +
       '[data-store="banner-services"]{padding-top:20px!important;padding-bottom:18px!important}' +
@@ -666,23 +661,6 @@
   }
 
 
-  // Grilla amarilla que aparece alrededor del mouse (solo compu, sin aro)
-  function mouseFx() {
-    if (window.__pmFx) return; window.__pmFx = true;
-    if (!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var fx = document.createElement('div'); fx.id = 'pm-fx'; fx.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(fx);
-    var x = -999, y = -999, queued = false;
-    function paint() { queued = false; fx.style.setProperty('--mx', x + 'px'); fx.style.setProperty('--my', y + 'px'); }
-    document.addEventListener('pointermove', function (e) {
-      x = e.clientX; y = e.clientY;
-      document.documentElement.classList.add('pm-fx-on');
-      if (!queued) { queued = true; requestAnimationFrame(paint); }
-    }, { passive: true });
-    document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) document.documentElement.classList.remove('pm-fx-on'); });
-  }
-
   function init() {
     if (!document.getElementById('pm-style')) {
       var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS; document.head.appendChild(st);
@@ -695,7 +673,6 @@
     try { navLinks(); } catch (e) {}
     try { masVendido(); } catch (e) {}
     try { grain(); } catch (e) {}
-    try { mouseFx(); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
 
