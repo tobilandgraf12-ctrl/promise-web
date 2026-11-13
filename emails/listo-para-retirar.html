@@ -8,7 +8,7 @@
 body{margin:0;padding:0;background:#EDEAE4;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
 table,td{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}
 img{border:0;outline:none;text-decoration:none;display:block;-ms-interpolation-mode:bicubic}
-a{color:#D7191F}
+a{color:#0F0F0F}
 @media only screen and (max-width:620px){
  .pm-wrap{width:100%!important}
  .pm-pad{padding-left:22px!important;padding-right:22px!important}
@@ -25,13 +25,13 @@ a{color:#D7191F}
 
 <!-- BANNER -->
 <tr><td style="background:#0F0F0F;">
-<a href="https://promisevb.mitiendanube.com/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@55aaa1e/assets/mail/banner.png" width="600" alt="PROMISE" style="width:100%;max-width:600px;height:auto;display:block;" /></a>
+<a href="https://promisevb.mitiendanube.com/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@a2575cb/assets/mail/banner2.png" width="600" alt="PROMISE" style="width:100%;max-width:600px;height:auto;display:block;" /></a>
 </td></tr>
 
 <!-- CUERPO -->
 <tr><td class="pm-pad" style="padding:38px 44px 10px 44px;font-family:Arial,Helvetica,sans-serif;color:#0F0F0F;">
-<p style="margin:0 0 10px 0;font-size:12px;letter-spacing:3px;font-weight:bold;color:#D7191F;text-transform:uppercase;">Pedido #{{order.id}}</p>
-<h1 class="pm-h1" style="margin:0 0 22px 0;font-family:Impact,'Arial Narrow Bold','Arial Black',Arial,sans-serif;font-size:44px;line-height:46px;font-weight:normal;text-transform:uppercase;color:#0F0F0F;">Ya está listo<br /><span style="color:#D7191F;">para retirar</span></h1>
+<p style="margin:0 0 10px 0;font-size:12px;letter-spacing:3px;font-weight:bold;color:#0F0F0F;text-transform:uppercase;">Pedido #{{order.id}}</p>
+<h1 class="pm-h1" style="margin:0 0 22px 0;font-family:Impact,'Arial Narrow Bold','Arial Black',Arial,sans-serif;font-size:44px;line-height:46px;font-weight:normal;text-transform:uppercase;color:#0F0F0F;">Ya está listo<br /><span style="background:#FFD400;color:#0F0F0F;padding:0 6px;">para retirar</span></h1>
 {% if fulfillment.fulfillment_total > 1 %}
 <p style="margin:0 0 16px 0;font-size:16px;line-height:24px;">Hola {{fulfillment.pickup_shipping_name}}, tu paquete {{fulfillment.fulfillment_number}} de {{fulfillment.fulfillment_total}} del pedido #{{order.id}} ya te espera en el local.</p>
 {% else %}
@@ -41,7 +41,7 @@ a{color:#D7191F}
 
 <!-- DATOS DEL RETIRO -->
 <tr><td class="pm-pad" style="padding:6px 44px 6px 44px;font-family:Arial,Helvetica,sans-serif;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F6F4F0;border-left:4px solid #D7191F;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F6F4F0;border-left:4px solid #FFD400;">
 <tr><td style="padding:20px 22px;font-size:15px;line-height:23px;color:#0F0F0F;">
 <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:2px;font-weight:bold;color:#7a756e;text-transform:uppercase;">Dónde retirás</p>
 {% if fulfillment.pickup_street %}<p style="margin:0 0 14px 0;"><strong>{{fulfillment.pickup_name}}</strong><br />{{fulfillment.pickup_street}} {{fulfillment.pickup_number}}{% if fulfillment.pickup_floor %}, {{fulfillment.pickup_floor}}{% endif %}, {{fulfillment.pickup_locality}}, {{fulfillment.pickup_city}} (CP {{fulfillment.pickup_zipcode}})</p>{% else %}<p style="margin:0 0 14px 0;"><strong>Promise</strong><br />Alvear 2445, Villa Ballester, San Martín (CP 1653)</p>{% endif %}
@@ -55,7 +55,7 @@ a{color:#D7191F}
 
 <!-- BOTONES -->
 <tr><td class="pm-pad" align="left" style="padding:26px 44px 8px 44px;font-family:Arial,Helvetica,sans-serif;">
-<a class="pm-btn" href="https://maps.app.goo.gl/wEB1Gxqx1NC8aVSg7" target="_blank" style="display:inline-block;background:#D7191F;color:#ffffff;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:15px 26px;margin:0 8px 10px 0;text-align:center;">Cómo llegar</a>
+<a class="pm-btn" href="https://maps.app.goo.gl/wEB1Gxqx1NC8aVSg7" target="_blank" style="display:inline-block;background:#FFD400;color:#0F0F0F;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:15px 26px;margin:0 8px 10px 0;text-align:center;">Cómo llegar</a>
 <a class="pm-btn" href="https://wa.me/541140563485" target="_blank" style="display:inline-block;background:#ffffff;color:#0F0F0F;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 24px;border:2px solid #0F0F0F;margin:0 0 10px 0;text-align:center;">WhatsApp</a>
 </td></tr>
 

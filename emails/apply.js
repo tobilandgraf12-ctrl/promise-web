@@ -39,3 +39,25 @@ window.pmMail = async function (key, base) {
   t.focus(); t.setSelectionRange(t.value.length, t.value.length);
   return 'ok ' + key + ' len=' + out.length + ' (antes ' + v.length + ')';
 };
+
+// Cambia la paleta de un mail ya aplicado (rojo -> negro/blanco/amarillo). Devuelve el HTML nuevo.
+window.pmRecolorHtml = function (v) {
+  return v
+    .replace(/promise-web@[0-9a-f]+\/assets\/mail\/banner\.png/g, 'promise-web@a2575cb/assets/mail/banner2.png')
+    .replace(/<span style="color:#D7191F;">/g, '<span style="background:#FFD400;color:#0F0F0F;padding:0 6px;">')
+    .replace(/background:#D7191F;color:#ffffff/g, 'background:#FFD400;color:#0F0F0F')
+    .replace(/font-weight:bold;color:#D7191F;text-transform:uppercase;/g, 'font-weight:bold;color:#0F0F0F;text-transform:uppercase;')
+    .replace(/border-left:4px solid #D7191F/g, 'border-left:4px solid #FFD400')
+    .replace(/\.pm-c a\{color:#D7191F;font-weight:bold\}/g, '.pm-c a{color:#0F0F0F;font-weight:bold;text-decoration:underline}')
+    .replace(/a\{color:#D7191F\}/g, 'a{color:#0F0F0F}')
+    .replace(/#D7191F/gi, '#0F0F0F');
+};
+window.pmRecolor = function () {
+  var t = document.querySelector('[name=templateHtml]'); if (!t) return 'no hay editor abierto';
+  var v = t.value; if (v.indexOf('assets/mail/banner') < 0) return 'este mail no tiene el diseño Promise';
+  var n = window.pmRecolorHtml(v);
+  var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+  set.call(t, n + ' '); t.dispatchEvent(new Event('input', { bubbles: true }));
+  t.focus(); t.setSelectionRange(t.value.length, t.value.length);
+  return 'ok rojos restantes=' + ((n.match(/#D7191F/gi) || []).length) + ' banner2=' + (n.indexOf('banner2.png') > -1);
+};
