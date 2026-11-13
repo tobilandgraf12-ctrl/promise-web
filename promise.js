@@ -206,6 +206,21 @@
     return el(html + '</div></div></section>');
   }
 
+  function giftSection() {
+    var D = [['obsidian', 'Obsidian'], ['chrome', 'Chrome'], ['acid', 'Acid'], ['techtag', 'Tech Tag']];
+    var cards = D.map(function (d, i) {
+      return '<figure class="pm-gc" style="--i:' + i + '"><div class="pm-gc-c"><img src="' + ASSETS + 'gift/' + d[0] + '_100000.webp" alt="Gift card ' + d[1] + '" loading="lazy" width="1000" height="630"><i></i></div><figcaption>' + d[1] + '</figcaption></figure>';
+    }).join('');
+    return el('<section class="pm-sec pm-gift" aria-labelledby="pm-gift-t"><div class="pm-wrap">' +
+      '<div class="pm-kick pm-rv">Gift cards</div>' +
+      '<h2 class="pm-h pm-rv" id="pm-gift-t">Regalá <em>Promise</em></h2>' +
+      '<p class="pm-lead pm-rv">Elegí el monto y el diseño. Se la mandamos a quien quieras, con su nombre y tu mensaje.</p>' +
+      '<div class="pm-gcs">' + cards + '</div>' +
+      '<div class="pm-gc-amts pm-rv"><span>$50.000</span><span>$100.000</span><span>$150.000</span><span>$200.000</span></div>' +
+      '<div class="pm-gc-cta pm-rv"><a class="pm-btn" href="/productos/gift-card/">Regalar una gift card →</a><small>Válida 6 meses · Un solo uso · En la web o en el local</small></div>' +
+      '</div></section>');
+  }
+
   function faqSection() {
     var qs = [
       ['¿Cómo sé qué talle soy?', 'Lo mejor es venir a probártelo: el local tiene probadores. Si comprás online, medí una prenda tuya siguiendo la <a href="#" class="pm-open-talles">guía de talles</a> y consultanos las medidas del modelo. Si tenés dudas, te ayudamos por WhatsApp.'],
@@ -422,6 +437,7 @@
   var CSS2 = [
     /* Ruido de fondo detrás del contenido (no tapa fotos ni colores) */
     '#pm-transfer{margin:6px 0 14px;text-align:center}#pm-transfer .pm-tr-btn{display:block;border:2px solid #0F0F0F;border-radius:999px;padding:12px 16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:13px;color:#FFD400!important;background:transparent;border-color:#FFD400;text-decoration:none!important}#pm-transfer .pm-tr-btn:hover{background:#FFD400;color:#0F0F0F!important}#pm-transfer .pm-tr-note{font-size:12px;opacity:.7;margin:8px 4px 0;line-height:1.35}',
+    '.pm-gift .pm-wrap{text-align:center}.pm-gcs{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin:46px auto 30px;perspective:1200px;max-width:1180px}.pm-gc{margin:0}.pm-gc-c{position:relative;border-radius:14px;overflow:hidden;box-shadow:0 28px 50px rgba(0,0,0,.55);animation:pm-gcf 6s ease-in-out infinite;animation-delay:calc(var(--i)*-1.5s);will-change:transform}.pm-gc-c img{display:block;width:100%;height:auto}.pm-gc-c i{position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 48%,transparent 60%);transform:translateX(-120%);animation:pm-gcs 6s ease-in-out infinite;animation-delay:calc(var(--i)*-1.5s);mix-blend-mode:overlay}.pm-gc figcaption{margin-top:18px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:#FFD400}@keyframes pm-gcf{0%,100%{transform:translateY(0) rotateX(8deg) rotateY(-10deg)}50%{transform:translateY(-12px) rotateX(-4deg) rotateY(10deg)}}@keyframes pm-gcs{0%,55%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}.pm-gc-amts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}.pm-gc-amts span{border:1px solid rgba(255,212,0,.5);color:#FFD400;border-radius:999px;padding:8px 18px;font-weight:700;font-size:14px}.pm-gc-cta small{display:block;margin-top:14px;opacity:.6;font-size:13px}@media(max-width:767px){.pm-gcs{grid-template-columns:repeat(2,1fr);gap:22px 16px;margin-top:30px}}@media(prefers-reduced-motion:reduce){.pm-gc-c,.pm-gc-c i{animation:none}}',
     '/* Ruido solo en body: las secciones son transparentes para que no se apilen capas y cambien de tono */',
     'body{background-color:#0F0F0F!important;background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important;background-repeat:repeat!important}',
     '.pm-sec:not(.pm-local):not(.pm-hero),.pm-wb,[data-store="banner-services"],.section-featured-home,[data-store^="home-products"],.section-institutional-home,.js-newsletter-home,.section-newsletter-home{background-color:transparent!important;background-image:none!important}',
@@ -724,7 +740,8 @@
     var anchor = featured || home;
     var a = insertAfter(anchor, tagsSection());
     var b = insertAfter(a, faqSection());
-    var c = insertAfter(b, localSection());
+    var gs = b; try { gs = insertAfter(b, giftSection()); } catch (e) {}
+    var c = insertAfter(gs, localSection());
     var endNode = endSection();
     if (news && news.parentNode) news.parentNode.insertBefore(endNode, news); else insertAfter(c, endNode);
     try {
