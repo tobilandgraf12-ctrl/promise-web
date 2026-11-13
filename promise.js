@@ -421,6 +421,7 @@
 
   var CSS2 = [
     /* Ruido de fondo detrás del contenido (no tapa fotos ni colores) */
+    '#pm-transfer{margin:6px 0 14px;text-align:center}#pm-transfer .pm-tr-btn{display:block;border:2px solid #0F0F0F;border-radius:999px;padding:12px 16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:13px;color:#0F0F0F!important;background:#FFD400;text-decoration:none!important}#pm-transfer .pm-tr-btn:hover{background:#0F0F0F;color:#FFD400!important}#pm-transfer .pm-tr-note{font-size:12px;opacity:.7;margin:8px 4px 0;line-height:1.35}',
     '/* Ruido solo en body: las secciones son transparentes para que no se apilen capas y cambien de tono */',
     'body{background-color:#0F0F0F!important;background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important;background-repeat:repeat!important}',
     '.pm-sec:not(.pm-local):not(.pm-hero),.pm-wb,[data-store="banner-services"],.section-featured-home,[data-store^="home-products"],.section-institutional-home,.js-newsletter-home,.section-newsletter-home{background-color:transparent!important;background-image:none!important}',
@@ -606,6 +607,36 @@
   }
 
   // "Recién llegado" -> "Lo más vendido": trae los más vendidos con stock y los pone en el mismo carrusel
+  /* Carrito: pagar por transferencia via WhatsApp (20% OFF) */
+  function transferBtn() {
+    var sub = document.getElementById('ajax-cart-submit-div');
+    if (!sub || document.getElementById('pm-transfer')) return;
+    var box = document.createElement('div'); box.id = 'pm-transfer';
+    box.innerHTML = '<a href="#" class="pm-tr-btn">Pagar por transferencia · <b>20% OFF</b></a>' +
+      '<p class="pm-tr-note">Te pasamos el pedido por WhatsApp y te respondemos con el total y el alias.</p>';
+    sub.parentNode.insertBefore(box, sub.nextSibling);
+    box.querySelector('a').addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var num = function (t) { return parseFloat(String(t || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0; };
+      var fmt = function (n) { return '$' + Math.round(n).toLocaleString('es-AR'); };
+      var lines = [], total = 0;
+      document.querySelectorAll('.js-cart-item').forEach(function (el) {
+        var a = el.querySelector('[data-component="name.short-name"]');
+        if (!a) return;
+        var v = a.querySelector('small'); var name = a.childNodes[0].textContent.trim();
+        var q = (el.querySelector('.js-cart-quantity-input') || {}).value || '1';
+        var p = num((el.querySelector('.js-cart-item-subtotal') || {}).textContent);
+        total += p;
+        lines.push('• ' + name + (v ? ' ' + v.textContent.trim() : '') + ' x' + q + ' — ' + fmt(p));
+      });
+      if (!lines.length) return;
+      var msg = 'Hola Promise! Quiero pagar por transferencia con el 20% OFF:\n' + lines.join('\n') +
+        '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt(total * 0.8) +
+        '\n\n¿Me pasan el alias? (Envío o retiro a coordinar)';
+      window.open(WA + '?text=' + encodeURIComponent(msg), '_blank');
+    });
+  }
+
   function masVendido() {
     var s = document.querySelector('[data-store="home-products-new"]');
     if (!s || s.getAttribute('data-pm-mv')) return;
@@ -680,6 +711,7 @@
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
     try { masVendido(); } catch (e) {}
+    try { transferBtn(); setInterval(transferBtn, 1500); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
 
