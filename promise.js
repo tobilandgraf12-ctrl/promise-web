@@ -426,6 +426,7 @@
     '.pm-hero .pm-hs.pm-far{width:136px}',
     '.pm-hero .pm-hs.pm-far img{filter:grayscale(.2) contrast(1.08) brightness(1.18) blur(2.4px) drop-shadow(0 0 18px rgba(255,212,0,.25))!important;opacity:.95!important}',
     '.pm-new{position:absolute;top:-16px;right:-18px;z-index:6;width:62px;height:62px;border-radius:50%;background:#FFD400;color:#0F0F0F;display:flex;align-items:center;justify-content:center;text-align:center;font-family:"Oswald",sans-serif;font-weight:700;font-size:12px;line-height:1;letter-spacing:.06em;text-transform:uppercase;transform:rotate(12deg);box-shadow:0 8px 20px rgba(0,0,0,.45);animation:pm-new 3.2s ease-in-out infinite}',
+    '.pm-hero .pm-post{overflow:visible!important}.pm-post-h{border-radius:14px 14px 0 0}',
     '@keyframes pm-new{0%,100%{transform:rotate(12deg) scale(1)}50%{transform:rotate(4deg) scale(1.08)}}',
     '@media(max-width:767px){.pm-hero::before{width:360px;height:360px;transform:translate(-55%,-40%)}.pm-hero .pm-hs.pm-far{width:76px}.pm-hero .pm-hs.pm-far img{filter:grayscale(.2) brightness(1.15) blur(1.6px) drop-shadow(0 0 12px rgba(255,212,0,.25))!important}.pm-new{width:46px;height:46px;font-size:9px;top:-12px;right:-12px}}',
     /* ===== Fondo y estilo moderno (13/11) ===== */
