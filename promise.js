@@ -430,7 +430,7 @@
     '.pm-hero-cta:hover{background:#fff!important}',
     '.pm-wb{background:#0F0F0F;overflow:hidden;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);position:relative}',
     '.pm-wb-l{white-space:nowrap;font-family:"Oswald",sans-serif;font-weight:700;font-size:118px;line-height:1.02;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.2px #4a4744;will-change:transform}',
-    '.pm-wb-l i{font-style:normal;color:#FFD400;-webkit-text-stroke:0;margin:0 .15em}',
+    '.pm-wb-l i{font-style:normal;display:inline-block;font-size:.42em;vertical-align:.55em;color:#FFD400;-webkit-text-stroke:0;margin:0 .35em}',
     '[data-store="home-products-new"]::before{display:none!important}',
     /* bordes y detalles */
     '.pm-btn,.pm-hero-cta,.pm-mega .pm-cta{border-radius:999px!important}',
@@ -671,7 +671,7 @@
     try {
       var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
       if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'TE LO PROBÁS ✕ TE LO LLEVÁS PUESTO ✕ '));
-      if (mv) mv.parentNode.insertBefore(wordBand('LO MÁS VENDIDO ✕ FAVORITOS ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '), mv);
+      if (cats) insertAfter(cats, wordBand('LO MÁS VENDIDO ✕ FAVORITOS ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
       var faq = document.getElementById('preguntas');
       if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ STREETWEAR ✕ '), fs); }
       bandScroll();
