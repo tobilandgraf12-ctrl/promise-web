@@ -441,6 +441,7 @@
     '.pm-cat .pm-lbl i{border-radius:999px!important}',
     '.pm-tm-box{border-radius:18px!important}.pm-tm-img{border-radius:12px;overflow:hidden}.pm-tm-tabs button{border-radius:999px!important}',
     '.pm-lg figure{border-radius:16px}',
+    '.pm-q button span{border-radius:999px!important}',
     '.pm-mega.desktop-dropdown{border-radius:0 0 18px 18px}',
     'html body .form-control,html body input[type=email],html body input[type=text],html body input[type=number],html body select{border-radius:12px!important}',
     '.btn-variant{border-radius:999px!important}',
