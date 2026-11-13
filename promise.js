@@ -309,9 +309,9 @@
     var snd = '<svg viewBox="0 0 24 24"><path ' + st + ' d="M21.5 3 10 13.5M21.5 3l-7 18-4.5-7.5L2.5 9z"/></svg>';
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
-      '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_black.webp" alt="" fetchpriority="high"></div>' +
+      '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div>' +
       small('s1 pm-far', 'campera.webp') + small('s2 pm-far', 'camo.webp') + small('s3 pm-far', 'endgame.webp') +
-      '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_black.webp" alt=""></div>' +
+      '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
         '<div class="pm-post-img"><img src="' + A + 'post.webp" alt="Conjunto Street negro con remera blanca en el local de Promise" fetchpriority="high"></div>' +
@@ -420,6 +420,35 @@
   }
 
   var CSS2 = [
+    /* ===== Fondo y estilo moderno (13/11) ===== */
+    '#pm-grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:2147483000;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");background-size:180px 180px;animation:pm-grain 1.2s steps(4) infinite}',
+    '@keyframes pm-grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}',
+    '.pm-hero{background:radial-gradient(ellipse at 50% 45%,#262626 0,#0F0F0F 70%)!important}',
+    '.pm-hero-word{opacity:.95}',
+    '.pm-post{box-shadow:0 40px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06)!important}',
+    '.pm-hero-cta{background:#FFD400!important;color:#0F0F0F!important}',
+    '.pm-hero-cta:hover{background:#fff!important}',
+    '.pm-wb{background:#0F0F0F;overflow:hidden;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);position:relative}',
+    '.pm-wb-l{white-space:nowrap;font-family:"Oswald",sans-serif;font-weight:700;font-size:118px;line-height:1.02;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.2px #4a4744;will-change:transform}',
+    '.pm-wb-l i{font-style:normal;color:#FFD400;-webkit-text-stroke:0;margin:0 .15em}',
+    '[data-store="home-products-new"]::before{display:none!important}',
+    /* bordes y detalles */
+    '.pm-btn,.pm-hero-cta,.pm-mega .pm-cta{border-radius:999px!important}',
+    'html body .btn,html body .btn-primary,html body .btn-secondary,html body .js-addtocart{border-radius:999px!important}',
+    '.item-product .item-actions .btn-link{border-radius:999px!important}',
+    '.item-product .item-image,.js-item-product .item-image{border-radius:14px;overflow:hidden}',
+    '.pm-cat{border-radius:18px!important;overflow:hidden}',
+    '.pm-cat .pm-lbl i{border-radius:999px!important}',
+    '.pm-tm-box{border-radius:18px!important}.pm-tm-img{border-radius:12px;overflow:hidden}.pm-tm-tabs button{border-radius:999px!important}',
+    '.pm-lg figure{border-radius:16px}',
+    '.pm-mega.desktop-dropdown{border-radius:0 0 18px 18px}',
+    'html body .form-control,html body input[type=email],html body input[type=text],html body input[type=number],html body select{border-radius:12px!important}',
+    '.btn-variant{border-radius:999px!important}',
+    '[data-store="banner-services"]{background:transparent!important;border-color:rgba(255,255,255,.07)!important}',
+    '.section-featured-home .js-item-product,.pm-mv-row>.js-item-product{transition:transform .35s cubic-bezier(.2,.7,.2,1)}',
+    '@media(hover:hover){.section-featured-home .js-item-product:hover,.pm-mv-row>.js-item-product:hover{transform:translateY(-6px)}}',
+    '@media(max-width:767px){.pm-wb{padding:14px 0}.pm-wb-l{font-size:58px;-webkit-text-stroke:1px #4a4744}.item-product .item-image,.js-item-product .item-image{border-radius:12px}.pm-cat{border-radius:14px!important}}',
+    '@media(prefers-reduced-motion:reduce){#pm-grain{animation:none}}',
     /* Celular: beneficios mas compactos (flechas a los costados) y marquesina visible y mas chica */
     '@media(max-width:767px){' +
       '[data-store="banner-services"]{padding-top:20px!important;padding-bottom:18px!important}' +
@@ -577,6 +606,41 @@
 
   function insertAfter(ref, node) { ref.parentNode.insertBefore(node, ref.nextSibling); return node; }
 
+
+  // Fondo con grano (cemento) en toda la página
+  function grain() {
+    if (document.getElementById('pm-grain')) return;
+    var g = document.createElement('div'); g.id = 'pm-grain'; g.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(g);
+  }
+
+  // Bandas de palabras gigantes caladas que se mueven al bajar
+  function wordBand(l1, l2) {
+    var rep = function (t) { var x = ''; for (var i = 0; i < 6; i++) x += t; return x.replace(/✕/g, '<i>✕</i>'); };
+    return el('<section class="pm-wb" aria-hidden="true"><div class="pm-wb-l" data-dir="1">' + rep(l1) + '</div><div class="pm-wb-l" data-dir="-1">' + rep(l2) + '</div></section>');
+  }
+  function bandScroll() {
+    if (window.__pmBand) return; window.__pmBand = true;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ticking = false;
+    function upd() {
+      ticking = false;
+      var vh = window.innerHeight;
+      document.querySelectorAll('.pm-wb').forEach(function (b) {
+        var r = b.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var p = (vh - r.top) * 0.35;
+        b.querySelectorAll('.pm-wb-l').forEach(function (l) {
+          var d = +l.getAttribute('data-dir');
+          l.style.transform = 'translate3d(' + (d > 0 ? -p : p - l.scrollWidth / 3) + 'px,0,0)';
+        });
+      });
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+    window.addEventListener('resize', upd, { passive: true });
+    upd();
+  }
+
   function init() {
     if (!document.getElementById('pm-style')) {
       var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS; document.head.appendChild(st);
@@ -588,6 +652,7 @@
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
     try { masVendido(); } catch (e) {}
+    try { grain(); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
 
@@ -603,6 +668,14 @@
     var c = insertAfter(b, localSection());
     var endNode = endSection();
     if (news && news.parentNode) news.parentNode.insertBefore(endNode, news); else insertAfter(c, endNode);
+    try {
+      var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
+      if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'TE LO PROBÁS ✕ TE LO LLEVÁS PUESTO ✕ '));
+      if (mv) mv.parentNode.insertBefore(wordBand('LO MÁS VENDIDO ✕ FAVORITOS ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '), mv);
+      var faq = document.getElementById('preguntas');
+      if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ STREETWEAR ✕ '), fs); }
+      bandScroll();
+    } catch (e) {}
     reveal(document);
     if (location.hash === '#preguntas' || location.hash === '#local') {
       var t = document.getElementById(location.hash.slice(1));
