@@ -314,7 +314,7 @@
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
-        '<div class="pm-post-img"><img src="' + A + 'post.webp" alt="Conjunto Street negro con remera blanca en el local de Promise" fetchpriority="high"></div>' +
+        '<span class="pm-new" aria-hidden="true">Nuevo<br>drop</span>' + '<div class="pm-post-img"><img src="' + A + 'post.webp" alt="Conjunto Street negro con remera blanca en el local de Promise" fetchpriority="high"></div>' +
         '<div class="pm-post-a">' + heart + com + snd + bm + '</div>' +
         '<div class="pm-post-c"><b>' + HERO.usuario + '</b> ' + HERO.texto + '</div>' +
       '</a>' +
@@ -420,6 +420,14 @@
   }
 
   var CSS2 = [
+    /* Inicio: prendas de fondo más visibles, foco amarillo y sticker */
+    '.pm-hero::before{content:"";position:absolute;left:50%;top:50%;width:620px;height:620px;transform:translate(-62%,-52%);border-radius:50%;background:radial-gradient(circle,rgba(255,212,0,.17) 0,rgba(255,212,0,.06) 38%,transparent 66%);z-index:0;pointer-events:none;animation:pm-spot 6s ease-in-out infinite}',
+    '@keyframes pm-spot{50%{transform:translate(-62%,-52%) scale(1.12);opacity:.8}}',
+    '.pm-hero .pm-hs.pm-far{width:136px}',
+    '.pm-hero .pm-hs.pm-far img{filter:grayscale(.2) contrast(1.08) brightness(1.18) blur(2.4px) drop-shadow(0 0 18px rgba(255,212,0,.25))!important;opacity:.95!important}',
+    '.pm-new{position:absolute;top:-16px;right:-18px;z-index:6;width:62px;height:62px;border-radius:50%;background:#FFD400;color:#0F0F0F;display:flex;align-items:center;justify-content:center;text-align:center;font-family:"Oswald",sans-serif;font-weight:700;font-size:12px;line-height:1;letter-spacing:.06em;text-transform:uppercase;transform:rotate(12deg);box-shadow:0 8px 20px rgba(0,0,0,.45);animation:pm-new 3.2s ease-in-out infinite}',
+    '@keyframes pm-new{0%,100%{transform:rotate(12deg) scale(1)}50%{transform:rotate(4deg) scale(1.08)}}',
+    '@media(max-width:767px){.pm-hero::before{width:360px;height:360px;transform:translate(-55%,-40%)}.pm-hero .pm-hs.pm-far{width:76px}.pm-hero .pm-hs.pm-far img{filter:grayscale(.2) brightness(1.15) blur(1.6px) drop-shadow(0 0 12px rgba(255,212,0,.25))!important}.pm-new{width:46px;height:46px;font-size:9px;top:-12px;right:-12px}}',
     /* ===== Fondo y estilo moderno (13/11) ===== */
     '#pm-grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:2147483000;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");background-size:180px 180px;animation:pm-grain 1.2s steps(4) infinite}',
     '@keyframes pm-grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}',
