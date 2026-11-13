@@ -430,12 +430,8 @@
     /* Efecto que sigue al mouse (solo compu) */
     '#pm-fx{position:fixed;inset:0;pointer-events:none;z-index:2147482990;opacity:0;transition:opacity .5s;background-image:linear-gradient(rgba(255,212,0,.26) 1px,transparent 1px),linear-gradient(90deg,rgba(255,212,0,.26) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%);mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%)}',
     '.pm-fx-on #pm-fx{opacity:1}',
-    '#pm-ring{position:fixed;left:0;top:0;width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid #FFD400;border-radius:50%;pointer-events:none;z-index:2147482991;opacity:0;transition:opacity .3s,width .25s,height .25s,margin .25s,background .25s}',
-    '#pm-ring:after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:#FFD400}',
-    '.pm-fx-on #pm-ring{opacity:1}',
     '[data-store="home-products-new"] .js-swiper-new-pagination,[data-store="home-products-new"] .swiper-pagination{display:none!important}',
     '.pm-mv-row{scrollbar-width:thin;scrollbar-color:#FFD400 rgba(255,255,255,.08)}.pm-mv-row::-webkit-scrollbar{height:4px}.pm-mv-row::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:9px}.pm-mv-row::-webkit-scrollbar-thumb{background:#FFD400;border-radius:9px}',
-    '#pm-ring.pm-big{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(255,212,0,.12)}',
     /* Inicio: prendas de fondo más visibles, foco amarillo y sticker */
     '.pm-hero::before{content:"";position:absolute;left:50%;top:50%;width:620px;height:620px;transform:translate(-62%,-52%);border-radius:50%;background:radial-gradient(circle,rgba(255,212,0,.17) 0,rgba(255,212,0,.06) 38%,transparent 66%);z-index:0;pointer-events:none;animation:pm-spot 6s ease-in-out infinite}',
     '@keyframes pm-spot{50%{transform:translate(-62%,-52%) scale(1.12);opacity:.8}}',
@@ -670,32 +666,21 @@
   }
 
 
-  // Prueba: grilla amarilla que aparece alrededor del mouse + aro que lo sigue (solo compu)
+  // Grilla amarilla que aparece alrededor del mouse (solo compu, sin aro)
   function mouseFx() {
     if (window.__pmFx) return; window.__pmFx = true;
     if (!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var fx = document.createElement('div'); fx.id = 'pm-fx'; fx.setAttribute('aria-hidden', 'true');
-    var ring = document.createElement('div'); ring.id = 'pm-ring'; ring.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(fx); document.body.appendChild(ring);
-    var mx = -999, my = -999, rx = -999, ry = -999, run = false;
-    function loop() {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)';
-      if (Math.abs(mx - rx) > 0.3 || Math.abs(my - ry) > 0.3) requestAnimationFrame(loop); else run = false;
-    }
+    document.body.appendChild(fx);
+    var x = -999, y = -999, queued = false;
+    function paint() { queued = false; fx.style.setProperty('--mx', x + 'px'); fx.style.setProperty('--my', y + 'px'); }
     document.addEventListener('pointermove', function (e) {
-      mx = e.clientX; my = e.clientY;
-      fx.style.setProperty('--mx', mx + 'px'); fx.style.setProperty('--my', my + 'px');
+      x = e.clientX; y = e.clientY;
       document.documentElement.classList.add('pm-fx-on');
-      if (!run) { run = true; requestAnimationFrame(loop); }
+      if (!queued) { queued = true; requestAnimationFrame(paint); }
     }, { passive: true });
-    document.addEventListener('pointerleave', function () { document.documentElement.classList.remove('pm-fx-on'); });
     document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) document.documentElement.classList.remove('pm-fx-on'); });
-    document.addEventListener('pointerover', function (e) {
-      var t = e.target.closest && e.target.closest('a,button,[role=button],.js-item-product,input,select');
-      ring.classList.toggle('pm-big', !!t);
-    }, { passive: true });
   }
 
   function init() {
