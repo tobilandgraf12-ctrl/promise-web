@@ -451,6 +451,8 @@
     '.pm-tm-box{border-radius:18px!important}.pm-tm-img{border-radius:12px;overflow:hidden}.pm-tm-tabs button{border-radius:999px!important}',
     '.pm-lg figure{border-radius:16px}',
     '.pm-q button span{border-radius:999px!important}',
+    '.js-product-thumb,.js-product-slide-link,.product-slider-image{border-radius:14px;overflow:hidden}',
+    '.form-quantity-product{border-radius:999px!important;overflow:hidden}.form-quantity-product .form-control{border-radius:0!important}',
     '.pm-mega.desktop-dropdown{border-radius:0 0 18px 18px}',
     'html body .form-control,html body input[type=email],html body input[type=text],html body input[type=number],html body select{border-radius:12px!important}',
     '.btn-variant{border-radius:999px!important}',
