@@ -428,11 +428,13 @@
     '.pm-mega .pm-cta b{color:#EDEAE4!important;font-size:30px!important}',
     '.pm-mega .pm-cta span{align-self:flex-start;background:#FFD400;color:#0F0F0F!important;border-radius:999px;padding:10px 16px}',
     /* Efecto que sigue al mouse (solo compu) */
-    '#pm-fx{position:fixed;inset:0;pointer-events:none;z-index:2147482990;opacity:0;transition:opacity .5s;background-image:linear-gradient(rgba(255,212,0,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,212,0,.18) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%);mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%)}',
+    '#pm-fx{position:fixed;inset:0;pointer-events:none;z-index:2147482990;opacity:0;transition:opacity .5s;background-image:linear-gradient(rgba(255,212,0,.26) 1px,transparent 1px),linear-gradient(90deg,rgba(255,212,0,.26) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%);mask-image:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 72%)}',
     '.pm-fx-on #pm-fx{opacity:1}',
     '#pm-ring{position:fixed;left:0;top:0;width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid #FFD400;border-radius:50%;pointer-events:none;z-index:2147482991;opacity:0;transition:opacity .3s,width .25s,height .25s,margin .25s,background .25s}',
     '#pm-ring:after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:#FFD400}',
     '.pm-fx-on #pm-ring{opacity:1}',
+    '[data-store="home-products-new"] .js-swiper-new-pagination,[data-store="home-products-new"] .swiper-pagination{display:none!important}',
+    '.pm-mv-row{scrollbar-width:thin;scrollbar-color:#FFD400 rgba(255,255,255,.08)}.pm-mv-row::-webkit-scrollbar{height:4px}.pm-mv-row::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:9px}.pm-mv-row::-webkit-scrollbar-thumb{background:#FFD400;border-radius:9px}',
     '#pm-ring.pm-big{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(255,212,0,.12)}',
     /* Inicio: prendas de fondo más visibles, foco amarillo y sticker */
     '.pm-hero::before{content:"";position:absolute;left:50%;top:50%;width:620px;height:620px;transform:translate(-62%,-52%);border-radius:50%;background:radial-gradient(circle,rgba(255,212,0,.17) 0,rgba(255,212,0,.06) 38%,transparent 66%);z-index:0;pointer-events:none;animation:pm-spot 6s ease-in-out infinite}',
