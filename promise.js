@@ -671,7 +671,7 @@
     try {
       var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
       if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'TE LO PROBÁS ✕ TE LO LLEVÁS PUESTO ✕ '));
-      if (cats) insertAfter(cats, wordBand('LO MÁS VENDIDO ✕ FAVORITOS ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
+      if (cats) insertAfter(cats, wordBand('NUEVA TEMPORADA ✕ PRIMAVERA 26 ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
       var faq = document.getElementById('preguntas');
       if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ STREETWEAR ✕ '), fs); }
       bandScroll();
