@@ -206,6 +206,28 @@
     return el(html + '</div></div></section>');
   }
 
+  /* Rendimiento: videos y animaciones solo cuando se ven */
+  function perf() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('video[data-src]').forEach(function (v) { v.src = v.dataset.src; v.play && v.play().catch(function () {}); });
+      return;
+    }
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          if (!v.src && v.dataset.src) v.src = v.dataset.src;
+          var p = v.play && v.play(); if (p && p.catch) p.catch(function () {});
+        } else if (!v.paused) { v.pause(); }
+      });
+    }, { rootMargin: '200px 0px' });
+    document.querySelectorAll('video[data-src]').forEach(function (v) { vio.observe(v); });
+    var aio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.target.classList.toggle('pm-off', !e.isIntersecting); });
+    }, { rootMargin: '100px 0px' });
+    document.querySelectorAll('.pm-hero,.pm-wb,.pm-cats,.pm-why,.pm-gift,.pm-faqs,.pm-local,.pm-end').forEach(function (n) { aio.observe(n); });
+  }
+
   function giftSection() {
     var D = [['bronce', 'Bronce', '$50.000'], ['plata', 'Plata', '$100.000'], ['oro', 'Oro', '$150.000'], ['titanio', 'Titanio', '$200.000'], ['black', 'Black', '$300.000']];
     var cards = D.map(function (d, i) {
@@ -324,8 +346,8 @@
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
       '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div>' +
-      small('s1 pm-far', 'campera.webp') + small('s2 pm-far', 'camo.webp') + small('s3 pm-far', 'endgame.webp') +
-      '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt=""></div>' +
+      small('s1 pm-far', 'campera_far.webp') + small('s2 pm-far', 'camo_far.webp') + small('s3 pm-far', 'endgame_far.webp') +
+      '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_small_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
         '<div class="pm-post-img"><img src="' + A + 'post.webp" alt="Conjunto Street negro con remera blanca en el local de Promise" fetchpriority="high"></div>' +
@@ -340,7 +362,7 @@
   function catsSection() {
     var tiles = CATS.map(function (c, i) {
       var media = c[3] === 'video'
-        ? '<video src="' + c[2] + '"' + (c[4] ? ' poster="' + c[4] + '"' : '') + ' autoplay muted loop playsinline preload="auto" aria-label="' + c[0] + '"></video>'
+        ? '<video data-src="' + c[2] + '"' + (c[4] ? ' poster="' + c[4] + '"' : '') + ' muted loop playsinline preload="none" aria-label="' + c[0] + '"></video>'
         : '<img src="' + c[2] + '" alt="' + c[0] + '" loading="lazy">';
       return '<a class="pm-cat pm-rv' + (c[3] === 'video' ? ' pm-has-vid' : '') + '" href="' + c[1] + '"><span class="pm-n">0' + (i + 1) + '</span>' +
         '<span class="pm-media ' + (c[3] === 'foto' ? 'pm-photo' : c[3] === 'video' ? 'pm-vid' : 'pm-cut') + '">' + media + '</span>' +
@@ -437,14 +459,16 @@
     /* Ruido de fondo detrás del contenido (no tapa fotos ni colores) */
     '#pm-transfer{margin:6px 0 14px;text-align:center}#pm-transfer .pm-tr-btn{display:block;border:2px solid #0F0F0F;border-radius:999px;padding:12px 16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:13px;color:#FFD400!important;background:transparent;border-color:#FFD400;text-decoration:none!important}#pm-transfer .pm-tr-btn:hover{background:#FFD400;color:#0F0F0F!important}#pm-transfer .pm-tr-note{font-size:12px;opacity:.7;margin:8px 4px 0;line-height:1.35}',
     '.pm-gift .pm-wrap{text-align:center}.pm-gift .pm-kick{display:flex;justify-content:center}.pm-gift .pm-lead{margin-left:auto!important;margin-right:auto!important;text-align:center}.pm-gcs{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin:46px auto 34px;perspective:1100px;max-width:1220px}.pm-gc{margin:0}.pm-gc-c{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 22px 40px rgba(0,0,0,.6);animation:pm-gcf 6s ease-in-out infinite;animation-delay:calc(var(--i)*-.7s);will-change:transform}.pm-gc-c img{display:block;width:100%;height:auto}.pm-gc-c i{position:absolute;top:-50%;bottom:-50%;width:22%;left:-40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08) 30%,rgba(255,255,255,.75) 50%,rgba(255,255,255,.08) 70%,transparent);transform:rotate(20deg);mix-blend-mode:overlay;animation:pm-gcb 3.6s cubic-bezier(.5,0,.3,1) infinite;animation-delay:calc(var(--i)*-.7s)}.pm-gl4 .pm-gc-c i{background:linear-gradient(90deg,transparent,rgba(255,240,170,.15) 30%,rgba(255,250,220,.95) 50%,rgba(255,240,170,.15) 70%,transparent)}.pm-gl5 .pm-gc-c{box-shadow:0 22px 40px rgba(0,0,0,.6),0 0 30px rgba(255,212,0,.25)}.pm-gl5 .pm-gc-c i{width:28%;background:linear-gradient(90deg,transparent,rgba(255,212,0,.2) 30%,#fff 50%,rgba(255,212,0,.2) 70%,transparent);mix-blend-mode:screen;opacity:.85}.pm-gc figcaption{margin-top:14px;display:flex;justify-content:space-between;font-size:13px}.pm-gc figcaption b{color:#FFD400;letter-spacing:.08em;text-transform:uppercase;font-size:12px}.pm-gc figcaption span{opacity:.85}@keyframes pm-gcf{0%,100%{transform:translateY(0) rotateX(7deg) rotateY(-9deg)}50%{transform:translateY(-10px) rotateX(-4deg) rotateY(9deg)}}@keyframes pm-gcb{0%{left:-40%}55%,100%{left:130%}}.pm-gc-cta small{display:block;margin-top:14px;opacity:.6;font-size:13px}@media(max-width:767px){.pm-gcs{grid-template-columns:repeat(2,1fr);gap:22px 14px;margin-top:30px}.pm-gl5{grid-column:1/-1;max-width:62%;margin:0 auto!important}}@media(prefers-reduced-motion:reduce){.pm-gc-c,.pm-gc-c i{animation:none}}',
+    '.pm-off,.pm-off *,.pm-off::before,.pm-off::after,.pm-off *::before,.pm-off *::after{animation-play-state:paused!important}',
+    '.pm-hero .pm-hs.pm-far img{filter:none!important;opacity:1!important;width:135.3%!important;max-width:none!important;margin:-17.65% 0 0 -17.65%!important}',
     '/* Ruido solo en body: las secciones son transparentes para que no se apilen capas y cambien de tono */',
-    'body{background-color:#0F0F0F!important;background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important;background-repeat:repeat!important}',
+    'body{background-color:#0F0F0F!important;background-image:url(__NOISE__)!important;background-size:180px 180px!important;background-repeat:repeat!important}',
     '.pm-sec:not(.pm-local):not(.pm-hero),.pm-wb,[data-store="banner-services"],.section-featured-home,[data-store^="home-products"],.section-institutional-home,.js-newsletter-home,.section-newsletter-home{background-color:transparent!important;background-image:none!important}',
-    '.head-main,.js-footer,footer{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important;background-color:#0F0F0F!important}',
-    '.js-footer,footer{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\"),linear-gradient(to bottom,#0F0F0F 0,#0A0A0A 100%)!important;background-size:180px 180px,100% 100%!important;background-repeat:repeat,no-repeat!important}',
+    '.head-main,.js-footer,footer{background-image:url(__NOISE__)!important;background-size:180px 180px!important;background-color:#0F0F0F!important}',
+    '.js-footer,footer{background-image:url(__NOISE__),linear-gradient(to bottom,#0F0F0F 0,#0A0A0A 100%)!important;background-size:180px 180px,100% 100%!important;background-repeat:repeat,no-repeat!important}',
     '.pm-wb{border-top:1px solid transparent!important;border-bottom:1px solid transparent!important;border-image:linear-gradient(90deg,transparent,rgba(255,255,255,.09),transparent) 1!important}',
-    '.pm-hero{background:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\") 0 0/180px 180px repeat,linear-gradient(to bottom,rgba(15,15,15,0) 70%,#0F0F0F 100%),radial-gradient(ellipse at 50% 45%,#232323 0,#0F0F0F 70%)!important}',
-    '.pm-local{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E\")!important;background-size:180px 180px!important}',
+    '.pm-hero{background:url(__NOISE__) 0 0/180px 180px repeat,linear-gradient(to bottom,rgba(15,15,15,0) 70%,#0F0F0F 100%),radial-gradient(ellipse at 50% 45%,#232323 0,#0F0F0F 70%)!important}',
+    '.pm-local{background-image:url(__NOISE__)!important;background-size:180px 180px!important}',
     /* Mega menu: tarjeta de catalogo (reemplaza el ovalo amarillo) */
     '.pm-mega .pm-cta{background:#141414!important;border:1px solid rgba(255,255,255,.1);border-radius:16px!important;color:#EDEAE4!important;padding:26px 24px!important;position:relative;overflow:hidden;transition:border-color .25s,transform .25s}',
     '.pm-mega .pm-cta:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#FFD400}',
@@ -634,19 +658,20 @@
       ev.preventDefault();
       var num = function (t) { return parseFloat(String(t || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0; };
       var fmt = function (n) { return '$' + Math.round(n).toLocaleString('es-AR'); };
-      var lines = [], total = 0;
+      var lines = [], total = 0, giftTot = 0;
       document.querySelectorAll('.js-cart-item').forEach(function (el) {
         var a = el.querySelector('[data-component="name.short-name"]');
         if (!a) return;
         var v = a.querySelector('small'); var name = a.childNodes[0].textContent.trim();
         var q = (el.querySelector('.js-cart-quantity-input') || {}).value || '1';
         var p = num((el.querySelector('.js-cart-item-subtotal') || {}).textContent);
-        total += p;
-        lines.push('• ' + name + (v ? ' ' + v.textContent.trim() : '') + ' x' + q + ' — ' + fmt(p));
+        var gift = /gift card/i.test(name);
+        total += p; if (gift) giftTot += p;
+        lines.push('• ' + name + (v ? ' ' + v.textContent.trim() : '') + ' x' + q + ' — ' + fmt(p) + (gift ? ' (sin descuento)' : ''));
       });
       if (!lines.length) return;
       var msg = 'Hola Promise! Quiero pagar por transferencia con el 20% OFF:\n' + lines.join('\n') +
-        '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt(total * 0.8) +
+        '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt((total - giftTot) * 0.8 + giftTot) + (giftTot ? ' (las gift cards no tienen descuento)' : '') +
         '\n\n¿Me pasan el alias? (Envío o retiro a coordinar)';
       window.open(WA + '?text=' + encodeURIComponent(msg), '_blank');
     });
@@ -717,10 +742,10 @@
 
   function init() {
     if (!document.getElementById('pm-style')) {
-      var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS; document.head.appendChild(st);
+      var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS.replace(/__NOISE__/g, ASSETS + 'bg/noise.png'); document.head.appendChild(st);
     }
     if (!document.getElementById('pm-style2')) {
-      var st2 = document.createElement('style'); st2.id = 'pm-style2'; st2.textContent = CSS2; document.head.appendChild(st2);
+      var st2 = document.createElement('style'); st2.id = 'pm-style2'; st2.textContent = CSS2.replace(/__NOISE__/g, ASSETS + 'bg/noise.png'); document.head.appendChild(st2);
     }
     try { siteFixes(); } catch (e) {}
     try { megaMenu(); } catch (e) {}
@@ -743,6 +768,7 @@
     var c = insertAfter(gs, localSection());
     var endNode = endSection();
     if (news && news.parentNode) news.parentNode.insertBefore(endNode, news); else insertAfter(c, endNode);
+    setTimeout(function () { try { perf(); } catch (e) {} }, 0);
     try {
       var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
       if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'TE LO PROBÁS ✕ TE LO LLEVÁS PUESTO ✕ '));
