@@ -309,7 +309,7 @@
     var snd = '<svg viewBox="0 0 24 24"><path ' + st + ' d="M21.5 3 10 13.5M21.5 3l-7 18-4.5-7.5L2.5 9z"/></svg>';
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
-      '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_red.webp" alt="" fetchpriority="high"></div>' +
+      '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_black.webp" alt="" fetchpriority="high"></div>' +
       small('s1 pm-far', 'campera.webp') + small('s2 pm-far', 'camo.webp') + small('s3 pm-far', 'endgame.webp') +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_black.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
