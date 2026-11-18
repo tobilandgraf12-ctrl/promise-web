@@ -601,12 +601,16 @@
     '.pm-mm{padding:4px 16px 18px;color:#EDEAE4}','.pm-mm.pm-mm-f{padding:18px 16px 24px;margin:18px 0 0}','#nav-hamburger .pm-mm-all{margin:0 0 6px}',
     '.pm-mm-promo{display:block;background:#FFD400;color:#0F0F0F!important;border-radius:10px;padding:10px 14px;font:700 12px/1.35 Oswald,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px}',
     '.pm-mm-k{font:600 11px/1 Oswald,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#A8A39B;margin:0 0 10px}',
-    '.pm-mm-cats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 22px}',
-    '.pm-mm-c{position:relative;display:block;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#161616;border:1px solid #262626}',
-    '.pm-mm-c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}',
-    '.pm-mm-c b{position:absolute;left:10px;bottom:8px;font:700 17px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em;color:#EDEAE4;text-shadow:0 1px 8px rgba(0,0,0,.8)}',
-    '.pm-mm-c:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.75))}',
-    '.pm-mm-c b{z-index:1}',
+    
+    
+    
+    
+    
+    
+    '.pm-mm-cats{display:grid;grid-template-columns:1fr 1fr;column-gap:18px;margin:0 0 22px;border-top:1px solid #262626}',
+    '.pm-mm-c{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #262626;color:#EDEAE4!important;text-decoration:none}',
+    '.pm-mm-c b{font:700 20px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em}',
+    '.pm-mm-c i{font-style:normal;color:#FFD400}',
     '.pm-mm-l{list-style:none;margin:0 0 22px;padding:0;border-top:1px solid #262626}',
     '.pm-mm-l a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #262626;font:700 20px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em;color:#EDEAE4!important;text-decoration:none}',
     '.pm-mm-l a i{font-style:normal;color:#FFD400}',
@@ -669,7 +673,7 @@
     var hd = m.querySelector('.modal-header');
     if (hd && !hd.querySelector('.pm-mm-logo')) hd.insertBefore(el('<img class="pm-mm-logo" src="' + ASSETS + 'hero/logo_small_white.webp" alt="Promise">'), hd.firstChild);
     var cats = CATS.map(function (c) {
-      return '<a class="pm-mm-c" href="' + c[1] + '"><img src="' + c[4] + '" alt="" loading="lazy"><b>' + c[0] + '</b></a>';
+      return '<a class="pm-mm-c" href="' + c[1] + '"><b>' + c[0] + '</b><i>→</i></a>';
     }).join('');
     var box = el('<div class="pm-mm">' +
       '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis desde $150.000</a>' +
