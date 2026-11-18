@@ -598,7 +598,7 @@
     /* Menú celular (tres rayitas) */
     '#nav-hamburger .modal-header{display:flex;align-items:center;justify-content:space-between}',
     '#nav-hamburger .pm-mm-logo{height:22px;width:auto;margin-left:4px}',
-    '.pm-mm{padding:4px 0 18px;color:#EDEAE4}',
+    '.pm-mm{padding:4px 16px 18px;color:#EDEAE4}','.pm-mm.pm-mm-f{padding:18px 16px 24px;margin:18px 0 0}','#nav-hamburger .pm-mm-all{margin:0 0 6px}',
     '.pm-mm-promo{display:block;background:#FFD400;color:#0F0F0F!important;border-radius:10px;padding:10px 14px;font:700 12px/1.35 Oswald,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px}',
     '.pm-mm-k{font:600 11px/1 Oswald,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#A8A39B;margin:0 0 10px}',
     '.pm-mm-cats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 22px}',
@@ -611,9 +611,8 @@
     '.pm-mm-l a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #262626;font:700 20px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em;color:#EDEAE4!important;text-decoration:none}',
     '.pm-mm-l a i{font-style:normal;color:#FFD400}',
     '.pm-mm-l a.pm-mm-gc{color:#FFD400!important}',
-    '.pm-mm-all{margin:0 0 6px}',
-    '#nav-hamburger .nav-primary .nav-list-link{font-family:Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em}',
-    '.pm-mm-f{border-top:1px solid #262626;margin-top:18px;padding-top:18px}',
+        '#nav-hamburger .nav-primary .nav-list-link{font-family:Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em}',
+    '.pm-mm-f{border-top:1px solid #262626}',
     '.pm-mm-wa{display:block;text-align:center;background:#FFD400;color:#0F0F0F!important;border-radius:999px;padding:13px;font:700 15px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.05em;margin:0 0 14px;text-decoration:none}',
     '.pm-mm-f p{margin:0 0 6px;font-size:13px;line-height:1.45;color:#A8A39B}',
     '.pm-mm-f p b{color:#EDEAE4}',
@@ -680,8 +679,11 @@
       '<li><a class="pm-mm-gc" href="/productos/gift-card/">Gift Cards <i>→</i></a></li>' +
       '<li><a href="/#preguntas">Preguntas frecuentes <i>→</i></a></li>' +
       '<li><a href="/#local">El local <i>→</i></a></li>' +
-      '</ul><p class="pm-mm-k pm-mm-all">Todas las categorías</p></div>');
+      '</ul><p class="pm-mm-k pm-mm-all">Catálogo completo</p></div>');
     body.insertBefore(box, prim);
+    Array.prototype.forEach.call(prim.querySelectorAll(':scope > ul > li'), function (li) {
+      var a = li.querySelector(':scope > a'); if (a && /^inicio$/i.test(a.textContent.trim())) li.style.display = 'none';
+    });
     var foot = el('<div class="pm-mm pm-mm-f">' +
       '<a class="pm-mm-wa" href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a>' +
       '<p><b>Alvear 2445, Villa Ballester</b></p>' +
