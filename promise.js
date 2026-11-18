@@ -594,7 +594,35 @@
     '.head-main .js-logo-container{mix-blend-mode:lighten}',
     '.js-item-product .item-installments::after{content:"20% OFF efectivo o transf.";font-size:10.5px}',
     '.pm-tm-box{padding:20px 12px 16px}.pm-tm-tabs button{padding:9px 6px;font-size:11px;letter-spacing:.05em}',
-    '}'
+    '}',
+    /* Menú celular (tres rayitas) */
+    '#nav-hamburger .modal-header{display:flex;align-items:center;justify-content:space-between}',
+    '#nav-hamburger .pm-mm-logo{height:22px;width:auto;margin-left:4px}',
+    '.pm-mm{padding:4px 0 18px;color:#EDEAE4}',
+    '.pm-mm-promo{display:block;background:#FFD400;color:#0F0F0F!important;border-radius:10px;padding:10px 14px;font:700 12px/1.35 Oswald,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px}',
+    '.pm-mm-k{font:600 11px/1 Oswald,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#A8A39B;margin:0 0 10px}',
+    '.pm-mm-cats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 22px}',
+    '.pm-mm-c{position:relative;display:block;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#161616;border:1px solid #262626}',
+    '.pm-mm-c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}',
+    '.pm-mm-c b{position:absolute;left:10px;bottom:8px;font:700 17px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em;color:#EDEAE4;text-shadow:0 1px 8px rgba(0,0,0,.8)}',
+    '.pm-mm-c:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.75))}',
+    '.pm-mm-c b{z-index:1}',
+    '.pm-mm-l{list-style:none;margin:0 0 22px;padding:0;border-top:1px solid #262626}',
+    '.pm-mm-l a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #262626;font:700 20px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em;color:#EDEAE4!important;text-decoration:none}',
+    '.pm-mm-l a i{font-style:normal;color:#FFD400}',
+    '.pm-mm-l a.pm-mm-gc{color:#FFD400!important}',
+    '.pm-mm-all{margin:0 0 6px}',
+    '#nav-hamburger .nav-primary .nav-list-link{font-family:Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em}',
+    '.pm-mm-f{border-top:1px solid #262626;margin-top:18px;padding-top:18px}',
+    '.pm-mm-wa{display:block;text-align:center;background:#FFD400;color:#0F0F0F!important;border-radius:999px;padding:13px;font:700 15px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.05em;margin:0 0 14px;text-decoration:none}',
+    '.pm-mm-f p{margin:0 0 6px;font-size:13px;line-height:1.45;color:#A8A39B}',
+    '.pm-mm-f p b{color:#EDEAE4}',
+    '.pm-mm-f a.pm-mm-ig{color:#EDEAE4!important;text-decoration:underline}',
+    '@keyframes pmmm{from{opacity:0;transform:translateY(10px)}}',
+    '#nav-hamburger.modal-show .pm-mm-c,#nav-hamburger.modal-show .pm-mm-l li{animation:pmmm .35s ease-out both}',
+    '#nav-hamburger.modal-show .pm-mm-c:nth-child(2){animation-delay:.04s}#nav-hamburger.modal-show .pm-mm-c:nth-child(3){animation-delay:.08s}#nav-hamburger.modal-show .pm-mm-c:nth-child(4){animation-delay:.12s}#nav-hamburger.modal-show .pm-mm-c:nth-child(5){animation-delay:.16s}#nav-hamburger.modal-show .pm-mm-c:nth-child(6){animation-delay:.2s}',
+    '#nav-hamburger.modal-show .pm-mm-l li{animation-delay:.22s}',
+    '@media (prefers-reduced-motion:reduce){#nav-hamburger .pm-mm-c,#nav-hamburger .pm-mm-l li{animation:none!important}}',
   ].join('\n');
 
   function megaMenu() {
@@ -630,6 +658,44 @@
       dd.classList.add('pm-mega');
       var cta = el('<a class="pm-cta" href="/productos/"><small>Catálogo completo</small><b>Todo en un solo lugar</b><span>Ver productos →</span></a>');
       ul.parentNode.appendChild(cta);
+    });
+  }
+
+  /* Menú del celular (tres rayitas): categorías con foto, accesos rápidos y contacto */
+  function mobileMenu() {
+    var m = document.getElementById('nav-hamburger');
+    if (!m || m.querySelector('.pm-mm')) return;
+    var body = m.querySelector('.nav-body'), prim = m.querySelector('.nav-primary');
+    if (!body || !prim) return;
+    var hd = m.querySelector('.modal-header');
+    if (hd && !hd.querySelector('.pm-mm-logo')) hd.insertBefore(el('<img class="pm-mm-logo" src="' + ASSETS + 'hero/logo_small_white.webp" alt="Promise">'), hd.firstChild);
+    var cats = CATS.map(function (c) {
+      return '<a class="pm-mm-c" href="' + c[1] + '"><img src="' + c[4] + '" alt="" loading="lazy"><b>' + c[0] + '</b></a>';
+    }).join('');
+    var box = el('<div class="pm-mm">' +
+      '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis desde $150.000</a>' +
+      '<p class="pm-mm-k">Categorías</p><div class="pm-mm-cats">' + cats + '</div>' +
+      '<ul class="pm-mm-l">' +
+      '<li><a href="/productos/?sort_by=best-selling">Lo más vendido <i>→</i></a></li>' +
+      '<li><a class="pm-mm-gc" href="/productos/gift-card/">Gift Cards <i>→</i></a></li>' +
+      '<li><a href="/#preguntas">Preguntas frecuentes <i>→</i></a></li>' +
+      '<li><a href="/#local">El local <i>→</i></a></li>' +
+      '</ul><p class="pm-mm-k pm-mm-all">Todas las categorías</p></div>');
+    body.insertBefore(box, prim);
+    var foot = el('<div class="pm-mm pm-mm-f">' +
+      '<a class="pm-mm-wa" href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a>' +
+      '<p><b>Alvear 2445, Villa Ballester</b></p>' +
+      '<p>Lun a jue 10 a 13 y 16 a 20 · Vie y sáb 10 a 20:30</p>' +
+      '<p><a class="pm-mm-ig" href="https://www.instagram.com/promise_vb/" target="_blank" rel="noopener">@promise_vb</a></p></div>');
+    prim.parentNode.insertBefore(foot, prim.nextSibling);
+    m.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('.pm-mm a[href^="/#"]');
+      if (!a) return;
+      var onHome = location.pathname === '/' && document.getElementById(a.getAttribute('href').slice(2));
+      if (!onHome) return;
+      ev.preventDefault();
+      var x = m.querySelector('.js-modal-close'); if (x) x.click();
+      setTimeout(function () { document.getElementById(a.getAttribute('href').slice(2)).scrollIntoView({ behavior: 'smooth' }); }, 350);
     });
   }
 
@@ -755,6 +821,7 @@
     try { siteFixes(); } catch (e) {}
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
+    try { mobileMenu(); } catch (e) {}
     try { masVendido(); } catch (e) {}
     try { transferBtn(); setInterval(transferBtn, 1500); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
