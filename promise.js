@@ -607,7 +607,7 @@
     
     
     
-    '.pm-mm-cats{display:grid;grid-template-columns:1fr 1fr;column-gap:18px;margin:0 0 22px;border-top:1px solid #262626}',
+    '.pm-mm-cats{display:grid;grid-template-columns:minmax(0,1fr);margin:0 0 22px;border-top:1px solid #262626}',
     '.pm-mm-c{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #262626;color:#EDEAE4!important;text-decoration:none}',
     '.pm-mm-c b{font:700 20px/1 Oswald,Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em}',
     '.pm-mm-c i{font-style:normal;color:#FFD400}',
