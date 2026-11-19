@@ -342,6 +342,7 @@
       return '<div class="pm-hs ' + cls + '" aria-hidden="true"><div class="pm-hs-in">' + pic +
         '<span class="pm-shine" style="-webkit-mask-image:url(' + A + file + ');mask-image:url(' + A + file + ')"></span></div></div>';
     }
+    var MOB = window.matchMedia && matchMedia('(max-width:767px)').matches;
     var WAI = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3zm4.4 12.4c-.2.5-1.1 1-1.6 1-.4.1-.9.1-1.5-.1a12 12 0 0 1-5.6-4.9c-.4-.7-.7-1.5-.7-2.2 0-.9.5-1.4.8-1.6.2-.2.4-.2.6-.2h.4c.1 0 .3 0 .5.4l.7 1.6c.1.2.1.3 0 .5l-.4.6c-.1.1-.2.3-.1.5.3.6.8 1.2 1.3 1.6.6.5 1.2.8 1.8 1 .2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3.1.1.1.6-.1 1.1z"/></svg>';
     function story(cls, sl) {
       return '<div class="pm-sty ' + cls + '" aria-hidden="true"><div class="pm-sty-in">' +
@@ -356,15 +357,15 @@
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
       '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div>' +
       /* compu: charla de WhatsApp */
-      '<a class="pm-chat" href="' + WA + '" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><div class="pm-chat-in"><span class="pm-chat-notch"></span>' +
+      (MOB ? '' : '<a class="pm-chat" href="' + WA + '" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><div class="pm-chat-in"><span class="pm-chat-notch"></span>' +
         '<div class="pm-chat-h"><span class="pm-chat-bk">‹</span><span class="pm-chat-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>Promise</b><small>en línea</small></span></div>' +
         '<div class="pm-chat-b"><div class="pm-m pm-me pm-m1 pm-mimg"><img src="' + A + 'post.webp" alt=""></div><div class="pm-m pm-me pm-m2">Hola! Tenés este conjunto?</div>' +
         '<div class="pm-m pm-pv pm-m3">Buen día amigo! Sí, tenemos 🙌🏼 Pasate a probarlo o te lo mandamos por moto en el día 🛵</div><div class="pm-m pm-me pm-m4">Joya, paso a la tarde 👌🏼</div></div>' +
-        '<div class="pm-chat-f"><span>Mensaje</span><i>' + WAI + '</i></div></div></a>' +
+        '<div class="pm-chat-f"><span>Mensaje</span><i>' + WAI + '</i></div></div></a>') +
       '<a class="pm-wabtn" href="' + WA + '" target="_blank" rel="noopener"><span class="pm-wabtn-i">' + WAI + '</span><span><small>Talles, stock o envíos</small><b>Escribinos</b></span></a>' +
       /* celular: historias del local */
-      story('pm-stL', [['q_frente.webp', 'Alvear 2445'], ['q_llegado.webp', 'Recién llegado']]) +
-      story('pm-stR', [['q_probas.webp', 'Probadores del local'], ['q_semanas.webp', 'Nuevo cada semana']]) +
+      (MOB ? story('pm-stL', [['q_semanas.webp', 'Nuevo cada semana'], ['q_llegado.webp', 'Recién llegado']]) +
+        story('pm-stR', [['q_probas.webp', 'Probadores del local'], ['q_frente.webp', 'Alvear 2445']]) : '') +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_small_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
@@ -677,7 +678,7 @@
     '.pm-wabtn small{display:block;font-size:11px;font-weight:600;line-height:1.2}.pm-wabtn b{font-family:"Oswald",sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;line-height:1.1}',
     '@keyframes pm-ring{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55),0 16px 34px rgba(0,0,0,.5)}70%,100%{box-shadow:0 0 0 22px rgba(37,211,102,0),0 16px 34px rgba(0,0,0,.5)}}',
     '}',
-    '@media (min-width:1100px){',
+    '@media (min-width:1000px){',
     '.pm-chat{display:block;position:absolute;left:calc(50% + 300px);top:50%;width:250px;margin-top:-262px;z-index:5;perspective:900px;text-decoration:none!important;animation:pm-fade .9s 2.4s both}',
     '.pm-chat-in{position:relative;height:500px;border-radius:38px;background:#111;border:8px solid #1f1f1f;box-shadow:0 0 0 1.5px #3a3a3a,0 40px 70px rgba(0,0,0,.65);overflow:hidden;display:flex;flex-direction:column;animation:pm-tiltR 7s ease-in-out infinite;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}',
     '@keyframes pm-tiltR{0%,100%{transform:rotateY(-16deg) rotate(3deg)}50%{transform:rotateY(-8deg) rotate(1.5deg) translateY(-10px)}}',
@@ -720,6 +721,19 @@
     '.pm-sty-h span{width:18px;height:18px;border-radius:50%;background:#0F0F0F;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1.2px #FFD400}.pm-sty-h img{height:10px;width:auto}',
     '}',
     '@media (prefers-reduced-motion:reduce){.pm-chat-in,.pm-sty-in,.pm-wabtn{animation:none!important}.pm-m{opacity:1!important;animation:none!important}}',
+    /* ===== Arreglos 19/11 (tarde) ===== */
+    /* zoom de las fotos de producto sin romper el centrado de la plantilla */
+    '.item-product .product-item-image.img-absolute-centered{transition:scale .7s cubic-bezier(.2,.7,.2,1),opacity .35s ease!important}',
+    '.item-product:hover .product-item-image.img-absolute-centered{transform:translateX(-50%)!important;scale:1.05}',
+    /* charla de WhatsApp en compus de 1000 a 1199 px: un poco más chica */
+    '@media (min-width:1000px) and (max-width:1199px){.pm-chat{left:calc(50% + 280px);transform:scale(.82);transform-origin:0 50%}.pm-wabtn{right:calc(50% + 240px)}}',
+    /* celular: una historia arriba a la izquierda y otra abajo a la derecha, las dos detrás del posteo; el short adelante y un poco más arriba */
+    '@media (max-width:767px){',
+    '.pm-post{left:calc(50% + 14px)}.pm-hero::before{left:calc(50% + 14px)}',
+    '.pm-hero-main{top:372px;left:calc(50% + 14px);z-index:4}',
+    '.pm-stL{left:4px;right:auto;top:150px;z-index:2}.pm-stR{right:4px;left:auto;top:440px;z-index:2}',
+    '.pm-end{padding-bottom:28px}[data-store="home-newsletter"]{margin-top:-28px}',
+    '}',
   ].join('\n');
 
   function megaMenu() {
@@ -883,7 +897,7 @@
       var k = el('<div class="pm-kick pm-np-k">Recién colgado</div>'); h.parentNode.insertBefore(k, h);
     }
     s.querySelectorAll('a[href*="/productos"]').forEach(function (a) { if (!a.closest('.js-item-product')) a.href = '/productos/?sort_by=created-descending'; });
-    fetch('/productos/?sort_by=created-descending', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+    function go() { fetch('/productos/?sort_by=created-descending', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
       var d = new DOMParser().parseFromString(t, 'text/html');
       var items = Array.prototype.slice.call(d.querySelectorAll('.js-item-product')).filter(function (i) {
         return !/sin stock/i.test(i.textContent);
@@ -898,7 +912,11 @@
       box.style.display = 'none';
       s.querySelectorAll('.swiper-button-prev,.swiper-button-next,.item-slider-pagination-container').forEach(function (n) { n.style.display = 'none'; });
       if (window.lazySizes && lazySizes.loader) row.querySelectorAll('.lazyload').forEach(function (img) { lazySizes.loader.unveil(img); });
-    }).catch(function () {});
+    }).catch(function () {}); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: '900px 0px' });
+      io.observe(s);
+    } else go();
   }
 
   function insertAfter(ref, node) { ref.parentNode.insertBefore(node, ref.nextSibling); return node; }
