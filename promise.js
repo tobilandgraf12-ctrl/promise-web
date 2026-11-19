@@ -293,8 +293,8 @@
   function endSection() {
     return el('<section class="pm-sec pm-end" aria-labelledby="pm-end-t"><div class="pm-wrap">' +
       '<div class="pm-kick pm-rv">Catálogo completo</div>' +
-      '<h2 class="pm-h pm-rv" id="pm-end-t">Esto fue <em>una selección</em></h2>' +
-      '<p class="pm-lead pm-rv">Lo que viste es una parte. El catálogo entero está a un clic, con todas las prendas que tenemos en el local.</p>' +
+      '<h2 class="pm-h pm-rv" id="pm-end-t">Hay mucho <em>más</em></h2>' +
+      '<p class="pm-lead pm-rv">Entrá al catálogo completo o pasá por el local a ver todo lo que entró.</p>' +
       '<div class="pm-btns pm-rv"><a class="pm-btn" href="/productos/">Ver el catálogo</a><a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>' +
       '</div></section>');
   }
@@ -330,7 +330,7 @@
     cta: 'Ver conjuntos',
     usuario: 'promise_vb',
     lugar: 'Villa Ballester',
-    texto: 'Primavera26\u2019 Conjunto Street 🌊 Ideal para este clima. Desde S a XXL'
+    texto: 'Conjunto Street 🖤 Pasá a probártelo o pedilo por la web'
   };
 
   function heroSection() {
@@ -542,7 +542,7 @@
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
     '@media(min-width:768px){.pm-mv-row>.js-item-product{flex-basis:25%;max-width:25%}}',
-    '.js-products-new-title::before{content:"Los favoritos de Promise"!important}',
+    '.js-products-new-title::before,.js-products-new-title::after{content:none!important;display:none!important}',
     /* Botón de arrepentimiento: discreto pero visible (la Res. 424/2020 exige que esté a la vista desde el inicio) */
     '[data-component="order-cancellation"]{font-size:11px!important;opacity:.6;text-decoration:none!important;text-transform:none!important;letter-spacing:.02em;font-weight:400!important}',
     '[data-component="order-cancellation"]:hover{opacity:1;text-decoration:underline!important}',
@@ -639,6 +639,11 @@
     '.head-main .logo-img-container.pm-has3d>a{display:inline-block;vertical-align:middle}',
     /* Productos en compu: al pasar el mouse, la segunda foto aparece con fundido (sin deslizar ni mostrar negro) */
     '@media (hover:hover) and (min-width:768px){.product-item-slider-wrapper{transform:none!important;transition:none!important}.product-item-slider-wrapper>.swiper-slide:nth-child(n+2){position:absolute!important;inset:0;width:100%!important;opacity:0;transition:opacity .35s ease}.js-item-image-padding:hover .product-item-slider-wrapper>.swiper-slide:nth-child(2){opacity:1}.product-item-prev-container,.product-item-next-container,.product-item-slider-pagination-container{display:none!important}}',
+    /* Titulo "Nuestras prendas" con el mismo estilo que el resto de las secciones */
+    '[data-store="home-products-new"] .pm-np-t{background:none!important;color:#EDEAE4!important;font-family:"Oswald",sans-serif!important;font-weight:700!important;text-transform:uppercase!important;font-size:64px!important;line-height:1.05!important;letter-spacing:.01em!important;padding:0!important;margin:0 0 28px!important;text-align:center!important;-webkit-text-stroke:0!important;box-shadow:none!important;display:block!important;width:auto!important;transform:none!important}',
+    '[data-store="home-products-new"] .pm-np-t em{font-style:normal;color:#FFD400}',
+    '[data-store="home-products-new"] .pm-np-k{justify-content:center;margin:0 0 10px}',
+    '@media (max-width:767px){[data-store="home-products-new"] .pm-np-t{font-size:40px!important;margin-bottom:20px!important}}',
   ].join('\n');
 
   function megaMenu() {
@@ -783,7 +788,10 @@
     if (!s || s.getAttribute('data-pm-mv')) return;
     s.setAttribute('data-pm-mv', '1');
     var h = s.querySelector('.js-products-new-title, h2');
-    if (h) h.textContent = 'Nuestras prendas';
+    if (h) {
+      h.innerHTML = 'Nuestras <em>prendas</em>'; h.classList.add('pm-np-t');
+      var k = el('<div class="pm-kick pm-np-k">Recién colgado</div>'); h.parentNode.insertBefore(k, h);
+    }
     s.querySelectorAll('a[href*="/productos"]').forEach(function (a) { if (!a.closest('.js-item-product')) a.href = '/productos/?sort_by=created-descending'; });
     fetch('/productos/?sort_by=created-descending', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
       var d = new DOMParser().parseFromString(t, 'text/html');
@@ -875,7 +883,7 @@
     try {
       var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
       if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'VESTITE CON ESTILO ✕ DESDE 2017 ✕ '));
-      if (cats) insertAfter(cats, wordBand('NUEVA TEMPORADA ✕ PRIMAVERA 26 ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
+      if (cats) insertAfter(cats, wordBand('CONJUNTOS ✕ BUZOS ✕ ZAPATILLAS ✕ ACCESORIOS ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
       var faq = document.getElementById('preguntas');
       if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ STREETWEAR ✕ '), fs); }
       bandScroll();
