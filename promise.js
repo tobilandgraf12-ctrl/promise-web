@@ -191,7 +191,7 @@
     var tags = [
       ['DESDE <span>2017</span>', 'En Villa Ballester', 'Alvear 2445. Vestimos a la zona con lo que se usa.', 'VB · DESDE 2017'],
       ['<span>PROBADORES</span>', 'En el local', 'Probátelo antes de llevártelo.', 'ALVEAR 2445'],
-      ['STOCK <span>REAL</span>', 'Lo que ves, está', 'Todo lo de la web lo tenemos en el local. Y adentro hay más: perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
+      ['MÁS <span>ADENTRO</span>', 'En el local', 'Además de lo que ves en la web, en el local hay perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
       ['<span>10</span> DÍAS', 'Para cambiar', '¿Le erraste al talle? Lo cambiás dentro de los 10 días, con la bolsa original.', 'SIN DRAMA']
     ];
     var html = '<section class="pm-sec pm-why" aria-labelledby="pm-why-t"><div class="pm-wrap">' +
@@ -295,7 +295,7 @@
       '<div class="pm-kick pm-rv">Catálogo completo</div>' +
       '<h2 class="pm-h pm-rv" id="pm-end-t">Hay mucho <em>más</em></h2>' +
       '<p class="pm-lead pm-rv">Entrá al catálogo completo o pasá por el local a ver todo lo que entró.</p>' +
-      '<div class="pm-btns pm-rv"><a class="pm-btn" href="/productos/">Ver el catálogo</a><a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>' +
+      '<div class="pm-btns pm-rv"><a class="pm-btn" href="/productos/">Ver el catálogo</a><a class="pm-btn pm-ghost" href="' + WA + '" target="_blank" rel="noopener">Escribinos</a></div>' +
       '</div></section>');
   }
 
@@ -644,6 +644,7 @@
     '[data-store="home-products-new"] .pm-np-t em{font-style:normal;color:#FFD400}',
     '[data-store="home-products-new"] .pm-np-k{justify-content:center;margin:0 0 10px}',
     '@media (max-width:767px){[data-store="home-products-new"] .pm-np-t{font-size:40px!important;margin-bottom:20px!important}}',
+    '@media (max-width:767px){.pm-btn{white-space:nowrap;padding:14px 20px;letter-spacing:.08em}}',
   ].join('\n');
 
   function megaMenu() {
@@ -783,6 +784,11 @@
     });
   }
 
+  function featuredTitle() {
+    var t = document.querySelector('[data-store="home-products-featured"] h2, [data-store="home-products-featured"] .h3, [data-store="home-products-featured"] .section-title');
+    if (t && /semana/i.test(t.textContent)) t.textContent = 'Para tu próximo outfit';
+  }
+
   function masVendido() {
     var s = document.querySelector('[data-store="home-products-new"]');
     if (!s || s.getAttribute('data-pm-mv')) return;
@@ -862,6 +868,7 @@
     try { headLogo3d(); } catch (e) {}
     try { mobileMenu(); } catch (e) {}
     try { masVendido(); } catch (e) {}
+    try { featuredTitle(); } catch (e) {}
     try { transferBtn(); setInterval(transferBtn, 1500); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
