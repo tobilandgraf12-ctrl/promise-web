@@ -200,8 +200,8 @@
       '<p class="pm-lead pm-rv">Tu próximo outfit ya está colgado acá.</p>' +
       '<div class="pm-tags">';
     tags.forEach(function (t) {
-      html += '<div class="pm-tagwrap pm-rv"><div class="pm-tag"><i></i><b>' + t[0] + '</b><h4>' + t[1] + '</h4><p>' + t[2] +
-        '</p><div class="pm-tf"><span>' + t[3] + '</span><span class="pm-bar" aria-hidden="true"></span></div></div></div>';
+      html += '<div class="pm-tagwrap pm-rv"><div class="pm-t3"><span class="pm-tside" aria-hidden="true"></span><div class="pm-tag"><i></i><b>' + t[0] + '</b><h4>' + t[1] + '</h4><p>' + t[2] +
+        '</p><div class="pm-tf"><span>' + t[3] + '</span><span class="pm-bar" aria-hidden="true"></span></div></div></div></div>';
     });
     return el(html + '</div></div></section>');
   }
@@ -645,6 +645,15 @@
     '[data-store="home-products-new"] .pm-np-k{justify-content:center;margin:0 0 10px}',
     '@media (max-width:767px){[data-store="home-products-new"] .pm-np-t{font-size:40px!important;margin-bottom:20px!important}}',
     '@media (max-width:767px){.pm-btn{white-space:nowrap;padding:14px 20px;letter-spacing:.08em}}',
+    /* Etiquetas en 3D: grosor de carton y balanceo colgadas del hilo */
+    '.pm-tagwrap{perspective:900px}',
+    '.pm-t3{position:relative;flex:1;display:flex;transform-style:preserve-3d;transform-origin:50% -44px;animation:pm-sw3 4.8s ease-in-out infinite;will-change:transform}',
+    '.pm-tagwrap:nth-child(2) .pm-t3{animation-delay:-1.2s}.pm-tagwrap:nth-child(3) .pm-t3{animation-delay:-2.4s}.pm-tagwrap:nth-child(4) .pm-t3{animation-delay:-3.6s}',
+    '.pm-t3 .pm-tag{animation:none!important;flex:1;filter:drop-shadow(0 18px 18px rgba(0,0,0,.45))}',
+    '.pm-tside{position:absolute;inset:0;background:#b9b3a8;clip-path:polygon(16% 0,84% 0,100% 12%,100% 100%,0 100%,0 12%);transform:translateZ(-7px)}',
+    '@keyframes pm-sw3{0%,100%{transform:rotateY(-22deg) rotateZ(1.6deg)}50%{transform:rotateY(22deg) rotateZ(-1.6deg)}}',
+    '@media (max-width:767px){@keyframes pm-sw3{0%,100%{transform:rotateY(-16deg) rotateZ(1.4deg)}50%{transform:rotateY(16deg) rotateZ(-1.4deg)}}}',
+    '@media (prefers-reduced-motion:reduce){.pm-t3{animation:none}}',
   ].join('\n');
 
   function megaMenu() {
