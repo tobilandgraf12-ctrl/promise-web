@@ -191,7 +191,7 @@
     var tags = [
       ['DESDE <span>2017</span>', 'En Villa Ballester', 'Alvear 2445. Vestimos a la zona con lo que se usa.', 'VB · DESDE 2017'],
       ['<span>PROBADORES</span>', 'En el local', 'Probátelo antes de llevártelo.', 'ALVEAR 2445'],
-      ['MÁS <span>ADENTRO</span>', 'En el local', 'Además de lo que ves en la web, en el local hay perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
+      ['STOCK <span>REAL</span>', 'Lo que ves, está', 'Todo lo de la web lo tenemos en el local. Y adentro hay más: perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
       ['<span>10</span> DÍAS', 'Para cambiar', '¿Le erraste al talle? Lo cambiás dentro de los 10 días, con la bolsa original.', 'SIN DRAMA']
     ];
     var html = '<section class="pm-sec pm-why" aria-labelledby="pm-why-t"><div class="pm-wrap">' +
