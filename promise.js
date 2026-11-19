@@ -190,7 +190,7 @@
   function tagsSection() {
     var tags = [
       ['DESDE <span>2017</span>', 'En Villa Ballester', 'Alvear 2445. Vestimos a la zona con lo que se usa.', 'VB · DESDE 2017'],
-      ['<span>PROBADORES</span>', 'En el local', 'Venís, te lo probás y te lo llevás puesto.', 'ALVEAR 2445'],
+      ['<span>PROBADORES</span>', 'En el local', 'Probátelo antes de llevártelo.', 'ALVEAR 2445'],
       ['STOCK <span>REAL</span>', 'Lo que ves, está', 'Todo lo de la web lo tenemos en el local. Y adentro hay más: perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
       ['<span>10</span> DÍAS', 'Para cambiar', '¿Le erraste al talle? Lo cambiás dentro de los 10 días, con la bolsa original.', 'SIN DRAMA']
     ];
@@ -679,7 +679,7 @@
       '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis desde $150.000</a>' +
       '<p class="pm-mm-k">Categorías</p><div class="pm-mm-cats">' + cats + '</div>' +
       '<ul class="pm-mm-l">' +
-      '<li><a href="/productos/?sort_by=best-selling">Lo más vendido <i>→</i></a></li>' +
+      '<li><a href="/productos/?sort_by=created-descending">Nuestras prendas <i>→</i></a></li>' +
       '<li><a class="pm-mm-gc" href="/productos/gift-card/">Gift Cards <i>→</i></a></li>' +
       '<li><a href="/#preguntas">Preguntas frecuentes <i>→</i></a></li>' +
       '<li><a href="/#local">El local <i>→</i></a></li>' +
@@ -759,9 +759,9 @@
     if (!s || s.getAttribute('data-pm-mv')) return;
     s.setAttribute('data-pm-mv', '1');
     var h = s.querySelector('.js-products-new-title, h2');
-    if (h) h.textContent = 'Lo más vendido';
-    s.querySelectorAll('a[href*="/productos"]').forEach(function (a) { if (!a.closest('.js-item-product')) a.href = '/productos/?sort_by=best-selling'; });
-    fetch('/productos/?sort_by=best-selling', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+    if (h) h.textContent = 'Nuestras prendas';
+    s.querySelectorAll('a[href*="/productos"]').forEach(function (a) { if (!a.closest('.js-item-product')) a.href = '/productos/?sort_by=created-descending'; });
+    fetch('/productos/?sort_by=created-descending', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
       var d = new DOMParser().parseFromString(t, 'text/html');
       var items = Array.prototype.slice.call(d.querySelectorAll('.js-item-product')).filter(function (i) {
         return !/sin stock/i.test(i.textContent);
@@ -849,7 +849,7 @@
     setTimeout(function () { try { perf(); } catch (e) {} }, 0);
     try {
       var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
-      if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'TE LO PROBÁS ✕ TE LO LLEVÁS PUESTO ✕ '));
+      if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'VESTITE CON ESTILO ✕ DESDE 2017 ✕ '));
       if (cats) insertAfter(cats, wordBand('NUEVA TEMPORADA ✕ PRIMAVERA 26 ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
       var faq = document.getElementById('preguntas');
       if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ STREETWEAR ✕ '), fs); }
