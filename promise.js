@@ -74,14 +74,6 @@
     '.pm-hero *{box-sizing:border-box}',
     '.pm-hero-word{position:absolute;left:50%;top:50%;width:78%;max-width:1200px;transform:translate(-50%,-50%);z-index:1;animation:pm-wordin 1.1s cubic-bezier(.2,.8,.2,1) both}',
     '.pm-hero-word img{width:100%;height:auto;display:block}',
-    '.pm-hero-word{perspective:1100px}',
-    '.pm-3d{position:relative;transform-style:preserve-3d;animation:pm-sway 6s ease-in-out 1.2s infinite}',
-    '.pm-3d img{position:relative;filter:drop-shadow(0 0 14px rgba(255,212,0,.28))}',
-    '.pm-3d i{position:absolute;inset:0;background:#FFD400;-webkit-mask:url(__LOGO__) center/100% 100% no-repeat;mask:url(__LOGO__) center/100% 100% no-repeat}',
-    '.pm-3d i:nth-child(-n+5){background:#C9A800}',
-    '@keyframes pm-sway{0%,100%{transform:rotateY(-18deg) rotateX(5deg)}50%{transform:rotateY(18deg) rotateX(-5deg)}}',
-    '@media (max-width:767px){.pm-3d{animation-duration:7s}.pm-3d img{filter:drop-shadow(0 0 8px rgba(255,212,0,.3))}}',
-    '@media (prefers-reduced-motion:reduce){.pm-3d{animation:none}}',
     '.pm-post{position:absolute;left:50%;top:50%;width:300px;transform:translate(-72%,-52%);background:#fff;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.08);z-index:3;overflow:hidden;color:#111;text-decoration:none!important;display:block;animation:pm-postin .8s .55s cubic-bezier(.2,.8,.2,1) both;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}',
     '.pm-post-h{display:flex;align-items:center;gap:9px;padding:9px 11px}',
     '.pm-post-av{width:30px;height:30px;border-radius:50%;background:#0F0F0F;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #FFD400;flex:0 0 30px}',
@@ -356,7 +348,7 @@
     var snd = '<svg viewBox="0 0 24 24"><path ' + st + ' d="M21.5 3 10 13.5M21.5 3l-7 18-4.5-7.5L2.5 9z"/></svg>';
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
-      '<div class="pm-hero-word" aria-hidden="true"><div class="pm-3d">' + (function () { var h = ''; for (var i = 10; i >= 1; i--) h += '<i style="transform:translateZ(-' + (i * 2.2) + 'px)"></i>'; return h; })() + '<img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div></div>' +
+      '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div>' +
       small('s1 pm-far', 'campera_far.webp') + small('s2 pm-far', 'camo_far.webp') + small('s3 pm-far', 'endgame_far.webp') +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_small_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
@@ -827,7 +819,7 @@
 
   function init() {
     if (!document.getElementById('pm-style')) {
-      var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS.replace(/__NOISE__/g, ASSETS + 'bg/noise.png').replace(/__LOGO__/g, ASSETS + 'hero/logo_big_white.webp'); document.head.appendChild(st);
+      var st = document.createElement('style'); st.id = 'pm-style'; st.textContent = CSS.replace(/__NOISE__/g, ASSETS + 'bg/noise.png'); document.head.appendChild(st);
     }
     if (!document.getElementById('pm-style2')) {
       var st2 = document.createElement('style'); st2.id = 'pm-style2'; st2.textContent = CSS2.replace(/__NOISE__/g, ASSETS + 'bg/noise.png'); document.head.appendChild(st2);
