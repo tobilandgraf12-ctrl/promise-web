@@ -635,6 +635,10 @@
     '@keyframes pm-l3dspin{0%,62%{transform:rotateY(0) rotateX(0)}80%{transform:rotateY(200deg) rotateX(6deg)}92%,100%{transform:rotateY(360deg) rotateX(0)}}',
     '@media (max-width:767px){.pm-l3d{height:32px}}',
     '@media (prefers-reduced-motion:reduce){.pm-l3d{animation:none}}',
+    '.head-main .logo-img-container.pm-has3d{text-align:center}',
+    '.head-main .logo-img-container.pm-has3d>a{display:inline-block;vertical-align:middle}',
+    /* Productos en compu: al pasar el mouse, la segunda foto aparece con fundido (sin deslizar ni mostrar negro) */
+    '@media (hover:hover) and (min-width:768px){.product-item-slider-wrapper{transform:none!important;transition:none!important}.product-item-slider-wrapper>.swiper-slide:nth-child(n+2){position:absolute!important;inset:0;width:100%!important;opacity:0;transition:opacity .35s ease}.js-item-image-padding:hover .product-item-slider-wrapper>.swiper-slide:nth-child(2){opacity:1}.product-item-prev-container,.product-item-next-container,.product-item-slider-pagination-container{display:none!important}}',
   ].join('\n');
 
   function megaMenu() {
@@ -721,7 +725,7 @@
       var h = ''; for (var i = 7; i >= 1; i--) h += '<i style="transform:translateZ(-' + (i * 0.9) + 'px)"></i>';
       var d = el('<span class="pm-l3d" role="img" aria-label="Promise">' + h + '<b></b></span>');
       d.style.setProperty('--pm-lm', 'url(' + ASSETS + 'hero/logo_big_white.webp)');
-      c.appendChild(d); c.classList.add('pm-has3d');
+      var a = c.querySelector('a') || c; a.appendChild(d); c.classList.add('pm-has3d');
     });
   }
 
