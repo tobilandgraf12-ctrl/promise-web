@@ -349,7 +349,7 @@
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
       '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div>' +
-      small('s1 pm-far', 'campera_far.webp') + small('s2 pm-far', 'camo_far.webp') + small('s3 pm-far', 'endgame_far.webp') +
+      small('s1 pm-far', 'campera_far.webp') + small('s2 pm-far', 'camo_far.webp') +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_small_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
@@ -784,6 +784,15 @@
     });
   }
 
+  function newsletterText() {
+    var n = document.querySelector('[data-store="home-newsletter"]') || document.querySelector('.js-newsletter-home');
+    if (!n) return;
+    n.querySelectorAll('h1,h2,h3,h4,p,span,div').forEach(function (e) {
+      if (e.children.length) return;
+      if (/drop/i.test(e.textContent)) e.textContent = 'Todas las semanas entra algo nuevo';
+    });
+  }
+
   function featuredTitle() {
     var t = document.querySelector('[data-store="home-products-featured"] h2, [data-store="home-products-featured"] .h3, [data-store="home-products-featured"] .section-title');
     if (t && /semana/i.test(t.textContent)) t.textContent = 'Para tu próximo outfit';
@@ -869,6 +878,7 @@
     try { mobileMenu(); } catch (e) {}
     try { masVendido(); } catch (e) {}
     try { featuredTitle(); } catch (e) {}
+    try { newsletterText(); } catch (e) {}
     try { transferBtn(); setInterval(transferBtn, 1500); } catch (e) {}
     var home = document.querySelector('[data-store="home-slider"], [data-store="home-products-featured"]');
     if (!home || document.querySelector('.pm-why')) return;
