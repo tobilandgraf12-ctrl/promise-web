@@ -592,15 +592,6 @@
     '.head-main .logo-img-container{width:auto!important;height:auto!important}',
     '.head-main .logo-img{max-height:none!important;height:40px!important;width:auto!important;-webkit-box-reflect:none}',
     '.head-main .js-logo-container{mix-blend-mode:lighten}',
-    /* Logo del encabezado en 3D (relieve blanco) que gira de vez en cuando */
-    '.head-main .logo-img-container.pm-has3d{perspective:500px}',
-    '.head-main .logo-img-container.pm-has3d .logo-img{display:none!important}',
-    '.pm-l3d{position:relative;display:block;height:40px;aspect-ratio:1600/493;transform-style:preserve-3d;animation:pm-l3dspin 7s cubic-bezier(.6,0,.3,1) 1s infinite}',
-    '.pm-l3d i,.pm-l3d b{position:absolute;inset:0;-webkit-mask:var(--pm-lm) center/contain no-repeat;mask:var(--pm-lm) center/contain no-repeat}',
-    '.pm-l3d i{background:#6f6c65}.pm-l3d b{background:#EDEAE4}',
-    '@keyframes pm-l3dspin{0%,62%{transform:rotateY(0) rotateX(0)}80%{transform:rotateY(200deg) rotateX(6deg)}92%,100%{transform:rotateY(360deg) rotateX(0)}}',
-    '@media (max-width:767px){.pm-l3d{height:32px}}',
-    '@media (prefers-reduced-motion:reduce){.pm-l3d{animation:none}}',
     '.js-item-product .item-installments::after{content:"20% OFF efectivo o transf.";font-size:10.5px}',
     '.pm-tm-box{padding:20px 12px 16px}.pm-tm-tabs button{padding:9px 6px;font-size:11px;letter-spacing:.05em}',
     '}',
@@ -635,6 +626,15 @@
     '#nav-hamburger.modal-show .pm-mm-c:nth-child(2){animation-delay:.04s}#nav-hamburger.modal-show .pm-mm-c:nth-child(3){animation-delay:.08s}#nav-hamburger.modal-show .pm-mm-c:nth-child(4){animation-delay:.12s}#nav-hamburger.modal-show .pm-mm-c:nth-child(5){animation-delay:.16s}#nav-hamburger.modal-show .pm-mm-c:nth-child(6){animation-delay:.2s}',
     '#nav-hamburger.modal-show .pm-mm-l li{animation-delay:.22s}',
     '@media (prefers-reduced-motion:reduce){#nav-hamburger .pm-mm-c,#nav-hamburger .pm-mm-l li{animation:none!important}}',
+    /* Logo del encabezado en 3D (relieve blanco) que gira de vez en cuando */
+    '.head-main .logo-img-container.pm-has3d{perspective:500px}',
+    '.head-main .logo-img-container.pm-has3d .logo-img{display:none!important}',
+    '.pm-l3d{position:relative;display:block;height:40px;aspect-ratio:1600/493;transform-style:preserve-3d;animation:pm-l3dspin 7s cubic-bezier(.6,0,.3,1) 1s infinite}',
+    '.pm-l3d i,.pm-l3d b{position:absolute;inset:0;-webkit-mask:var(--pm-lm) center/contain no-repeat;mask:var(--pm-lm) center/contain no-repeat}',
+    '.pm-l3d i{background:#6f6c65}.pm-l3d b{background:#EDEAE4}',
+    '@keyframes pm-l3dspin{0%,62%{transform:rotateY(0) rotateX(0)}80%{transform:rotateY(200deg) rotateX(6deg)}92%,100%{transform:rotateY(360deg) rotateX(0)}}',
+    '@media (max-width:767px){.pm-l3d{height:32px}}',
+    '@media (prefers-reduced-motion:reduce){.pm-l3d{animation:none}}',
   ].join('\n');
 
   function megaMenu() {
