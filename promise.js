@@ -342,6 +342,12 @@
       return '<div class="pm-hs ' + cls + '" aria-hidden="true"><div class="pm-hs-in">' + pic +
         '<span class="pm-shine" style="-webkit-mask-image:url(' + A + file + ');mask-image:url(' + A + file + ')"></span></div></div>';
     }
+    var WAI = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3zm4.4 12.4c-.2.5-1.1 1-1.6 1-.4.1-.9.1-1.5-.1a12 12 0 0 1-5.6-4.9c-.4-.7-.7-1.5-.7-2.2 0-.9.5-1.4.8-1.6.2-.2.4-.2.6-.2h.4c.1 0 .3 0 .5.4l.7 1.6c.1.2.1.3 0 .5l-.4.6c-.1.1-.2.3-.1.5.3.6.8 1.2 1.3 1.6.6.5 1.2.8 1.8 1 .2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3.1.1.1.6-.1 1.1z"/></svg>';
+    function story(cls, sl) {
+      return '<div class="pm-sty ' + cls + '" aria-hidden="true"><div class="pm-sty-in">' +
+        sl.map(function (x, i) { return '<img class="pm-sl pm-sl' + i + '" src="' + A + x[0] + '" alt="' + x[1] + '" loading="lazy">'; }).join('') +
+        '<div class="pm-sty-bars"><i><u></u></i><i><u></u></i></div><div class="pm-sty-h"><span><img src="' + A + 'mano.webp" alt=""></span><b>promise_vb</b></div></div></div>';
+    }
     var heart = '<svg class="pm-heart" viewBox="0 0 24 24"><path fill="#ED4956" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>';
     var st = 'fill="none" stroke="#111" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
     var com = '<svg viewBox="0 0 24 24"><path ' + st + ' d="M20.6 16.2A9 9 0 1 0 17 20l3.7 1-1-3.7z"/></svg>';
@@ -349,7 +355,16 @@
     var bm = '<svg class="pm-bm" viewBox="0 0 24 24"><path ' + st + ' d="M19 21l-7-5-7 5V3h14z"/></svg>';
     return el('<section class="pm-hero" aria-label="Conjunto Street, nuevo en Promise">' +
       '<div class="pm-hero-word" aria-hidden="true"><img src="' + A + 'logo_big_white.webp" alt="" fetchpriority="high"></div>' +
-      small('s1 pm-far', 'campera_far.webp') + small('s2 pm-far', 'camo_far.webp') +
+      /* compu: charla de WhatsApp */
+      '<a class="pm-chat" href="' + WA + '" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><div class="pm-chat-in"><span class="pm-chat-notch"></span>' +
+        '<div class="pm-chat-h"><span class="pm-chat-bk">‹</span><span class="pm-chat-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>Promise</b><small>en línea</small></span></div>' +
+        '<div class="pm-chat-b"><div class="pm-m pm-me pm-m1 pm-mimg"><img src="' + A + 'post.webp" alt=""></div><div class="pm-m pm-me pm-m2">Hola! Tenés este conjunto?</div>' +
+        '<div class="pm-m pm-pv pm-m3">Buen día amigo! Sí, tenemos 🙌🏼 Pasate a probarlo o te lo mandamos por moto en el día 🛵</div><div class="pm-m pm-me pm-m4">Joya, paso a la tarde 👌🏼</div></div>' +
+        '<div class="pm-chat-f"><span>Mensaje</span><i>' + WAI + '</i></div></div></a>' +
+      '<a class="pm-wabtn" href="' + WA + '" target="_blank" rel="noopener"><span class="pm-wabtn-i">' + WAI + '</span><span><small>Talles, stock o envíos</small><b>Escribinos</b></span></a>' +
+      /* celular: historias del local */
+      story('pm-stL', [['q_frente.webp', 'Alvear 2445'], ['q_llegado.webp', 'Recién llegado']]) +
+      story('pm-stR', [['q_probas.webp', 'Probadores del local'], ['q_semanas.webp', 'Nuevo cada semana']]) +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_small_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
@@ -654,6 +669,57 @@
     '@keyframes pm-sw3{0%,100%{transform:rotateY(-22deg) rotateZ(1.6deg)}50%{transform:rotateY(22deg) rotateZ(-1.6deg)}}',
     '@media (max-width:767px){@keyframes pm-sw3{0%,100%{transform:rotateY(-16deg) rotateZ(1.4deg)}50%{transform:rotateY(16deg) rotateZ(-1.4deg)}}}',
     '@media (prefers-reduced-motion:reduce){.pm-t3{animation:none}}',
+    /* ===== Inicio 19/11: compu = charla de WhatsApp, celular = historias del local ===== */
+    '.pm-chat,.pm-wabtn,.pm-sty{display:none}',
+    '@media (min-width:768px){',
+    '.pm-wabtn{position:absolute;right:calc(50% + 250px);top:42%;z-index:5;display:flex;align-items:center;gap:12px;background:#25D366;color:#0F0F0F!important;text-decoration:none!important;padding:12px 22px 12px 12px;border-radius:999px;animation:pm-ring 2.4s ease-out infinite,pm-fade .9s 2.6s both}',
+    '.pm-wabtn-i{width:42px;height:42px;border-radius:50%;background:#0F0F0F;color:#25D366;display:flex;align-items:center;justify-content:center}.pm-wabtn-i svg{width:24px;height:24px}',
+    '.pm-wabtn small{display:block;font-size:11px;font-weight:600;line-height:1.2}.pm-wabtn b{font-family:"Oswald",sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;line-height:1.1}',
+    '@keyframes pm-ring{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55),0 16px 34px rgba(0,0,0,.5)}70%,100%{box-shadow:0 0 0 22px rgba(37,211,102,0),0 16px 34px rgba(0,0,0,.5)}}',
+    '}',
+    '@media (min-width:1100px){',
+    '.pm-chat{display:block;position:absolute;left:calc(50% + 300px);top:50%;width:250px;margin-top:-262px;z-index:5;perspective:900px;text-decoration:none!important;animation:pm-fade .9s 2.4s both}',
+    '.pm-chat-in{position:relative;height:500px;border-radius:38px;background:#111;border:8px solid #1f1f1f;box-shadow:0 0 0 1.5px #3a3a3a,0 40px 70px rgba(0,0,0,.65);overflow:hidden;display:flex;flex-direction:column;animation:pm-tiltR 7s ease-in-out infinite;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}',
+    '@keyframes pm-tiltR{0%,100%{transform:rotateY(-16deg) rotate(3deg)}50%{transform:rotateY(-8deg) rotate(1.5deg) translateY(-10px)}}',
+    '.pm-chat-notch{position:absolute;left:50%;top:7px;width:70px;height:18px;margin-left:-35px;border-radius:20px;background:#000;z-index:3}',
+    '.pm-chat-h{display:flex;align-items:center;gap:8px;padding:34px 12px 10px;background:#1b1b1b;color:#fff;font-size:13px;font-weight:600;border-bottom:1px solid #262626}',
+    '.pm-chat-h small{display:block;color:#25D366;font-size:10px;font-weight:500}.pm-chat-bk{font-size:22px;color:#FFD400;line-height:1}',
+    '.pm-chat-av{width:26px;height:26px;border-radius:50%;background:#0F0F0F;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #FFD400;flex:0 0 26px}.pm-chat-av img{height:15px;width:auto}',
+    '.pm-chat-b{flex:1;padding:12px 10px;background:radial-gradient(circle at 20% 20%,#1d1d1d,#121212)}',
+    '.pm-m{max-width:84%;padding:8px 11px;border-radius:13px;font-size:12.5px;line-height:1.35;margin-bottom:7px;opacity:0}',
+    '.pm-me{background:#fff;color:#111;border-bottom-right-radius:4px;margin-left:auto}',
+    '.pm-pv{background:#FFD400;color:#0F0F0F;border-bottom-left-radius:4px;font-weight:600}',
+    '.pm-mimg{width:150px;padding:4px}.pm-mimg img{display:block;width:100%;height:132px;object-fit:cover;object-position:50% 30%;border-radius:10px}',
+    '.pm-m1{animation:pm-s1 14s infinite}.pm-m2{animation:pm-s2 14s infinite}.pm-m3{animation:pm-s3 14s infinite}.pm-m4{animation:pm-s4 14s infinite}',
+    '@keyframes pm-s1{0%,3%{opacity:0;transform:translateY(10px)}6%,90%{opacity:1;transform:none}96%,100%{opacity:0}}',
+    '@keyframes pm-s2{0%,15%{opacity:0;transform:translateY(10px)}19%,90%{opacity:1;transform:none}96%,100%{opacity:0}}',
+    '@keyframes pm-s3{0%,32%{opacity:0;transform:translateY(10px)}36%,90%{opacity:1;transform:none}96%,100%{opacity:0}}',
+    '@keyframes pm-s4{0%,52%{opacity:0;transform:translateY(10px)}56%,90%{opacity:1;transform:none}96%,100%{opacity:0}}',
+    '.pm-chat-f{display:flex;align-items:center;gap:8px;padding:9px 10px 14px;background:#1b1b1b}',
+    '.pm-chat-f span{flex:1;background:#2a2a2a;border-radius:20px;padding:8px 12px;color:#8a8a8a;font-size:12px}',
+    '.pm-chat-f i{width:32px;height:32px;border-radius:50%;background:#25D366;color:#0F0F0F;display:flex;align-items:center;justify-content:center}.pm-chat-f svg{width:18px;height:18px}',
+    '}',
+    '@media (max-width:767px){',
+    '.pm-hero{height:730px}.pm-hero-word{top:98px}',
+    '.pm-post{top:402px;left:calc(50% + 24px)}.pm-hero-main{top:390px;left:calc(50% + 22px)}.pm-hero::before{top:402px;left:calc(50% + 24px)}',
+    '.pm-sty{display:block;position:absolute;width:120px;z-index:5;perspective:700px;animation:pm-fade .9s 2.3s both}',
+    '.pm-stL{left:4px;top:430px;z-index:2}.pm-stR{right:6px;top:158px}',
+    '.pm-sty-in{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#1a1a1a;box-shadow:0 20px 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.1)}',
+    '.pm-stL .pm-sty-in{animation:pm-stl 7s ease-in-out infinite}.pm-stR .pm-sty-in{animation:pm-str 7s ease-in-out infinite}',
+    '@keyframes pm-stl{0%,100%{transform:rotateY(16deg) rotate(-5deg)}50%{transform:rotateY(10deg) rotate(-3deg) translateY(-6px)}}',
+    '@keyframes pm-str{0%,100%{transform:rotateY(-16deg) rotate(5deg)}50%{transform:rotateY(-10deg) rotate(3deg) translateY(-6px)}}',
+    '.pm-sl{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}',
+    '.pm-sl1{animation:pm-sl 8s linear infinite}',
+    '@keyframes pm-sl{0%,48%{opacity:0}50%,98%{opacity:1}100%{opacity:0}}',
+    '.pm-sty-in:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45),transparent 22%);pointer-events:none}',
+    '.pm-sty-bars{position:absolute;left:7px;right:7px;top:7px;z-index:3;display:flex;gap:3px}',
+    '.pm-sty-bars i{flex:1;height:2px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden}.pm-sty-bars u{display:block;height:100%;width:0;background:#fff;animation:pm-b0 8s linear infinite}',
+    '.pm-sty-bars i+i u{animation-name:pm-b1}',
+    '@keyframes pm-b0{0%{width:0}50%,100%{width:100%}}@keyframes pm-b1{0%,50%{width:0}100%{width:100%}}',
+    '.pm-sty-h{position:absolute;left:7px;top:14px;z-index:3;display:flex;align-items:center;gap:4px;color:#fff;font-size:9px;font-weight:600}',
+    '.pm-sty-h span{width:18px;height:18px;border-radius:50%;background:#0F0F0F;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1.2px #FFD400}.pm-sty-h img{height:10px;width:auto}',
+    '}',
+    '@media (prefers-reduced-motion:reduce){.pm-chat-in,.pm-sty-in,.pm-wabtn{animation:none!important}.pm-m{opacity:1!important;animation:none!important}}',
   ].join('\n');
 
   function megaMenu() {
