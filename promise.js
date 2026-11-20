@@ -981,6 +981,16 @@
     } else go();
   }
 
+  /* ícono de la pestaña y título del inicio */
+  function headMeta() {
+    if (!document.querySelector('link[rel~="icon"]')) {
+      [['icon', 'favicon-64.png', '64x64'], ['icon', 'icon-192.png', '192x192'], ['apple-touch-icon', 'apple-touch-icon.png', '180x180']].forEach(function (x) {
+        var l = document.createElement('link'); l.rel = x[0]; l.href = ASSETS + 'icon/' + x[1]; l.sizes = x[2]; l.type = 'image/png'; document.head.appendChild(l);
+      });
+    }
+    if (location.pathname === '/' && /^promise$/i.test(document.title.trim())) document.title = 'Promise | Streetwear en Villa Ballester';
+  }
+
   function pauseOffscreen() {
     if (!('IntersectionObserver' in window)) return;
     var io = window.__pmIdleIO || (window.__pmIdleIO = new IntersectionObserver(function (en) {
@@ -1036,6 +1046,7 @@
     if (!document.getElementById('pm-style2')) {
       var st2 = document.createElement('style'); st2.id = 'pm-style2'; st2.textContent = CSS2.replace(/__NOISE__/g, ASSETS + 'bg/noise.png'); document.head.appendChild(st2);
     }
+    try { headMeta(); } catch (e) {}
     try { siteFixes(); } catch (e) {}
     try { megaMenu(); } catch (e) {}
     try { navLinks(); } catch (e) {}
