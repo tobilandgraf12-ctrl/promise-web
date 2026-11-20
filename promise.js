@@ -616,6 +616,7 @@
     '@media(max-width:767px){.pm-lg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:32px;padding-bottom:6px}.pm-lg figure{flex:0 0 72%;scroll-snap-align:start}}',
     /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
     '.pm-new{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
+    '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}',
     '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
@@ -925,7 +926,7 @@
         var a = li.querySelector('a'); a.setAttribute('href', x[1]); a.textContent = x[0];
       } else { li = el('<li class="nav-item"><a class="nav-list-link" href="' + x[1] + '">' + x[0] + '</a></li>'); }
       li.classList.add('pm-navx');
-      if (x[2]) { var la = li.querySelector('a'); la.innerHTML = 'Promise Kids <span class="pm-new">Nuevo</span>'; nav.insertBefore(li, nav.children[2] || null); return; }
+      if (x[2]) { li.querySelector('a').textContent = 'Kids'; li.classList.add('pm-nav-kids'); var prod = Array.prototype.find.call(nav.children, function (n) { return n.classList.contains('item-with-subitems'); }); nav.insertBefore(li, prod ? prod.nextSibling : null); return; }
       var contacto = Array.prototype.find.call(nav.children, function (n) { return /^contacto$/i.test(n.textContent.trim()); });
       nav.insertBefore(li, contacto || null); // antes de Contacto
     });
