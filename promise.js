@@ -628,7 +628,7 @@
     '[data-component="order-cancellation"]:hover{opacity:1;text-decoration:underline!important}',
     /* 20%: sin cuadrado rojo en las fotos, texto sutil debajo del precio */
     '.item-product .item-image::after{content:none!important;display:none!important}',
-    '.pm-tp{display:block;margin-top:3px;color:#FFD400;font-size:12px;font-weight:600;letter-spacing:.01em;line-height:1.3}.pm-tp b{font-weight:800}.pm-tp-d{font-size:15px;margin:6px 0 4px}',
+    '.pm-tp{display:block;margin-top:3px;color:#FFD400;font-size:12px;font-weight:600;letter-spacing:.01em;line-height:1.3}.pm-tp b{font-weight:800}.pm-tp-d{font-size:15px;margin:-6px 0 12px}.js-price-container .js-price-display::after{content:none!important;display:none!important}',
     '#single-product .js-price-display::after{font-size:11px!important;font-weight:600!important;letter-spacing:.02em!important;text-transform:none!important;margin-top:6px!important}',
     /* Logo: gira mas seguido, con reflejo espejado */
     '.logo-img{animation:pm-spin2 6s cubic-bezier(.6,0,.3,1) infinite!important;-webkit-box-reflect:below 1px linear-gradient(transparent 62%,rgba(255,255,255,.28))}',
@@ -986,12 +986,12 @@
       var v = tpNum(dp.textContent), d = document.querySelector('.pm-tp-d');
       if (v) {
         var html = '<b>' + tpFmt(v * 0.8) + '</b> pagando en efectivo o transferencia (20% OFF)';
-        if (!d) { d = document.createElement('div'); d.className = 'pm-tp pm-tp-d'; var box = dp.closest('.price-container') || dp.parentNode; box.parentNode.insertBefore(d, box.nextSibling); }
+        if (!d) { d = document.createElement('div'); d.className = 'pm-tp pm-tp-d'; var box = dp.closest('.js-price-container') || dp.parentNode; box.parentNode.insertBefore(d, box.nextSibling); }
         if (d.getAttribute('data-v') !== String(v)) { d.innerHTML = html; d.setAttribute('data-v', v); }
       }
     }
     // texto del tema en la barra del carrito: "superando los" -> "desde"
-    document.querySelectorAll('.bar-progress-condition, .ship-free-rest-text').forEach(function (n) {
+    document.querySelectorAll('.bar-progress-condition, .ship-free-rest-text, .js-shipping-minimum-label').forEach(function (n) {
       if (/superando los/i.test(n.textContent) && n.children.length === 0) n.textContent = n.textContent.replace(/superando los/i, 'por correo desde');
     });
     // horario del pie: vie y sab hasta las 20
