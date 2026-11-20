@@ -618,6 +618,7 @@
     '.pm-mm-l a.pm-mm-kids{color:#FFD400!important}.pm-mm-kids b{font:inherit;display:flex;align-items:center}.pm-mm .pm-badge{position:static!important;transform:none!important;font-style:normal;font-family:Arial,sans-serif!important;margin-left:10px!important}',
     '.pm-badge{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
     '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}.js-nav-desktop-list>li{padding-left:8px!important;padding-right:8px!important}',
+    '.pm-season-k{justify-content:center;margin-bottom:8px}',
     '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
@@ -1011,7 +1012,48 @@
 
   function featuredTitle() {
     var t = document.querySelector('[data-store="home-products-featured"] h2, [data-store="home-products-featured"] .h3, [data-store="home-products-featured"] .section-title');
-    if (t && /semana/i.test(t.textContent)) t.textContent = 'Para tu próximo outfit';
+    if (t && /semana|outfit/i.test(t.textContent) && !t.getAttribute('data-pm')) { t.setAttribute('data-pm', '1'); t.textContent = 'Tu próximo outfit'; var k = el('<div class="pm-kick pm-season-k">Verano y fiestas</div>'); t.parentNode.insertBefore(k, t); }
+  }
+
+  /* "Tu próximo outfit": ropa de temporada (verano y fiestas), los más vendidos con stock de cada categoría */
+  var SEASON = ['/indumentaria/conjuntos/', '/indumentaria/remeras-camisas/camisas/', '/indumentaria/remeras-camisas/remeras/', '/indumentaria/shorts-y-bermudas/bermudas/', '/indumentaria/pantalones/pantalones1/', '/calzado/zapatillas/'];
+  function seasonOutfit() {
+    var s = document.querySelector('[data-store="home-products-featured"]');
+    if (!s || s.getAttribute('data-pm-season')) return;
+    s.setAttribute('data-pm-season', '1');
+    function go() {
+      Promise.all(SEASON.map(function (u) {
+        return fetch(u + '?sort_by=best-selling&results_only=true', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+          return Array.prototype.slice.call(new DOMParser().parseFromString(t, 'text/html').querySelectorAll('.js-item-product')).filter(function (i) { return !/sin stock/i.test(i.textContent); });
+        }).catch(function () { return []; });
+      })).then(function (lists) {
+        var out = [], seen = {};
+        for (var r = 0; r < 2; r++) lists.forEach(function (l) {
+          var i = l[r]; if (!i) return;
+          var a = i.querySelector('a[href]'), h = a ? a.getAttribute('href').split('?')[0] : Math.random();
+          if (seen[h]) return; seen[h] = 1; out.push(i);
+        });
+        if (out.length < 4) return;
+        var grid = s.querySelector('.js-products-featured-grid');
+        if (grid) {
+          grid.innerHTML = '';
+          out.forEach(function (i) { grid.appendChild(document.importNode(i, true)); });
+          if (window.lazySizes && lazySizes.loader) grid.querySelectorAll('.lazyload').forEach(function (img) { lazySizes.loader.unveil(img); });
+          return;
+        }
+        var box = s.querySelector('.swiper-wrapper') && s.querySelector('.swiper-wrapper').parentElement;
+        var row = document.createElement('div'); row.className = 'row pm-mv-row';
+        out.forEach(function (i) { row.appendChild(document.importNode(i, true)); });
+        if (box) { box.parentNode.insertBefore(row, box); box.style.display = 'none'; }
+        else { var g = s.querySelector('.row, .js-product-table'); if (!g) return; g.parentNode.insertBefore(row, g); g.style.display = 'none'; }
+        s.querySelectorAll('.swiper-button-prev,.swiper-button-next,.item-slider-pagination-container').forEach(function (n) { n.style.display = 'none'; });
+        if (window.lazySizes && lazySizes.loader) row.querySelectorAll('.lazyload').forEach(function (img) { lazySizes.loader.unveil(img); });
+      });
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: '300px 0px' });
+      io.observe(s);
+    } else go();
   }
 
   function masVendido() {
@@ -1053,7 +1095,7 @@
         var l = document.createElement('link'); l.rel = x[0]; l.href = ASSETS + 'icon/' + x[1]; l.sizes = x[2]; l.type = 'image/png'; document.head.appendChild(l);
       });
     }
-    if (location.pathname === '/' && /^promise$/i.test(document.title.trim())) document.title = 'Promise | Streetwear en Villa Ballester';
+    if (location.pathname === '/' && /^promise$/i.test(document.title.trim())) document.title = 'Promise | Ropa urbana en Villa Ballester';
   }
 
   function pauseOffscreen() {
@@ -1138,6 +1180,7 @@
   function later() {
     try { masVendido(); } catch (e) {}
     try { featuredTitle(); } catch (e) {}
+    try { seasonOutfit(); } catch (e) {}
     try { newsletterText(); } catch (e) {}
     try { pauseOffscreen(); } catch (e) {}
   }
@@ -1158,10 +1201,10 @@
     setTimeout(function () { try { perf(); } catch (e) {} }, 0);
     try {
       var hero = document.querySelector('.pm-hero'), cats = document.querySelector('.pm-cats'), mv = document.querySelector('[data-store="home-products-new"]');
-      if (hero) insertAfter(hero, wordBand('PROMISE ✕ STREETWEAR ✕ VILLA BALLESTER ✕ ', 'VESTITE CON ESTILO ✕ DESDE 2017 ✕ '));
+      if (hero) insertAfter(hero, wordBand('PROMISE ✕ ROPA URBANA ✕ VILLA BALLESTER ✕ ', 'VESTITE CON ESTILO ✕ DESDE 2017 ✕ '));
       if (cats) insertAfter(cats, wordBand('CONJUNTOS ✕ BUZOS ✕ ZAPATILLAS ✕ ACCESORIOS ✕ ', 'REMERAS ✕ JEANS ✕ BERMUDAS ✕ CAMPERAS ✕ '));
       var faq = document.getElementById('preguntas');
-      if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ STREETWEAR ✕ '), fs); }
+      if (faq) { var fs = faq.closest('section') || faq; fs.parentNode.insertBefore(wordBand('DESDE 2017 ✕ ALVEAR 2445 ✕ ', 'PROMISE ✕ ROPA URBANA ✕ '), fs); }
       bandScroll();
     } catch (e) {}
     reveal(document);
