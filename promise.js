@@ -363,9 +363,8 @@
         '<div class="pm-m pm-pv pm-m3">Buen día amigo! Sí, tenemos 🙌🏼 Pasate a probarlo o te lo mandamos por moto en el día 🛵</div><div class="pm-m pm-me pm-m4">Joya, paso a la tarde 👌🏼</div></div>' +
         '<div class="pm-chat-f"><span>Mensaje</span><i>' + WAI + '</i></div></div></a>') +
       '<a class="pm-wabtn" href="' + WA + '" target="_blank" rel="noopener"><span class="pm-wabtn-i">' + WAI + '</span><span><small>Talles, stock o envíos</small><b>Escribinos</b></span></a>' +
-      /* celular: historias del local */
-      (MOB ? story('pm-stL', [['q_semanas.webp', 'Nuevo cada semana'], ['q_llegado.webp', 'Recién llegado']]) +
-        story('pm-stR', [['q_probas.webp', 'Probadores del local'], ['q_frente.webp', 'Alvear 2445']]) : '') +
+      /* celular: PROMISE en contorno gigante atrás */
+      (MOB ? '<div class="pm-m2bg" aria-hidden="true"><span>PROMISE PROMISE </span></div><div class="pm-m2bg pm-m2b2" aria-hidden="true"><span>PROMISE PROMISE </span></div>' : '') +
       '<div class="pm-hero-logo" aria-hidden="true"><img src="' + A + 'logo_small_white.webp" alt=""></div>' +
       '<a class="pm-post" href="' + HERO.producto + '">' +
         '<div class="pm-post-h"><span class="pm-post-av"><img src="' + A + 'mano.webp" alt=""></span><span><b>' + HERO.usuario + '</b><small>' + HERO.lugar + '</small></span><i>···</i></div>' +
@@ -373,9 +372,46 @@
         '<div class="pm-post-a">' + heart + com + snd + bm + '</div>' +
         '<div class="pm-post-c"><b>' + HERO.usuario + '</b> ' + HERO.texto + '</div>' +
       '</a>' +
-      '<div class="pm-hero-main" aria-hidden="true"><img src="' + A + 'short-negro.webp" alt=""></div>' +
+      (MOB ? '<div class="pm-wind" aria-hidden="true" data-src="' + A + 'short_viento_alpha.mp4"><img src="' + A + 'short_viento_poster.webp" alt=""><canvas width="526" height="444"></canvas></div>'
+        : '<div class="pm-hero-main" aria-hidden="true"><img src="' + A + 'short-negro.webp" alt=""></div>') +
       '<a class="pm-hero-cta" href="' + HERO.producto + '">' + HERO.cta + ' <span aria-hidden="true">→</span></a>' +
       '</section>');
+  }
+
+  /* short al viento: el MP4 trae arriba el color y abajo la máscara; WebGL los combina (anda en iPhone y Android) */
+  function alphaVideo(box) {
+    var cv = box.querySelector('canvas'), gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false });
+    if (!gl) return;
+    var v = document.createElement('video');
+    v.crossOrigin = 'anonymous'; v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none';
+    v.src = box.getAttribute('data-src'); box.appendChild(v);
+    function sh(t, src) { var o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; }
+    var pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 p;varying vec2 uv;void main(){uv=vec2((p.x+1.)*.5,(1.-p.y)*.5);gl_Position=vec4(p,0.,1.);}'));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, 'precision mediump float;varying vec2 uv;uniform sampler2D t;void main(){vec3 c=texture2D(t,vec2(uv.x,uv.y*.5)).rgb;float a=texture2D(t,vec2(uv.x,.5+uv.y*.5)).r;gl_FragColor=vec4(c,a);}'));
+    gl.linkProgram(pr); gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    var on = false;
+    function draw() {
+      if (v.readyState >= 2) {
+        try {
+          gl.viewport(0, 0, cv.width, cv.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, v); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+          if (!on) { on = true; box.classList.add('pm-av-on'); }
+        } catch (e) { return; }
+      }
+      if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(draw); else requestAnimationFrame(draw);
+    }
+    var pp = v.play(); if (pp && pp.catch) pp.catch(function () {});
+    if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(draw); else requestAnimationFrame(draw);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) v.play().catch(function () {}); });
   }
 
   function catsSection() {
@@ -734,6 +770,27 @@
     '.pm-stL{left:4px;right:auto;top:150px;z-index:2}.pm-stR{right:4px;left:auto;top:440px;z-index:2}',
     '.pm-end{padding-bottom:28px}[data-store="home-newsletter"]{margin-top:-28px}',
     '}',
+    /* ===== Celular 20/11: logo + PROMISE en contorno + posteo inclinado + short al viento (opción 2) ===== */
+    '.pm-wind,.pm-m2bg{display:none}',
+    '@media (max-width:767px){',
+    '.pm-hero{height:800px!important}',
+    '.pm-hero::before{left:10px!important;top:300px!important;width:380px!important;height:380px!important;transform:none!important;background:radial-gradient(circle,rgba(255,212,0,.15) 0,rgba(255,212,0,.05) 40%,transparent 68%)!important}',
+    '.pm-hero-word{left:50%!important;top:70px!important;width:310px!important;transform:translateX(-50%)!important;z-index:5!important;opacity:1!important;filter:drop-shadow(0 14px 30px rgba(0,0,0,.7));animation:pm-m2word 1s cubic-bezier(.2,.8,.2,1) both!important}',
+    '@keyframes pm-m2word{from{opacity:0;clip-path:inset(100% 0 0 0);transform:translate(-50%,24px)}to{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(-50%)}}',
+    '.pm-m2bg{display:block;position:absolute;left:0;top:26px;z-index:1;white-space:nowrap;font-family:"Oswald",sans-serif;font-weight:700;font-size:200px;line-height:1;color:transparent;-webkit-text-stroke:1.3px rgba(237,234,228,.17);pointer-events:none}',
+    '.pm-m2bg span{display:inline-block;animation:pm-m2mq 60s linear infinite}.pm-m2b2{top:560px}.pm-m2b2 span{animation-direction:reverse}',
+    '@keyframes pm-m2mq{to{transform:translateX(-50%)}}',
+    '.pm-hero .pm-post{left:20px!important;top:268px!important;width:238px!important;transform:rotate(-6deg)!important;border-radius:14px;z-index:3;animation:pm-m2post .8s .5s cubic-bezier(.2,.8,.2,1) both!important;box-shadow:0 40px 70px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06)!important}',
+    '@keyframes pm-m2post{from{opacity:0;transform:translateY(24px) rotate(-6deg) scale(.9)}to{opacity:1;transform:rotate(-6deg)}}',
+    '.pm-post-h{padding:8px 10px}.pm-post-h b{font-size:12.5px}.pm-post-h small{font-size:10.5px}',
+    '.pm-post-a{padding:9px 11px 3px}.pm-post-a svg{width:21px;height:21px}.pm-post-c{font-size:11.5px;padding:2px 11px 11px}',
+    '.pm-wind{display:block;position:absolute;width:290px;right:-34px;top:268px;z-index:4;transform:rotate(-7deg);pointer-events:none;animation:pm-m2wind 1s 1s cubic-bezier(.18,.9,.25,1.05) both}',
+    '@keyframes pm-m2wind{from{opacity:0;transform:translateX(60px) rotate(4deg) scale(.8)}to{opacity:1;transform:rotate(-7deg)}}',
+    '.pm-wind img,.pm-wind canvas{width:100%;height:auto;display:block;filter:drop-shadow(0 26px 24px rgba(0,0,0,.55))}',
+    '.pm-wind canvas{position:absolute;inset:0;opacity:0;transition:opacity .4s}.pm-wind.pm-av-on canvas{opacity:1}.pm-wind.pm-av-on img{visibility:hidden}',
+    '.pm-hero-cta{bottom:26px!important}',
+    '}',
+    '@media (max-width:767px) and (prefers-reduced-motion:reduce){.pm-m2bg span,.pm-wind,.pm-hero .pm-post,.pm-hero-word{animation:none!important}}',
   ].join('\n');
 
   function megaMenu() {
@@ -978,6 +1035,8 @@
 
     var slider = document.querySelector('[data-store="home-slider"]');
     if (slider) { slider.parentNode.insertBefore(heroSection(), slider); slider.style.display = 'none'; }
+    var pmw = document.querySelector('.pm-wind[data-src]');
+    if (pmw && !(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches)) setTimeout(function () { alphaVideo(pmw); }, 1200);
     var oldCats = document.querySelector('[data-store="home-categories-featured"]');
     if (oldCats) { oldCats.parentNode.insertBefore(catsSection(), oldCats); oldCats.style.display = 'none'; }
     var featured = document.querySelector('[data-store="home-products-featured"]');
