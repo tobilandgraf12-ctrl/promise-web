@@ -992,7 +992,7 @@
     }
     // texto del tema en la barra del carrito: "superando los" -> "desde"
     document.querySelectorAll('.bar-progress-condition, .ship-free-rest-text, .js-shipping-minimum-label').forEach(function (n) {
-      if (/superando los/i.test(n.textContent) && n.children.length === 0) n.textContent = n.textContent.replace(/superando los/i, 'por correo desde');
+      Array.prototype.forEach.call(n.childNodes, function (c) { if (c.nodeType === 3 && /superando los/i.test(c.textContent)) c.textContent = c.textContent.replace(/superando los/i, 'por correo desde'); });
     });
     // horario del pie: vie y sab hasta las 20
     document.querySelectorAll('footer li, footer p, .js-footer li').forEach(function (n) {
