@@ -615,6 +615,7 @@
     '.pm-lg iframe{width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05)}',
     '@media(max-width:767px){.pm-lg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:32px;padding-bottom:6px}.pm-lg figure{flex:0 0 72%;scroll-snap-align:start}}',
     /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
+    '.pm-mm-l a.pm-mm-kids{color:#FFD400!important}.pm-mm-kids b{font:inherit;display:flex;align-items:center}.pm-mm .pm-new{position:static!important;transform:none!important;font-style:normal;font-family:Arial,sans-serif!important;margin-left:10px!important}',
     '.pm-new{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
     '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}.js-nav-desktop-list>li{padding-left:8px!important;padding-right:8px!important}',
     '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
@@ -874,7 +875,7 @@
       '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis desde $150.000</a>' +
       '<p class="pm-mm-k">Categorías</p><div class="pm-mm-cats">' + cats + '</div>' +
       '<ul class="pm-mm-l">' +
-      '<li><a class="pm-mm-kids" href="' + KIDS + '">Promise Kids <span class="pm-new">Nuevo</span> <i>→</i></a></li>' +
+      '<li><a class="pm-mm-kids" href="' + KIDS + '"><b>Promise Kids <em class="pm-new">Nuevo</em></b><i>→</i></a></li>' +
       '<li><a href="/productos/?sort_by=created-descending">Nuestras prendas <i>→</i></a></li>' +
       '<li><a class="pm-mm-gc" href="/productos/gift-card/">Gift Cards <i>→</i></a></li>' +
       '<li><a href="/#preguntas">Preguntas frecuentes <i>→</i></a></li>' +
