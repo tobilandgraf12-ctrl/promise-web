@@ -961,7 +961,7 @@
       if (!lines.length) return;
       var msg = 'Hola Promise! Quiero pagar en efectivo o por transferencia con el 20% OFF:\n' + lines.join('\n') +
         '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt((total - giftTot) * 0.8 + giftTot) + (giftTot ? ' (las gift cards no tienen descuento)' : '') +
-        '\n\n¿Me pasan el alias? (Envío o retiro a coordinar)';
+        '\n\nPago por transferencia (me pasan el alias) / en efectivo al retirar. Envío o retiro a coordinar.';
       window.open(WA + '?text=' + encodeURIComponent(msg), '_blank');
     });
   }
