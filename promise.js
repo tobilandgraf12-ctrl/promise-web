@@ -1012,7 +1012,7 @@
 
   function featuredTitle() {
     var t = document.querySelector('[data-store="home-products-featured"] h2, [data-store="home-products-featured"] .h3, [data-store="home-products-featured"] .section-title');
-    if (t && /semana|outfit/i.test(t.textContent) && !t.getAttribute('data-pm')) { t.setAttribute('data-pm', '1'); t.textContent = 'Tu próximo outfit'; var k = el('<div class="pm-kick pm-season-k">Verano y fiestas</div>'); t.parentNode.insertBefore(k, t); }
+    if (t && /semana|outfit/i.test(t.textContent) && !t.getAttribute('data-pm')) { t.setAttribute('data-pm', '1'); t.textContent = 'Tu próximo outfit'; }
   }
 
   /* "Tu próximo outfit": ropa de temporada (verano y fiestas), los más vendidos con stock de cada categoría */
@@ -1180,7 +1180,6 @@
   function later() {
     try { masVendido(); } catch (e) {}
     try { featuredTitle(); } catch (e) {}
-    try { seasonOutfit(); } catch (e) {}
     try { newsletterText(); } catch (e) {}
     try { pauseOffscreen(); } catch (e) {}
   }
