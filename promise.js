@@ -8,6 +8,7 @@
 
   var WA = 'https://wa.me/541140563485';
   var MAPS = 'https://maps.app.goo.gl/wEB1Gxqx1NC8aVSg7';
+  var KIDS = '/promise-kids-kp7mp/';
 
   var CSS = [
     '.pm-sec{background:#0F0F0F;color:#EDEAE4;padding:96px 0;font-family:inherit;position:relative;overflow:hidden}',
@@ -270,6 +271,29 @@
       });
     });
     return node;
+  }
+
+  /* Promise Kids en el inicio: trae los productos de la categoría Kids con stock (diferido) */
+  function kidsSection() {
+    var s = el('<section id="kids" class="pm-sec pm-kids" aria-labelledby="pm-kids-t"><div class="pm-wrap">' +
+      '<div class="pm-kick pm-rv">Promise Kids · Nuevo</div>' +
+      '<h2 class="pm-h pm-rv" id="pm-kids-t">Lo mismo que usás vos, <em>en su talle</em></h2>' +
+      '<div class="pm-kids-box"></div>' +
+      '<p class="pm-rv pm-kids-cta"><a class="pm-btn" href="' + KIDS + '">Ver todo Kids</a></p></div></section>');
+    function go() { fetch(KIDS + '?results_only=true', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+      var d = new DOMParser().parseFromString(t, 'text/html');
+      var items = Array.prototype.slice.call(d.querySelectorAll('.js-item-product')).filter(function (i) { return !/sin stock/i.test(i.textContent); }).slice(0, 8);
+      if (items.length < 2) { s.style.display = 'none'; return; }
+      var row = document.createElement('div'); row.className = 'row pm-mv-row';
+      items.forEach(function (i) { row.appendChild(document.importNode(i, true)); });
+      s.querySelector('.pm-kids-box').appendChild(row);
+      if (window.lazySizes && lazySizes.loader) row.querySelectorAll('.lazyload').forEach(function (img) { lazySizes.loader.unveil(img); });
+    }).catch(function () {}); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: '250px 0px' });
+      setTimeout(function () { io.observe(s); }, 0);
+    } else go();
+    return s;
   }
 
   function localSection() {
@@ -591,6 +615,8 @@
     '.pm-lg iframe{width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05)}',
     '@media(max-width:767px){.pm-lg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:32px;padding-bottom:6px}.pm-lg figure{flex:0 0 72%;scroll-snap-align:start}}',
     /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
+    '.pm-new{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
+    '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
     '@media(min-width:768px){.pm-mv-row>.js-item-product{flex-basis:25%;max-width:25%}}',
@@ -847,6 +873,7 @@
       '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis desde $150.000</a>' +
       '<p class="pm-mm-k">Categorías</p><div class="pm-mm-cats">' + cats + '</div>' +
       '<ul class="pm-mm-l">' +
+      '<li><a class="pm-mm-kids" href="' + KIDS + '">Promise Kids <span class="pm-new">Nuevo</span> <i>→</i></a></li>' +
       '<li><a href="/productos/?sort_by=created-descending">Nuestras prendas <i>→</i></a></li>' +
       '<li><a class="pm-mm-gc" href="/productos/gift-card/">Gift Cards <i>→</i></a></li>' +
       '<li><a href="/#preguntas">Preguntas frecuentes <i>→</i></a></li>' +
@@ -890,7 +917,7 @@
     var nav = document.querySelector('.js-nav-desktop-list');
     if (!nav || nav.querySelector('.pm-navx')) return;
     var model = nav.querySelector(':scope > li:not(.item-with-subitems)');
-    [['Gift Cards', '/productos/gift-card/'], ['Preguntas frecuentes', '/#preguntas'], ['El local', '/#local']].forEach(function (x) {
+    [['Promise Kids', KIDS, 1], ['Gift Cards', '/productos/gift-card/'], ['Preguntas frecuentes', '/#preguntas'], ['El local', '/#local']].forEach(function (x) {
       var li;
       if (model) {
         li = model.cloneNode(true);
@@ -898,6 +925,7 @@
         var a = li.querySelector('a'); a.setAttribute('href', x[1]); a.textContent = x[0];
       } else { li = el('<li class="nav-item"><a class="nav-list-link" href="' + x[1] + '">' + x[0] + '</a></li>'); }
       li.classList.add('pm-navx');
+      if (x[2]) { var la = li.querySelector('a'); la.innerHTML = 'Promise Kids <span class="pm-new">Nuevo</span>'; nav.insertBefore(li, nav.children[2] || null); return; }
       var contacto = Array.prototype.find.call(nav.children, function (n) { return /^contacto$/i.test(n.textContent.trim()); });
       nav.insertBefore(li, contacto || null); // antes de Contacto
     });
@@ -1079,6 +1107,7 @@
     var featured = document.querySelector('[data-store="home-products-featured"]');
     var news = document.querySelector('[data-store="home-newsletter"]');
     var anchor = featured || home;
+    try { anchor = insertAfter(anchor, kidsSection()); } catch (e) {}
     var a = insertAfter(anchor, tagsSection());
     var b = insertAfter(a, faqSection());
     var gs = b; try { gs = insertAfter(b, giftSection()); } catch (e) {}
