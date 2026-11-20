@@ -619,6 +619,7 @@
     '.pm-badge{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
     '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}.js-nav-desktop-list>li{padding-left:8px!important;padding-right:8px!important}',
     '.pm-season-k{justify-content:center;margin-bottom:8px}',
+    '.pm-vermas{text-align:center;margin:30px 0 10px;clear:both}',
     '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
@@ -1056,6 +1057,17 @@
     } else go();
   }
 
+  /* Botón "Ver todos" debajo de las secciones de productos del inicio */
+  function verMas() {
+    [['[data-store="home-products-new"]', '/productos/?sort_by=created-descending', 'Ver todas las prendas'],
+     ['[data-store="home-products-featured"]', '/productos/', 'Ver todos los productos']].forEach(function (x) {
+      var s = document.querySelector(x[0]);
+      if (!s || s.querySelector('.pm-vermas')) return;
+      var box = s.querySelector('.container') || s;
+      box.appendChild(el('<p class="pm-vermas"><a class="pm-btn" href="' + x[1] + '">' + x[2] + ' →</a></p>'));
+    });
+  }
+
   function masVendido() {
     var s = document.querySelector('[data-store="home-products-new"]');
     if (!s || s.getAttribute('data-pm-mv')) return;
@@ -1180,6 +1192,7 @@
   function later() {
     try { masVendido(); } catch (e) {}
     try { featuredTitle(); } catch (e) {}
+    try { verMas(); } catch (e) {}
     try { newsletterText(); } catch (e) {}
     try { pauseOffscreen(); } catch (e) {}
   }
