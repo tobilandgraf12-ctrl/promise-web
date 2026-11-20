@@ -51,7 +51,7 @@
     /* local */
     '.pm-local{background:#FFD400;color:#0F0F0F}',
     '.pm-local .pm-kick{color:#0F0F0F}.pm-local .pm-kick:before{background:#0F0F0F}',
-    '.pm-local .pm-h{color:#0F0F0F;font-size:96px}',
+    '.pm-local .pm-h{color:#0F0F0F;font-size:96px;line-height:1.14}',
     '.pm-local .pm-h em{color:transparent;-webkit-text-stroke:2px #0F0F0F}',
     '.pm-local-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:end}',
     '.pm-steps{display:grid;gap:0;border-top:2px solid #0F0F0F}',
@@ -193,7 +193,7 @@
       ['DESDE <span>2017</span>', 'En Villa Ballester', 'Alvear 2445. Vestimos a la zona con lo que se usa.', 'VB · DESDE 2017'],
       ['<span>PROBADORES</span>', 'En el local', 'Probátelo antes de llevártelo.', 'ALVEAR 2445'],
       ['STOCK <span>REAL</span>', 'Lo que ves, está', 'Todo lo de la web lo tenemos en el local. Y adentro hay más: perfumes, bolsos y accesorios.', 'EN EL LOCAL'],
-      ['<span>10</span> DÍAS', 'Para cambiar', '¿Le erraste al talle? Lo cambiás dentro de los 10 días, con la bolsa original.', 'SIN DRAMA']
+      ['<span>10</span> DÍAS', 'Para cambiar', '¿Le erraste al talle? Lo cambiás dentro de los 10 días desde que lo recibís, con la bolsa original.', 'SIN DRAMA']
     ];
     var html = '<section class="pm-sec pm-why" aria-labelledby="pm-why-t"><div class="pm-wrap">' +
       '<div class="pm-kick pm-rv">Villa Ballester · Alvear 2445</div>' +
@@ -246,12 +246,12 @@
   function faqSection() {
     var qs = [
       ['¿Cómo sé qué talle soy?', 'Lo mejor es venir a probártelo: el local tiene probadores. Si comprás online, medí una prenda tuya siguiendo la <a href="#" class="pm-open-talles">guía de talles</a> y consultanos las medidas del modelo. Si tenés dudas, te ayudamos por WhatsApp.'],
-      ['¿Y si me queda mal?', 'Tenés 10 días para cambiarlo, con la bolsa original y la prenda sin uso. Escribinos por WhatsApp y coordinamos el cambio.'],
-      ['¿Puedo devolverlo?', 'En compras online podés arrepentirte dentro de los 10 días desde el botón de arrepentimiento, al pie de la página. Si la prenda tiene una falla, escribinos y lo resolvemos.'],
+      ['¿Y si me queda mal? (cambio de talle o modelo)', 'Tenés 10 días para cambiarlo, contados desde que recibís o retirás tu compra. La prenda tiene que estar sin uso, con etiqueta y en su bolsa original. Escribinos por WhatsApp y coordinamos el cambio.'],
+      ['¿Puedo devolverlo y que me devuelvan la plata?', 'Sí, en compras por la web. Es distinto del cambio: tenés 10 días corridos desde que recibís o retirás el pedido para arrepentirte, desde el botón de arrepentimiento al pie de la página. La prenda tiene que volver como la recibiste y te devolvemos el dinero. Si tiene una falla, escribinos y lo resolvemos.'],
       ['¿Cuánto tarda en llegar?', 'Aproximadamente 3 días hábiles desde que despachamos.'],
-      ['¿Hacen envíos gratis?', 'Sí, en compras desde $150.000, a todo el país.'],
+      ['¿Hacen envíos gratis?', 'Sí, en compras desde $150.000 el envío por Correo Argentino Clásico es gratis, a domicilio o a sucursal, a todo el país. No incluye Correo Expreso ni envíos en el día. Retirar en el local siempre es gratis.'],
       ['¿Puedo retirar en el local?', 'Sí, sin costo y sin aviso previo, en Alvear 2445, Villa Ballester.'],
-      ['¿Cómo aprovecho el 20% OFF?', 'Pagando por transferencia en la web o en efectivo en el local.']
+      ['¿Cómo aprovecho el 20% OFF?', 'Comprando por la web y pagando por transferencia, o en efectivo al retirar en el local. Abajo de cada producto ves el precio con el descuento. En el carrito tocá «Pagar en efectivo o transferencia» y te pasamos el pedido por WhatsApp. Con tarjeta o Mercado Pago se paga el precio de lista, en hasta 3 cuotas sin interés.']
     ];
     var html = '<section id="preguntas" class="pm-sec pm-faqs" aria-labelledby="pm-faq-t"><div class="pm-wrap pm-faq-grid">' +
       '<div><div class="pm-kick pm-rv">Preguntas frecuentes</div><h2 class="pm-h pm-rv" id="pm-faq-t">Lo que siempre <em>nos preguntan</em></h2>' +
@@ -307,7 +307,7 @@
       '<div class="pm-steps pm-rv"><div><b>01</b>Elegís online o venís directo</div><div><b>02</b>Te lo probás en el probador</div><div><b>03</b>Retirás tu compra sin costo</div></div>' +
       '</div>' +
       '<div class="pm-wrap pm-lg pm-rv">' +
-      ['frente|Frente del local Promise en Alvear 2445', 'interior|Adentro del local, con remeras, jeans y buzos', 'jeans|Pared de jeans y buzos del local'].map(function (x) {
+      ['frente|Frente del local Promise en Alvear 2445', 'interior|Adentro del local renovado, con remeras, jeans y buzos', 'jeans|Probadores del local'].map(function (x) {
         x = x.split('|'); return '<figure><img src="' + ASSETS + 'local/' + x[0] + '.webp" alt="' + x[1] + '" loading="lazy" width="720" height="960"></figure>';
       }).join('') +
       '<figure class="pm-lg-map"><iframe title="Mapa: Promise, Alvear 2445, Villa Ballester" src="https://www.google.com/maps?q=Promise+Alvear+2445+Villa+Ballester&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></figure>' +
@@ -628,7 +628,7 @@
     '[data-component="order-cancellation"]:hover{opacity:1;text-decoration:underline!important}',
     /* 20%: sin cuadrado rojo en las fotos, texto sutil debajo del precio */
     '.item-product .item-image::after{content:none!important;display:none!important}',
-    '.js-item-product .item-installments::after{content:"20% OFF en efectivo o transferencia";display:block;margin-top:3px;color:#FFD400;font-size:11px;font-weight:600;letter-spacing:.02em}',
+    '.pm-tp{display:block;margin-top:3px;color:#FFD400;font-size:12px;font-weight:600;letter-spacing:.01em;line-height:1.3}.pm-tp b{font-weight:800}.pm-tp-d{font-size:15px;margin:6px 0 4px}',
     '#single-product .js-price-display::after{font-size:11px!important;font-weight:600!important;letter-spacing:.02em!important;text-transform:none!important;margin-top:6px!important}',
     /* Logo: gira mas seguido, con reflejo espejado */
     '.logo-img{animation:pm-spin2 6s cubic-bezier(.6,0,.3,1) infinite!important;-webkit-box-reflect:below 1px linear-gradient(transparent 62%,rgba(255,255,255,.28))}',
@@ -872,7 +872,7 @@
       return '<a class="pm-mm-c" href="' + c[1] + '"><b>' + c[0] + '</b><i>→</i></a>';
     }).join('');
     var box = el('<div class="pm-mm">' +
-      '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis desde $150.000</a>' +
+      '<a class="pm-mm-promo" href="/productos/">20% OFF en efectivo o transferencia · Envío gratis por correo desde $150.000</a>' +
       '<p class="pm-mm-k">Categorías</p><div class="pm-mm-cats">' + cats + '</div>' +
       '<ul class="pm-mm-l">' +
       '<li><a class="pm-mm-kids" href="' + KIDS + '"><b>Promise Kids <em class="pm-badge">Nuevo</em></b><i>→</i></a></li>' +
@@ -888,7 +888,7 @@
     var foot = el('<div class="pm-mm pm-mm-f">' +
       '<a class="pm-mm-wa" href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a>' +
       '<p><b>Alvear 2445, Villa Ballester</b></p>' +
-      '<p>Lun a jue 10 a 13 y 16 a 20 · Vie y sáb 10 a 20:30</p>' +
+      '<p>Lun a jue 10 a 13 y 16 a 20 · Vie y sáb 10 a 20</p>' +
       '<p><a class="pm-mm-ig" href="https://www.instagram.com/promise_vb/" target="_blank" rel="noopener">@promise_vb</a></p></div>');
     prim.parentNode.insertBefore(foot, prim.nextSibling);
     m.addEventListener('click', function (ev) {
@@ -939,7 +939,7 @@
     var sub = document.getElementById('ajax-cart-submit-div');
     if (!sub || document.getElementById('pm-transfer')) return;
     var box = document.createElement('div'); box.id = 'pm-transfer';
-    box.innerHTML = '<a href="#" class="pm-tr-btn">Pagar por transferencia · <b>20% OFF</b></a>' +
+    box.innerHTML = '<a href="#" class="pm-tr-btn">Pagar en efectivo o transferencia · <b>20% OFF</b></a>' +
       '<p class="pm-tr-note">Te pasamos el pedido por WhatsApp y te respondemos con el total y el alias.</p>';
     sub.parentNode.insertBefore(box, sub.nextSibling);
     box.querySelector('a').addEventListener('click', function (ev) {
@@ -958,10 +958,45 @@
         lines.push('• ' + name + (v ? ' ' + v.textContent.trim() : '') + ' x' + q + ' — ' + fmt(p) + (gift ? ' (sin descuento)' : ''));
       });
       if (!lines.length) return;
-      var msg = 'Hola Promise! Quiero pagar por transferencia con el 20% OFF:\n' + lines.join('\n') +
+      var msg = 'Hola Promise! Quiero pagar en efectivo o por transferencia con el 20% OFF:\n' + lines.join('\n') +
         '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt((total - giftTot) * 0.8 + giftTot) + (giftTot ? ' (las gift cards no tienen descuento)' : '') +
         '\n\n¿Me pasan el alias? (Envío o retiro a coordinar)';
       window.open(WA + '?text=' + encodeURIComponent(msg), '_blank');
+    });
+  }
+
+  /* Precio final con 20% OFF en efectivo o transferencia, debajo de cada precio */
+  function tpFmt(n) { return '$' + Math.round(n).toLocaleString('es-AR'); }
+  function tpNum(t) { var m = (t || '').replace(/\s/g, '').match(/\$?([\d.]+)(,\d+)?/); return m ? parseFloat(m[1].replace(/\./g, '') + (m[2] ? '.' + m[2].slice(1) : '')) : 0; }
+  function transferPrices() {
+    document.querySelectorAll('.js-item-product').forEach(function (it) {
+      var p = it.querySelector('.js-price-display'); if (!p) return;
+      var nm = (it.querySelector('.js-item-name, .item-name') || {}).textContent || '';
+      if (/gift ?card/i.test(nm)) return;
+      var v = tpNum(p.textContent); if (!v) return;
+      var t = it.querySelector('.pm-tp');
+      var txt = '<b>' + tpFmt(v * 0.8) + '</b> en efectivo o transferencia';
+      if (t) { if (t.getAttribute('data-v') !== String(v)) { t.innerHTML = txt; t.setAttribute('data-v', v); } return; }
+      t = document.createElement('span'); t.className = 'pm-tp'; t.innerHTML = txt; t.setAttribute('data-v', v);
+      var inst = it.querySelector('.item-installments'); var host = inst || p;
+      host.parentNode.insertBefore(t, host.nextSibling);
+    });
+    var dp = document.getElementById('price_display');
+    if (dp && !/gift ?card/i.test(document.title)) {
+      var v = tpNum(dp.textContent), d = document.querySelector('.pm-tp-d');
+      if (v) {
+        var html = '<b>' + tpFmt(v * 0.8) + '</b> pagando en efectivo o transferencia (20% OFF)';
+        if (!d) { d = document.createElement('div'); d.className = 'pm-tp pm-tp-d'; var box = dp.closest('.price-container') || dp.parentNode; box.parentNode.insertBefore(d, box.nextSibling); }
+        if (d.getAttribute('data-v') !== String(v)) { d.innerHTML = html; d.setAttribute('data-v', v); }
+      }
+    }
+    // texto del tema en la barra del carrito: "superando los" -> "desde"
+    document.querySelectorAll('.bar-progress-condition, .ship-free-rest-text').forEach(function (n) {
+      if (/superando los/i.test(n.textContent) && n.children.length === 0) n.textContent = n.textContent.replace(/superando los/i, 'por correo desde');
+    });
+    // horario del pie: vie y sab hasta las 20
+    document.querySelectorAll('footer li, footer p, .js-footer li').forEach(function (n) {
+      if (n.children.length === 0 && /20:30/.test(n.textContent)) n.textContent = n.textContent.replace(/20:30/g, '20:00');
     });
   }
 
@@ -1082,6 +1117,10 @@
     try { navLinks(); } catch (e) {}
     try { headLogo3d(); } catch (e) {}
     try { mobileMenu(); } catch (e) {}
+    try {
+      transferPrices();
+      var tpT = 0; new MutationObserver(function () { if (tpT) return; tpT = setTimeout(function () { tpT = 0; try { transferPrices(); } catch (e) {} }, 400); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    } catch (e) {}
     try {
       transferBtn();
       var cartBox = document.querySelector('.js-ajax-cart-panel, #modal-cart, .js-modal-cart, [data-store="cart-panel"]') || document.body;
