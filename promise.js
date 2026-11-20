@@ -616,7 +616,7 @@
     '@media(max-width:767px){.pm-lg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:32px;padding-bottom:6px}.pm-lg figure{flex:0 0 72%;scroll-snap-align:start}}',
     /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
     '.pm-new{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
-    '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}',
+    '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}.js-nav-desktop-list>li{padding-left:8px!important;padding-right:8px!important}',
     '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
     '.pm-mv-row{flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:8px}',
     '.pm-mv-row>.js-item-product{flex:0 0 50%;max-width:50%;scroll-snap-align:start}',
