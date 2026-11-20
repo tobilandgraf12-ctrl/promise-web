@@ -1024,7 +1024,7 @@
     function go() {
       Promise.all(SEASON.map(function (u) {
         return fetch(u + '?sort_by=best-selling&results_only=true', { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
-          return Array.prototype.slice.call(new DOMParser().parseFromString(t, 'text/html').querySelectorAll('.js-item-product')).filter(function (i) { return !/sin stock/i.test(i.textContent); });
+          return Array.prototype.slice.call(new DOMParser().parseFromString(t, 'text/html').querySelectorAll('.js-item-product')).filter(function (i) { return !/sin stock/i.test(i.textContent) && !/chaqueta|campera|buzo|sweater|abrigo|polar/i.test((i.querySelector('.js-item-name, .item-name') || {}).textContent || ''); });
         }).catch(function () { return []; });
       })).then(function (lists) {
         var out = [], seen = {};
