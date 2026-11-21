@@ -891,7 +891,7 @@
     var foot = el('<div class="pm-mm pm-mm-f">' +
       '<a class="pm-mm-wa" href="' + WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a>' +
       '<p><b>Alvear 2445, Villa Ballester</b></p>' +
-      '<p>Lun a jue 10 a 13 y 16 a 20 · Vie y sáb 10 a 20</p>' +
+      '<p>Lun a jue 10 a 13 y 16 a 20 · Vie y sáb 10 a 20:30</p>' +
       '<p><a class="pm-mm-ig" href="https://www.instagram.com/promise_vb/" target="_blank" rel="noopener">@promise_vb</a></p></div>');
     prim.parentNode.insertBefore(foot, prim.nextSibling);
     m.addEventListener('click', function (ev) {
@@ -921,12 +921,14 @@
   function navLinks() {
     var nav = document.querySelector('.js-nav-desktop-list');
     if (!nav || nav.querySelector('.pm-navx')) return;
+    // barra de compu: Inicio (ya está el logo) y Nuestra historia (está en el pie) no entran; se ocultan solo acá
+    Array.prototype.forEach.call(nav.children, function (n) { if (/^(inicio|nuestra historia)$/i.test(n.textContent.trim())) n.style.display = 'none'; });
     var model = nav.querySelector(':scope > li:not(.item-with-subitems)');
     [['Promise Kids', KIDS, 1], ['Gift Cards', '/productos/gift-card/'], ['Preguntas frecuentes', '/#preguntas'], ['El local', '/#local']].forEach(function (x) {
       var li;
       if (model) {
         li = model.cloneNode(true);
-        li.classList.remove('selected', 'active');
+        li.classList.remove('selected', 'active'); li.style.display = '';
         var a = li.querySelector('a'); a.setAttribute('href', x[1]); a.textContent = x[0];
       } else { li = el('<li class="nav-item"><a class="nav-list-link" href="' + x[1] + '">' + x[0] + '</a></li>'); }
       li.classList.add('pm-navx');
@@ -997,10 +999,6 @@
     // texto del tema en la barra del carrito: "superando los" -> "desde"
     document.querySelectorAll('.bar-progress-condition, .ship-free-rest-text, .js-shipping-minimum-label').forEach(function (n) {
       Array.prototype.forEach.call(n.childNodes, function (c) { if (c.nodeType === 3 && /superando los/i.test(c.textContent)) c.textContent = c.textContent.replace(/superando los/i, 'por correo desde'); });
-    });
-    // horario del pie: vie y sab hasta las 20
-    document.querySelectorAll('footer li, footer p, .js-footer li').forEach(function (n) {
-      if (n.children.length === 0 && /20:30/.test(n.textContent)) n.textContent = n.textContent.replace(/20:30/g, '20:00');
     });
   }
 
