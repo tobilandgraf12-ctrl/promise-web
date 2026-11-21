@@ -115,7 +115,7 @@
     '.pm-cta-fade{animation:pm-fade .7s 2.2s both}',
     /* CATEGORIAS CON PRENDA */
     '.pm-cats{background:#0F0F0F}',
-    '.pm-cat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}',
+    '.pm-cat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}',
     '.pm-cat{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:radial-gradient(circle at 50% 42%,#262626 0,#161616 62%);border:1px solid #232323;text-decoration:none!important;transition:border-color .3s,background .4s}',
     '.pm-cat:hover{border-color:#FFD400;background:radial-gradient(circle at 50% 42%,#3a3410 0,#161616 66%)}',
     '.pm-cat .pm-n{position:absolute;top:14px;left:18px;font-family:"Oswald",sans-serif;font-size:64px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px #3a3a3a;z-index:1}',
@@ -342,13 +342,11 @@
   })();
   var CATS = [
     ['Remeras', '/indumentaria/remeras-camisas/', ASSETS + 'cat/remera.mp4', 'video', ASSETS + 'cat/remera.webp'],
-    ['Conjuntos', '/indumentaria/conjuntos/', 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/img_6648-6728a767dbee64694517949535646936-640-0.webp', 'foto'],
     ['Pantalones', '/indumentaria/pantalones/', ASSETS + 'cat/jean.mp4', 'video', ASSETS + 'cat/jean.webp'],
     ['Bermudas', '/indumentaria/shorts-y-bermudas/', ASSETS + 'cat/bermuda.mp4', 'video', ASSETS + 'cat/bermuda.webp'],
     ['Abrigos', '/indumentaria/abrigo/', ASSETS + 'cat/campera.mp4', 'video', ASSETS + 'cat/campera.webp'],
     ['Calzado', '/calzado/', ASSETS + 'cat/zapatilla.mp4', 'video', ASSETS + 'cat/zapatilla.webp'],
-    ['Accesorios', '/accesorios/', ASSETS + 'cat/bolso.mp4', 'video', ASSETS + 'cat/bolso.webp'],
-    ['Promise Kids', '/promise-kids-kp7mp/', 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/img_0712-467c1f18c1ecc40c0a17927885555519-640-0.webp', 'foto']
+    ['Accesorios', '/accesorios/', ASSETS + 'cat/bolso.mp4', 'video', ASSETS + 'cat/bolso.webp']
   ];
 
   var HERO = {
@@ -872,7 +870,8 @@
     if (!body || !prim) return;
     var hd = m.querySelector('.modal-header');
     if (hd && !hd.querySelector('.pm-mm-logo')) hd.insertBefore(el('<img class="pm-mm-logo" src="' + ASSETS + 'hero/logo_small_white.webp" alt="Promise">'), hd.firstChild);
-    var cats = CATS.filter(function (c) { return !/kids/i.test(c[0]); }).map(function (c) {
+    var mmCats = CATS.slice(); mmCats.splice(1, 0, ['Conjuntos', '/indumentaria/conjuntos/']);
+    var cats = mmCats.map(function (c) {
       return '<a class="pm-mm-c" href="' + c[1] + '"><b>' + c[0] + '</b><i>→</i></a>';
     }).join('');
     var box = el('<div class="pm-mm">' +
