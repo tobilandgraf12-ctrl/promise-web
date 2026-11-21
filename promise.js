@@ -341,8 +341,8 @@
     return m ? m[1] + 'assets/' : 'https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@main/assets/';
   })();
   var CATS = [
-    ['Conjuntos', '/indumentaria/conjuntos/', 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/img_6648-6728a767dbee64694517949535646936-640-0.webp', 'foto'],
     ['Remeras', '/indumentaria/remeras-camisas/', ASSETS + 'cat/remera.mp4', 'video', ASSETS + 'cat/remera.webp'],
+    ['Conjuntos', '/indumentaria/conjuntos/', 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/img_6648-6728a767dbee64694517949535646936-640-0.webp', 'foto'],
     ['Pantalones', '/indumentaria/pantalones/', ASSETS + 'cat/jean.mp4', 'video', ASSETS + 'cat/jean.webp'],
     ['Bermudas', '/indumentaria/shorts-y-bermudas/', ASSETS + 'cat/bermuda.mp4', 'video', ASSETS + 'cat/bermuda.webp'],
     ['Abrigos', '/indumentaria/abrigo/', ASSETS + 'cat/campera.mp4', 'video', ASSETS + 'cat/campera.webp'],
