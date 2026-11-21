@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="es"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{store_name}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet" />
+<style type="text/css">
+body{margin:0;padding:0;background:#EDEAE4;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+table,td{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}
+img{border:0;outline:none;text-decoration:none;display:block}
+@media only screen and (max-width:620px){.w{width:100%!important}.p{padding-left:22px!important;padding-right:22px!important}.h1{font-size:34px!important;line-height:38px!important}}
+</style></head>
+<body style="margin:0;padding:0;background:#EDEAE4;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Te guardamos el carrito. Te falta solo el último paso.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EDEAE4;"><tr><td align="center" style="padding:24px 10px;">
+<table role="presentation" class="w" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background:#0F0F0F;">
+<tr><td style="background:#0F0F0F;"><a href="https://promisevb.mitiendanube.com/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@a2575cb/assets/mail/banner2.png" width="600" alt="PROMISE" style="width:100%;max-width:600px;height:auto;display:block;" /></a></td></tr>
+<tr><td class="p" style="padding:34px 44px 6px 44px;font-family:Arial,Helvetica,sans-serif;">
+<p style="margin:0 0 10px 0;font-size:12px;letter-spacing:3px;font-weight:bold;color:#EDEAE4;text-transform:uppercase;">Hola {{ cart.contact_name }}</p>
+<h1 class="h1" style="margin:0 0 18px 0;font-family:Oswald,Impact,'Arial Narrow Bold','Arial Black',Arial,sans-serif;font-weight:700;font-size:44px;line-height:48px;text-transform:uppercase;color:#EDEAE4;">Tu pedido<br /><span style="display:inline-block;margin-top:6px;background:#FFD400;color:#0F0F0F;padding:0 6px;">quedó en pausa</span></h1>
+<p style="margin:0 0 8px 0;font-size:16px;line-height:24px;color:#EDEAE4;">Te guardamos el ticket. Te falta solo el último paso.</p>
+</td></tr>
+<tr><td class="p" style="padding:14px 44px 8px 44px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F6F4F0;">
+<tr><td style="padding:22px 24px 10px 24px;border-bottom:2px dashed #a9a39b;font-family:'Courier New',Courier,monospace;font-size:12px;letter-spacing:2px;color:#5b5752;">PROMISE · ALVEAR 2445<br />TICKET DE CARRITO</td></tr>
+<tr><td style="padding:12px 24px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+{% for product in cart.items %}
+<tr><td style="padding:7px 0;font-family:'Courier New',Courier,monospace;font-size:14px;line-height:19px;color:#0F0F0F;">{{ product.quantity }} x {{ product.name }}<br><span style="color:#7a756e;font-size:12px;">{% if product.is_kit %}{% for component in product.components %}{{ component.name }} {{ component.variationName }} x {{ component.total_quantity }}<br>{% endfor %}{% else %}{{ product.variationName }}{% endif %}</span></td><td align="right" valign="top" style="padding:7px 0 7px 10px;font-family:'Courier New',Courier,monospace;font-size:13px;color:#0F0F0F;white-space:nowrap;">EN ESPERA</td></tr>
+{% endfor %}
+</table></td></tr>
+<tr><td style="padding:12px 24px 22px 24px;border-top:2px dashed #a9a39b;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FFD400;"><tr><td style="padding:14px 16px;font-family:Oswald,Impact,'Arial Narrow Bold','Arial Black',Arial,sans-serif;font-weight:700;font-size:22px;line-height:26px;color:#0F0F0F;text-transform:uppercase;">20% OFF<br /><span style="font-family:Arial,Helvetica,sans-serif;font-weight:normal;font-size:13px;line-height:18px;text-transform:none;">pagando por transferencia o en efectivo (pedilo por WhatsApp)</span></td></tr></table>
+<p style="margin:12px 0 0 0;font-family:'Courier New',Courier,monospace;font-size:12px;line-height:18px;color:#5b5752;">ENVÍO GRATIS DESDE $150.000 (CORREO ARG.)<br />RETIRO GRATIS EN EL LOCAL</p>
+</td></tr></table></td></tr>
+<tr><td class="p" style="padding:24px 44px 12px 44px;">
+<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ cart.abandoned_checkout_url }}" style="height:52px;v-text-anchor:middle;width:512px;" arcsize="0%" stroke="f" fillcolor="#FFD400"><w:anchorlock/><center style="color:#0F0F0F;font-family:Arial,sans-serif;font-size:14px;font-weight:bold;">TERMINAR MI COMPRA</center></v:roundrect><![endif]-->
+<!--[if !mso]><!--><a href="{{ cart.abandoned_checkout_url }}" target="_blank" style="display:block;text-align:center;background:#FFD400;color:#0F0F0F;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:14px;letter-spacing:2px;text-transform:uppercase;padding:17px 28px;">Terminar mi compra</a><!--<![endif]-->
+</td></tr>
+<tr><td class="p" align="center" style="padding:6px 44px 36px 44px;font-family:Arial,Helvetica,sans-serif;font-size:14px;"><a href="https://wa.me/541140563485" target="_blank" style="color:#EDEAE4;">¿Dudas con el talle? Escribinos por WhatsApp</a></td></tr>
+<tr><td style="border-top:1px solid #2a2a2a;font-size:0;line-height:0;">&nbsp;</td></tr>
+<tr><td style="background:#0F0F0F;padding:26px 30px;font-family:Arial,Helvetica,sans-serif;text-align:center;">
+<p style="margin:0 0 8px 0;font-size:12px;letter-spacing:2px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Alvear 2445 · Villa Ballester</p>
+<p style="margin:0 0 6px 0;font-size:13px;line-height:20px;color:#bdb8b0;">Lun a jue 10 a 13 y 16 a 20 · Vie y sáb 10 a 20:30</p>
+<p style="margin:0 0 14px 0;font-size:13px;line-height:20px;"><a href="https://wa.me/541140563485" target="_blank" style="color:#ffffff;text-decoration:none;">WhatsApp 11 4056-3485</a> &nbsp;·&nbsp; <a href="https://www.instagram.com/promise_vb/" target="_blank" style="color:#ffffff;text-decoration:none;">Instagram @promise_vb</a></p>
+<p style="margin:0;font-size:11px;line-height:16px;color:#7a756e;">Si no hiciste esta compra o estabas probando nuestro sitio, ignorá este e-mail.</p>
+</td></tr>
+</table></td></tr></table></body></html>
