@@ -575,7 +575,9 @@
     '.pm-hero-cta{background:#FFD400!important;color:#0F0F0F!important}',
     '.pm-hero-cta:hover{background:#fff!important}',
     '.pm-wb{background:#0F0F0F;overflow:hidden;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);position:relative}',
-    '.pm-wb-l{white-space:nowrap;font-family:"Oswald",sans-serif;font-weight:700;font-size:118px;line-height:1.02;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.2px #4a4744;will-change:transform}',
+    '.pm-wb-l{white-space:nowrap;font-family:"Oswald",sans-serif;font-weight:700;font-size:118px;line-height:1.02;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.2px #4a4744;will-change:transform;display:block;width:max-content}',
+    '.pm-wb-l.pm-mq-l{animation:pmMqL linear infinite}.pm-wb-l.pm-mq-r{animation:pmMqR linear infinite}.pm-wb-c{display:inline-block;white-space:pre}',
+    '@keyframes pmMqL{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}@keyframes pmMqR{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}',
     '.pm-wb-l i{font-style:normal;display:inline-block;font-size:.42em;vertical-align:.55em;color:#FFD400;-webkit-text-stroke:0;margin:0 .35em}',
     '[data-store="home-products-new"]::before{display:none!important}',
     /* bordes y detalles */
@@ -1132,29 +1134,39 @@
 
   // Bandas de palabras gigantes caladas que se mueven al bajar
   function wordBand(l1, l2) {
-    var rep = function (t) { var x = ''; for (var i = 0; i < 6; i++) x += t; return x.replace(/✕/g, '<i>✕</i>'); };
-    return el('<section class="pm-wb" aria-hidden="true"><div class="pm-wb-l" data-dir="1">' + rep(l1) + '</div><div class="pm-wb-l" data-dir="-1">' + rep(l2) + '</div></section>');
+    var f = function (t) { return '<span class="pm-wb-c">' + t.replace(/✕/g, '<i>✕</i>') + '</span>'; };
+    return el('<section class="pm-wb" aria-hidden="true"><div class="pm-wb-l" data-dir="1">' + f(l1) + '</div><div class="pm-wb-l" data-dir="-1">' + f(l2) + '</div></section>');
   }
+  // Franjas: marquesina continua por CSS (la mueve la placa gráfica), pausada fuera de pantalla
   function bandScroll() {
     if (window.__pmBand) return; window.__pmBand = true;
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var ticking = false;
-    function upd() {
-      ticking = false;
-      var vh = window.innerHeight;
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.target.classList.toggle('pm-off', !e.isIntersecting); });
+    }, { rootMargin: '100px 0px' }) : null;
+    function build() {
+      var need = Math.max(window.innerWidth, 1280) + 200;
       document.querySelectorAll('.pm-wb').forEach(function (b) {
-        var r = b.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) return;
-        var p = (vh - r.top) * 0.35;
         b.querySelectorAll('.pm-wb-l').forEach(function (l) {
-          var d = +l.getAttribute('data-dir');
-          l.style.transform = 'translate3d(' + (d > 0 ? -p : p - l.scrollWidth / 3) + 'px,0,0)';
+          var c = l.querySelector('.pm-wb-c'); if (!c) return;
+          var one = c.outerHTML, w = c.getBoundingClientRect().width || 1000;
+          var n = Math.max(1, Math.ceil(need / w)), half = '';
+          for (var i = 0; i < n; i++) half += one;
+          l.innerHTML = half + half; // dos mitades iguales: el loop no se nota
+          if (still) return;
+          l.style.animationDuration = Math.round(n * w / 45) + 's'; // ~45 px por segundo
+          l.classList.add(+l.getAttribute('data-dir') > 0 ? 'pm-mq-l' : 'pm-mq-r');
         });
+        if (io && !b.__pmIO) { b.__pmIO = 1; io.observe(b); }
       });
     }
-    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
-    window.addEventListener('resize', upd, { passive: true });
-    upd();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(build); else build();
+    var rt = 0; window.addEventListener('resize', function () {
+      clearTimeout(rt); rt = setTimeout(function () {
+        document.querySelectorAll('.pm-wb-l').forEach(function (l) { var c = l.querySelector('.pm-wb-c'); if (c) l.innerHTML = c.outerHTML; });
+        build();
+      }, 300);
+    }, { passive: true });
   }
 
 
