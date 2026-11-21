@@ -921,10 +921,10 @@
   function navLinks() {
     var nav = document.querySelector('.js-nav-desktop-list');
     if (!nav || nav.querySelector('.pm-navx')) return;
-    // barra de compu: Inicio (ya está el logo) y Nuestra historia (está en el pie) no entran; se ocultan solo acá
-    Array.prototype.forEach.call(nav.children, function (n) { if (/^(inicio|nuestra historia)$/i.test(n.textContent.trim())) n.style.display = 'none'; });
+    // barra de compu: Nuestra historia está en el pie; se oculta solo acá
+    Array.prototype.forEach.call(nav.children, function (n) { if (/^nuestra historia$/i.test(n.textContent.trim())) n.style.display = 'none'; });
     var model = nav.querySelector(':scope > li:not(.item-with-subitems)');
-    [['Promise Kids', KIDS, 1], ['Gift Cards', '/productos/gift-card/'], ['Preguntas frecuentes', '/#preguntas'], ['El local', '/#local']].forEach(function (x) {
+    [['Promise Kids', KIDS, 1], ['Gift Cards', '/productos/gift-card/'], ['El local', '/#local']].forEach(function (x) {
       var li;
       if (model) {
         li = model.cloneNode(true);
