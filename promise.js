@@ -115,14 +115,14 @@
     '.pm-cta-fade{animation:pm-fade .7s 2.2s both}',
     /* CATEGORIAS CON PRENDA */
     '.pm-cats{background:#0F0F0F}',
-    '.pm-cat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}',
+    '.pm-cat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}',
     '.pm-cat{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:radial-gradient(circle at 50% 42%,#262626 0,#161616 62%);border:1px solid #232323;text-decoration:none!important;transition:border-color .3s,background .4s}',
     '.pm-cat:hover{border-color:#FFD400;background:radial-gradient(circle at 50% 42%,#3a3410 0,#161616 66%)}',
     '.pm-cat .pm-n{position:absolute;top:14px;left:18px;font-family:"Oswald",sans-serif;font-size:64px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px #3a3a3a;z-index:1}',
     '.pm-cat .pm-media{position:absolute;left:50%;top:46%;width:58%;aspect-ratio:1/1;margin-left:-29%;margin-top:-29%;z-index:2;animation:pm-float 4.2s ease-in-out infinite}',
     '.pm-cat:nth-child(2) .pm-media{animation-delay:-.7s}.pm-cat:nth-child(3) .pm-media{animation-delay:-1.4s}.pm-cat:nth-child(4) .pm-media{animation-delay:-2.1s}.pm-cat:nth-child(5) .pm-media{animation-delay:-2.8s}.pm-cat:nth-child(6) .pm-media{animation-delay:-3.5s}',
     '.pm-cat .pm-media img,.pm-cat .pm-media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}',
-    '.pm-cat .pm-media.pm-photo{box-shadow:0 26px 40px rgba(0,0,0,.6);border:6px solid #EDEAE4;background:#EDEAE4}',
+    '.pm-cat .pm-media.pm-photo{box-shadow:0 26px 40px rgba(0,0,0,.6);border:6px solid #EDEAE4;background:#EDEAE4}.pm-cat .pm-photo img{width:100%;height:100%;object-fit:cover}',
     '.pm-cat .pm-media.pm-cut img,.pm-cat .pm-media.pm-cut video{object-fit:contain;filter:drop-shadow(0 24px 22px rgba(0,0,0,.6))}',
     '.pm-cat.pm-has-vid{background:#101010}.pm-has-vid .pm-n{z-index:3}.pm-cat .pm-media.pm-vid{left:0;top:0;width:100%;height:100%;margin:0;aspect-ratio:auto;animation:none}',
     '.pm-cat .pm-media.pm-vid video{object-fit:cover;transform:translateY(-5%) scale(.9)}.pm-cat:hover .pm-media.pm-vid video{transform:translateY(-5%) scale(.96)}',
@@ -341,12 +341,14 @@
     return m ? m[1] + 'assets/' : 'https://cdn.jsdelivr.net/gh/tobilandgraf12-ctrl/promise-web@main/assets/';
   })();
   var CATS = [
+    ['Conjuntos', '/indumentaria/conjuntos/', 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/img_6648-6728a767dbee64694517949535646936-640-0.webp', 'foto'],
     ['Remeras', '/indumentaria/remeras-camisas/', ASSETS + 'cat/remera.mp4', 'video', ASSETS + 'cat/remera.webp'],
     ['Pantalones', '/indumentaria/pantalones/', ASSETS + 'cat/jean.mp4', 'video', ASSETS + 'cat/jean.webp'],
     ['Bermudas', '/indumentaria/shorts-y-bermudas/', ASSETS + 'cat/bermuda.mp4', 'video', ASSETS + 'cat/bermuda.webp'],
     ['Abrigos', '/indumentaria/abrigo/', ASSETS + 'cat/campera.mp4', 'video', ASSETS + 'cat/campera.webp'],
     ['Calzado', '/calzado/', ASSETS + 'cat/zapatilla.mp4', 'video', ASSETS + 'cat/zapatilla.webp'],
-    ['Accesorios', '/accesorios/', ASSETS + 'cat/bolso.mp4', 'video', ASSETS + 'cat/bolso.webp']
+    ['Accesorios', '/accesorios/', ASSETS + 'cat/bolso.mp4', 'video', ASSETS + 'cat/bolso.webp'],
+    ['Promise Kids', '/promise-kids-kp7mp/', 'https://dcdn-us.mitiendanube.com/stores/007/167/228/products/img_0712-467c1f18c1ecc40c0a17927885555519-640-0.webp', 'foto']
   ];
 
   var HERO = {
@@ -870,7 +872,7 @@
     if (!body || !prim) return;
     var hd = m.querySelector('.modal-header');
     if (hd && !hd.querySelector('.pm-mm-logo')) hd.insertBefore(el('<img class="pm-mm-logo" src="' + ASSETS + 'hero/logo_small_white.webp" alt="Promise">'), hd.firstChild);
-    var cats = CATS.map(function (c) {
+    var cats = CATS.filter(function (c) { return !/kids/i.test(c[0]); }).map(function (c) {
       return '<a class="pm-mm-c" href="' + c[1] + '"><b>' + c[0] + '</b><i>→</i></a>';
     }).join('');
     var box = el('<div class="pm-mm">' +
