@@ -950,7 +950,7 @@
       ev.preventDefault();
       var num = function (t) { return parseFloat(String(t || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0; };
       var fmt = function (n) { return '$' + Math.round(n).toLocaleString('es-AR'); };
-      var lines = [], total = 0, giftTot = 0;
+      var lines = [], total = 0, giftTot = 0, discTot = 0;
       document.querySelectorAll('.js-cart-item').forEach(function (el) {
         var a = el.querySelector('[data-component="name.short-name"]');
         if (!a) return;
@@ -958,12 +958,13 @@
         var q = (el.querySelector('.js-cart-quantity-input') || {}).value || '1';
         var p = num((el.querySelector('.js-cart-item-subtotal') || {}).textContent);
         var gift = /gift card/i.test(name);
-        total += p; if (gift) giftTot += p;
+        var qn = parseInt(q, 10) || 1;
+        total += p; if (gift) { giftTot += p; discTot += p; } else discTot += Math.round(p / qn * 0.8 / 1000) * 1000 * qn;
         lines.push('• ' + name + (v ? ' ' + v.textContent.trim() : '') + ' x' + q + ' — ' + fmt(p) + (gift ? ' (sin descuento)' : ''));
       });
       if (!lines.length) return;
       var msg = 'Hola Promise! Quiero pagar en efectivo o por transferencia con el 20% OFF:\n' + lines.join('\n') +
-        '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt((total - giftTot) * 0.8 + giftTot) + (giftTot ? ' (las gift cards no tienen descuento)' : '') +
+        '\n\nTotal: ' + fmt(total) + '\nCon 20% OFF: ' + fmt(discTot) + (giftTot ? ' (las gift cards no tienen descuento)' : '') +
         '\n\nPago por transferencia (me pasan el alias) / en efectivo al retirar. Envío o retiro a coordinar.';
       window.open(WA + '?text=' + encodeURIComponent(msg), '_blank');
     });
@@ -979,7 +980,7 @@
       if (/gift ?card/i.test(nm)) return;
       var v = tpNum(p.textContent); if (!v) return;
       var t = it.querySelector('.pm-tp');
-      var txt = '<b>' + tpFmt(v * 0.8) + '</b> en efectivo o transferencia';
+      var txt = '<b>' + tpFmt(Math.round(v * 0.8 / 1000) * 1000) + '</b> en efectivo o transferencia';
       if (t) { if (t.getAttribute('data-v') !== String(v)) { t.innerHTML = txt; t.setAttribute('data-v', v); } return; }
       t = document.createElement('span'); t.className = 'pm-tp'; t.innerHTML = txt; t.setAttribute('data-v', v);
       var inst = it.querySelector('.item-installments'); var host = inst || p;
@@ -989,7 +990,7 @@
     if (dp && !/gift ?card/i.test(document.title)) {
       var v = tpNum(dp.textContent), d = document.querySelector('.pm-tp-d');
       if (v) {
-        var html = '<b>' + tpFmt(v * 0.8) + '</b> pagando en efectivo o transferencia (20% OFF)';
+        var html = '<b>' + tpFmt(Math.round(v * 0.8 / 1000) * 1000) + '</b> pagando en efectivo o transferencia (20% OFF)';
         if (!d) { d = document.createElement('div'); d.className = 'pm-tp pm-tp-d'; var box = dp.closest('.js-price-container') || dp.parentNode; box.parentNode.insertBefore(d, box.nextSibling); }
         if (d.getAttribute('data-v') !== String(v)) { d.innerHTML = html; d.setAttribute('data-v', v); }
       }
