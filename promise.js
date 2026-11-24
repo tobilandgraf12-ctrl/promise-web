@@ -619,7 +619,7 @@
     /* Lo más vendido: fila con scroll lateral (2 en celular, 4 en compu) */
     '.pm-mm-l a.pm-mm-kids{color:#FFD400!important}.pm-mm-kids b{font:inherit;display:flex;align-items:center}.pm-mm .pm-badge{position:static!important;transform:none!important;font-style:normal;font-family:Arial,sans-serif!important;margin-left:10px!important}',
     '.pm-badge{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:20px;background:#FFD400;color:#0F0F0F;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;vertical-align:middle}',
-    '.js-nav-desktop-list .pm-nav-kids>a{color:#FFD400!important}.js-nav-desktop-list>li{padding-left:8px!important;padding-right:8px!important}',
+    '.js-nav-desktop-list>li{padding-left:8px!important;padding-right:8px!important}',
     '.pm-season-k{justify-content:center;margin-bottom:8px}',
     '.pm-vermas{text-align:center;margin:30px 0 10px;clear:both}',
     '.pm-kids .pm-wrap{text-align:center}.pm-kids .pm-kick{justify-content:center}.pm-kids-box{margin-top:30px;text-align:left}.pm-kids-cta{margin-top:26px}',
@@ -665,6 +665,7 @@
     '@media (max-width:767px){',
     /* WhatsApp no tapa el boton de compra ni el pie */
     '.btn-whatsapp{bottom:88px!important;right:12px!important;width:46px!important;height:46px!important}',
+    '.btn-whatsapp{transition:opacity .2s,transform .2s}.pm-atc-vis .btn-whatsapp{opacity:0!important;transform:scale(.6)!important;pointer-events:none!important}',
     'footer{padding-bottom:70px!important}',
     /* Ficha: sin hueco entre precio y cuotas */
     '#single-product .js-price-container{margin-bottom:6px!important}',
@@ -1138,6 +1139,16 @@
     return el('<section class="pm-wb" aria-hidden="true"><div class="pm-wb-l" data-dir="1">' + f(l1) + '</div><div class="pm-wb-l" data-dir="-1">' + f(l2) + '</div></section>');
   }
   // Franjas: marquesina continua por CSS (la mueve la placa gráfica), pausada fuera de pantalla
+  // Celular: el botón flotante de WhatsApp se oculta mientras se ve "Agregar al carrito" en la ficha
+  function waVsAddToCart() {
+    if (!('IntersectionObserver' in window)) return;
+    var btn = document.querySelector('#single-product .js-addtocart, [data-store^="product-form"] .js-addtocart');
+    if (!btn) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { document.body.classList.toggle('pm-atc-vis', e.isIntersecting); });
+    }, { rootMargin: '0px 0px -40px 0px' });
+    io.observe(btn);
+  }
   function bandScroll() {
     if (window.__pmBand) return; window.__pmBand = true;
     var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1183,6 +1194,7 @@
     try { navLinks(); } catch (e) {}
     try { headLogo3d(); } catch (e) {}
     try { mobileMenu(); } catch (e) {}
+    try { waVsAddToCart(); } catch (e) {}
     try {
       transferPrices();
       var tpT = 0; new MutationObserver(function () { if (tpT) return; tpT = setTimeout(function () { tpT = 0; try { transferPrices(); } catch (e) {} }, 400); }).observe(document.body, { childList: true, subtree: true, characterData: true });
