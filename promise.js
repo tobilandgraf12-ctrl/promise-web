@@ -92,6 +92,8 @@
     '.pm-post-c b{font-weight:700}',
     '.pm-hero-main{position:absolute;left:50%;top:50%;width:340px;transform:translate(-18%,-57%) rotate(-8deg);z-index:4;pointer-events:none;animation:pm-pop 1.15s 1.25s cubic-bezier(.18,.9,.25,1.05) both}',
     '.pm-hero-main img{width:100%;height:auto;display:block;filter:drop-shadow(0 34px 34px rgba(0,0,0,.30)) drop-shadow(0 6px 10px rgba(0,0,0,.18));animation:pm-hover 4.6s 2.5s ease-in-out infinite}',
+    /* 27/11: el short va como fondo (no <img>) para que Google no lo use de miniatura del resultado */
+    '.pm-hero-main .pm-hm{display:block;width:100%;aspect-ratio:720/603;background:center/contain no-repeat;filter:drop-shadow(0 34px 34px rgba(0,0,0,.30)) drop-shadow(0 6px 10px rgba(0,0,0,.18));animation:pm-hover 4.6s 2.5s ease-in-out infinite}',
     '.pm-hs{position:absolute;width:128px;z-index:2;perspective:600px;animation:pm-fade .9s both}',
     '.pm-hs-in{position:relative;animation:pm-spin3d 7s ease-in-out infinite}',
     '.pm-hs img{width:100%;height:auto;display:block;filter:grayscale(1) contrast(1.25) brightness(.62) drop-shadow(0 0 1px #FFD400) drop-shadow(0 0 16px rgba(255,212,0,.32))}',
@@ -396,8 +398,8 @@
         '<div class="pm-post-a">' + heart + com + snd + bm + '</div>' +
         '<div class="pm-post-c"><b>' + HERO.usuario + '</b> ' + HERO.texto + '</div>' +
       '</a>' +
-      (MOB ? '<div class="pm-wind" aria-hidden="true" data-src="' + A + 'short_viento_alpha.mp4"><img src="' + A + 'short_viento_poster.webp" alt=""><canvas width="526" height="444"></canvas></div>'
-        : '<div class="pm-hero-main" aria-hidden="true"><img src="' + A + 'short-negro.webp" alt=""></div>') +
+      (MOB ? '<div class="pm-wind" aria-hidden="true" data-src="' + A + 'short_viento_alpha.mp4"><i class="pm-wposter" style="background-image:url(' + A + 'short_viento_poster.webp)"></i><canvas width="526" height="444"></canvas></div>'
+        : '<div class="pm-hero-main" aria-hidden="true"><i class="pm-hm" style="background-image:url(' + A + 'short-negro.webp)"></i></div>') +
       '<a class="pm-hero-cta" href="' + HERO.producto + '">' + HERO.cta + ' <span aria-hidden="true">→</span></a>' +
       '</section>');
   }
@@ -821,6 +823,7 @@
     '@keyframes pm-m2wind{from{opacity:0;transform:translateX(60px) rotate(4deg) scale(.8)}to{opacity:1;transform:rotate(-7deg)}}',
     '.pm-wind img,.pm-wind canvas{width:100%;height:auto;display:block;filter:drop-shadow(0 26px 24px rgba(0,0,0,.55))}',
     '.pm-wind canvas{position:absolute;inset:0;opacity:0;transition:opacity .4s}.pm-wind.pm-av-on canvas{opacity:1}.pm-wind.pm-av-on img{visibility:hidden}',
+    '.pm-wind .pm-wposter{display:block;width:100%;aspect-ratio:526/444;background:center/contain no-repeat;filter:drop-shadow(0 26px 24px rgba(0,0,0,.55))}.pm-wind.pm-av-on .pm-wposter{visibility:hidden}',
     '.pm-hero-cta{bottom:26px!important}',
     '}',
     '@media (max-width:767px) and (prefers-reduced-motion:reduce){.pm-m2bg span,.pm-wind,.pm-hero .pm-post,.pm-hero-word{animation:none!important}}',
@@ -1111,6 +1114,34 @@
       });
     }
     if (location.pathname === '/' && /^promise$/i.test(document.title.trim())) document.title = 'Promise | Ropa urbana en Villa Ballester';
+    if (location.pathname === '/') seoData();
+  }
+
+  /* 27/11: datos para Google (nombre del sitio y negocio local). Solo en el inicio. */
+  function seoData() {
+    if (document.getElementById('pm-ld')) return;
+    var home = location.origin + '/';
+    var data = [{
+      '@context': 'https://schema.org', '@type': 'WebSite', '@id': home + '#website',
+      name: 'Promise', alternateName: ['Promise VB', 'Promise Villa Ballester', 'Promise ropa urbana'], url: home
+    }, {
+      '@context': 'https://schema.org', '@type': 'ClothingStore', '@id': home + '#store',
+      name: 'Promise', alternateName: 'Promise VB',
+      description: 'Ropa urbana en Villa Ballester desde 2017. Remeras, buzos, bermudas, conjuntos y zapatillas.',
+      url: home, logo: ASSETS + 'icon/icon-192.png', image: ASSETS + 'hero/logo_small_white.webp',
+      telephone: '+54 11 4056-3485',
+      address: { '@type': 'PostalAddress', streetAddress: 'Alvear 2445', addressLocality: 'Villa Ballester', addressRegion: 'Buenos Aires', addressCountry: 'AR' },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '10:00', closes: '13:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '16:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday', 'Saturday'], opens: '10:00', closes: '20:30' }
+      ],
+      sameAs: ['https://www.instagram.com/promise_vb/', 'https://www.facebook.com/people/Promise-VB/61587322478498/']
+    }];
+    var sc = document.createElement('script'); sc.type = 'application/ld+json'; sc.id = 'pm-ld'; sc.text = JSON.stringify(data);
+    document.head.appendChild(sc);
+    var lg = document.querySelector('h1 img, .logo-img, [data-store="head-logo"] img');
+    if (lg && /^promise$/i.test((lg.getAttribute('alt') || '').trim())) lg.setAttribute('alt', 'Promise · Ropa urbana en Villa Ballester');
   }
 
   function pauseOffscreen() {
